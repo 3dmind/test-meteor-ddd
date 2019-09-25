@@ -1,0 +1,10 @@
+.idea/
+node_modules/
+
+# protect api keys in setting json
+settings-production.json
+settings.json
+
+# protect your mup.json settings
+mup.json
+mup.js
