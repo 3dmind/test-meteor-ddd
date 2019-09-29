@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useActions } from './TaskActions'
 
-export const TaskForm: React.FunctionComponent = () => {
+export const NoteTask: React.FunctionComponent = () => {
   const [description, setDescription] = React.useState<string>('')
   const { noteTaskAction } = useActions()
 

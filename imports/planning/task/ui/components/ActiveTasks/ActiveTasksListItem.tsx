@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { TaskEntity } from '../../domain/TaskEntity'
+import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
 
-interface ActiveTasksListItemProps {
-  task: TaskEntity
-}
-
-export const ActiveTasksListItem: React.FunctionComponent<
-  ActiveTasksListItemProps
-> = (props) => {
-  const { task } = props
+export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
+  props,
+) => {
+  const { taskId, description, isTickedOff } = props
   const {
     tickOffTaskAction,
     resumeTaskAction,
@@ -23,26 +19,26 @@ export const ActiveTasksListItem: React.FunctionComponent<
   }
 
   function tickOff(): void {
-    tickOffTaskAction(task.id)
+    tickOffTaskAction(taskId)
       .then(handleFulfilled('tickedOff'))
       .catch(handleRejected)
   }
 
   function resume(): void {
-    resumeTaskAction(task.id)
+    resumeTaskAction(taskId)
       .then(handleFulfilled('resumed'))
       .catch(handleRejected)
   }
 
   function handleChange(): void {
-    task.isTickedOff() ? resume() : /* otherwise */ tickOff()
+    isTickedOff ? resume() : /* otherwise */ tickOff()
   }
 
   function handleClickDiscard(
     event: React.MouseEvent<HTMLButtonElement>,
   ): void {
     event.preventDefault()
-    discardTaskAction(task.id)
+    discardTaskAction(taskId)
       .then(handleFulfilled('discarded'))
       .catch(handleRejected)
   }
@@ -51,7 +47,7 @@ export const ActiveTasksListItem: React.FunctionComponent<
     event: React.MouseEvent<HTMLButtonElement>,
   ): void {
     event.preventDefault()
-    archiveTaskAction(task.id)
+    archiveTaskAction(taskId)
       .then(handleFulfilled('archived'))
       .catch(handleRejected)
   }
@@ -62,11 +58,11 @@ export const ActiveTasksListItem: React.FunctionComponent<
         <input
           id={'tickOff'}
           type={'checkbox'}
-          checked={task.isTickedOff()}
+          checked={isTickedOff}
           onChange={handleChange}
         />
       </label>
-      <span>{task.description.value}</span>
+      <span>{description}</span>
       <button type={'button'} onClick={handleClickDiscard}>
         Discard
       </button>

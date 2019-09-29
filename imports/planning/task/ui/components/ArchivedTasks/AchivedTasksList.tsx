@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { TaskEntity } from '../../domain/TaskEntity'
+import { TaskUiModel } from '../../TaskUiModel'
 import { ArchivedTasksListItem } from './ArchivedTasksListItem'
 
 interface ArchivedTasksListProps {
-  taskList: TaskEntity[]
+  taskList: TaskUiModel[]
 }
 
 export const ArchivedTasksList: React.FunctionComponent<
@@ -16,8 +16,13 @@ export const ArchivedTasksList: React.FunctionComponent<
       <>
         <h2>Archive</h2>
         <ul>
-          {taskList.map((task: TaskEntity) => (
-            <ArchivedTasksListItem key={task.id.value} task={task} />
+          {taskList.map((task: TaskUiModel) => (
+            <ArchivedTasksListItem
+              key={task.taskId}
+              taskId={task.taskId}
+              description={task.description}
+              isTickedOff={task.isTickedOff}
+            />
           ))}
         </ul>
       </>
