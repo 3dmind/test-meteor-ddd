@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '../../core/domain/UniqueEntityId'
-import { TaskDocument } from './api/TasksCollection'
-import { TaskEntity } from './domain/TaskEntity'
-import { TaskDescription } from './domain/TaskDescription'
+import { UniqueEntityId } from '../../../core/domain/UniqueEntityId'
+import { TaskDescription } from '../domain/TaskDescription'
+import { TaskEntity } from '../domain/TaskEntity'
+import { TaskDocument } from './TasksCollection'
 
 export const TaskMapper = {
   toPersistence(task: TaskEntity): TaskDocument {

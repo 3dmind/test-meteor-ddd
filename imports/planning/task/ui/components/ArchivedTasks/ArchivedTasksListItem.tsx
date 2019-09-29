@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { TaskEntity } from '../../domain/TaskEntity'
+import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
 
-interface ArchivedTasksListItemProps {
-  task: TaskEntity
-}
-
-export const ArchivedTasksListItem: React.FunctionComponent<
-  ArchivedTasksListItemProps
-> = (props) => {
-  const { task } = props
+export const ArchivedTasksListItem: React.FunctionComponent<TaskUiModel> = (
+  props,
+) => {
+  const { taskId, description, isTickedOff } = props
   const { discardTaskAction } = useActions()
 
   function handleFulfilled(): void {
@@ -22,18 +18,18 @@ export const ArchivedTasksListItem: React.FunctionComponent<
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
-    discardTaskAction(task.id)
+    discardTaskAction(taskId)
       .then(handleFulfilled)
       .catch(handleRejected)
   }
 
-  const styles = task.isTickedOff()
+  const styles = isTickedOff
     ? { textDecoration: 'line-through' }
     : /* otherwise */ {}
 
   return (
     <li>
-      <span style={styles}>{task.description.value}</span>
+      <span style={styles}>{description}</span>
       <button type={'button'} onClick={handleClick}>
         Discard
       </button>

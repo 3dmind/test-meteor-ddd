@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TaskController } from '../planning/task/ui/TaskController'
+import { TaskController } from '../planning/task/ui/components/TaskController'
 
 export const App: React.FunctionComponent = () => (
   <div>

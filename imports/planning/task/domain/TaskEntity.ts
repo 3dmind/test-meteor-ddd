@@ -1,7 +1,7 @@
 import { UniqueEntityId } from '../../../core/domain/UniqueEntityId'
 import { TaskDescription } from './TaskDescription'
 
-interface TaskProps {
+interface TaskEntityProps {
   description: TaskDescription
   createdAt: Date
   editedAt: undefined | Date
@@ -19,9 +19,9 @@ interface TaskProps {
 
 export class TaskEntity {
   private readonly _id: UniqueEntityId | undefined
-  private props: TaskProps
+  private props: TaskEntityProps
 
-  private constructor(props: TaskProps, id: UniqueEntityId) {
+  private constructor(props: TaskEntityProps, id: UniqueEntityId) {
     this._id = id
     this.props = props
   }
@@ -58,7 +58,10 @@ export class TaskEntity {
     return this.props.archivedAt
   }
 
-  public static create(props: TaskProps, id?: UniqueEntityId): TaskEntity {
+  public static create(
+    props: TaskEntityProps,
+    id?: UniqueEntityId,
+  ): TaskEntity {
     return new TaskEntity(props, id)
   }
 
@@ -80,7 +83,7 @@ export class TaskEntity {
     })
   }
 
-  public equals(object?): boolean {
+  public equals(object?: TaskEntity): boolean {
     if (object === null || object === undefined) {
       return false
     }
