@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { TaskEntity } from '../domain/TaskEntity'
 import { TaskDescription } from '../domain/TaskDescription'
-import { TasksRepository } from '../TasksRepository'
+import { TasksRepository } from './TasksRepository'
 import {
   PLANNING_TASK_NOTE_METHOD,
   PLANNING_TASK_TICK_OFF_METHOD,
