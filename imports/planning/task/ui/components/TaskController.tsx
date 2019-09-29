@@ -1,14 +1,14 @@
 import * as React from 'react'
 import * as actions from '../actions'
-import { ActiveTasksListContainer } from './ActiveTasks/ActiveTasksListContainer'
-import { ArchivedTasksListContainer } from './ArchivedTasks/ArchivedTasksListContainer'
+import { ActiveTasksContainer } from './ActiveTasks/ActiveTasksContainer'
+import { ArchivedTasksContainer } from './ArchivedTasks/ArchivedTasksContainer'
 import { ActionsContext } from './TaskActions'
 import { NoteTask } from './NoteTask'
 
 export const TaskController: React.FunctionComponent = () => (
   <ActionsContext.Provider value={actions}>
     <NoteTask />
-    <ActiveTasksListContainer />
-    <ArchivedTasksListContainer />
+    <ActiveTasksContainer />
+    <ArchivedTasksContainer />
   </ActionsContext.Provider>
 )

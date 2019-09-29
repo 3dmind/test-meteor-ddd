@@ -3,16 +3,16 @@ import { withTracker } from 'meteor/react-meteor-data'
 import { PLANNING_TASKS_PUBLICATION } from '../../../constants'
 import { TaskUiModel } from '../../TaskUiModel'
 import { TaskUiService } from '../../TaskUiServcie'
-import { ArchivedTasksList } from './AchivedTasksList'
+import { ActiveTasksList } from './ActiveTasksList'
 
-export const ArchivedTasksListContainer = withTracker(() => {
+export const ActiveTasksContainer = withTracker(() => {
   let taskList: TaskUiModel[] = []
   const handle = Meteor.subscribe(PLANNING_TASKS_PUBLICATION)
   if (handle.ready()) {
-    taskList = TaskUiService.getAllArchivedTasks()
+    taskList = TaskUiService.getAllActiveTasks()
   }
   return {
-    taskList,
+    taskList: taskList,
   }
-})(ArchivedTasksList)
-ArchivedTasksListContainer.displayName = 'ArchivedTasksListContainer'
+})(ActiveTasksList)
+ActiveTasksContainer.displayName = 'ActiveTasksContainer'

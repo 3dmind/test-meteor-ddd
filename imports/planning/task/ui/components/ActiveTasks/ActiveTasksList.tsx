@@ -10,16 +10,24 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
   props,
 ) => {
   const { taskList } = props
-  return (
-    <ul>
-      {taskList.map((task: TaskUiModel) => (
-        <ActiveTasksListItem
-          key={task.taskId}
-          taskId={task.taskId}
-          description={task.description}
-          isTickedOff={task.isTickedOff}
-        />
-      ))}
-    </ul>
-  )
+
+  if (taskList.length) {
+    return (
+      <>
+        <h2>Todo</h2>
+        <ul>
+          {taskList.map((task: TaskUiModel) => (
+            <ActiveTasksListItem
+              key={task.taskId}
+              taskId={task.taskId}
+              description={task.description}
+              isTickedOff={task.isTickedOff}
+            />
+          ))}
+        </ul>
+      </>
+    )
+  } else {
+    return null
+  }
 }
