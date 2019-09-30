@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data'
 import { PLANNING_TASKS_PUBLICATION } from '../../../constants'
 import { TaskUiModel } from '../../TaskUiModel'
 import { TaskUiService } from '../../TaskUiServcie'
-import { ArchivedTasksList } from './AchivedTasksList'
+import { ArchivedTasksList } from './ArchivedTasksList'
 
 export const ArchivedTasksContainer = withTracker(() => {
   let taskList: TaskUiModel[] = []
