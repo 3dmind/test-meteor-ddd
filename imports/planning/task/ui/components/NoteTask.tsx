@@ -1,9 +1,21 @@
+import { Paper, TextField } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import * as React from 'react'
 import { useActions } from './TaskActions'
 
-export const NoteTask: React.FunctionComponent = () => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing(1),
+      marginBottom: theme.spacing(3),
+    },
+  }),
+)
+
+export const NoteTask: React.FunctionComponent = (props) => {
   const [description, setDescription] = React.useState<string>('')
   const { noteTaskAction } = useActions()
+  const classes = useStyles(props)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setDescription(event.target.value)
@@ -31,18 +43,16 @@ export const NoteTask: React.FunctionComponent = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>What needs to be done?</legend>
-        <label htmlFor={'description'}>
-          <input
-            id={'description'}
-            type={'text'}
-            name={'description'}
-            value={description}
-            onChange={handleChange}
-          />
-        </label>
-      </fieldset>
+      <Paper className={classes.root} elevation={2}>
+        <TextField
+          fullWidth
+          placeholder={'What needs to be done?'}
+          margin={'none'}
+          variant={'outlined'}
+          value={description}
+          onChange={handleChange}
+        />
+      </Paper>
     </form>
   )
 }

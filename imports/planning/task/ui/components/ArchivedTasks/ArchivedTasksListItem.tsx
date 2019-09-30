@@ -1,11 +1,41 @@
+import {
+  createStyles,
+  IconButton,
+  ListItem,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    task: {
+      display: 'flex',
+      alignItems: 'center',
+      flex: 1,
+    },
+    description: {
+      flex: 1,
+      paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
+      textDecoration: (props: TaskUiModel): string =>
+        props.isTickedOff ? 'line-through' : /* otherwise */ 'none',
+    },
+    secondaryAction: {
+      flex: 0,
+      display: 'flex',
+    },
+  }),
+)
+
 export const ArchivedTasksListItem: React.FunctionComponent<TaskUiModel> = (
   props,
 ) => {
-  const { taskId, description, isTickedOff } = props
+  const { taskId, description } = props
   const { discardTaskAction } = useActions()
 
   function handleFulfilled(): void {
@@ -23,16 +53,19 @@ export const ArchivedTasksListItem: React.FunctionComponent<TaskUiModel> = (
       .catch(handleRejected)
   }
 
-  const styles = isTickedOff
-    ? { textDecoration: 'line-through' }
-    : /* otherwise */ {}
-
+  const classes = useStyles(props)
   return (
-    <li>
-      <span style={styles}>{description}</span>
-      <button type={'button'} onClick={handleClick}>
-        Discard
-      </button>
-    </li>
+    <ListItem>
+      <div className={classes.task}>
+        <div className={classes.description}>
+          <Typography component={'p'}>{description}</Typography>
+        </div>
+        <div className={classes.secondaryAction}>
+          <IconButton onClick={handleClick}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </div>
+    </ListItem>
   )
 }

@@ -1,8 +1,15 @@
+import { CssBaseline } from '@material-ui/core'
 import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App } from '../imports/ui/App'
+import { Application } from '../imports/ui/Application'
 
 Meteor.startup(function onStartUp() {
-  ReactDOM.render(<App />, document.querySelector('#app'))
+  ReactDOM.render(
+    <>
+      <CssBaseline />
+      <Application />
+    </>,
+    document.querySelector('#app'),
+  )
 })

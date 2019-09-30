@@ -1,6 +1,39 @@
+import {
+  Checkbox,
+  createStyles,
+  IconButton,
+  ListItem,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core'
+import ArchiveIcon from '@material-ui/icons/Archive'
+import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    task: {
+      display: 'flex',
+      alignItems: 'center',
+      flex: 1,
+    },
+    primaryAction: {
+      flex: 0,
+    },
+    description: {
+      flex: 1,
+      paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
+    },
+    secondaryAction: {
+      flex: 0,
+      display: 'flex',
+    },
+  }),
+)
 
 export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
   props,
@@ -52,23 +85,29 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
       .catch(handleRejected)
   }
 
+  const classes = useStyles(props)
   return (
-    <li>
-      <label htmlFor={'tickOff'}>
-        <input
-          id={'tickOff'}
-          type={'checkbox'}
-          checked={isTickedOff}
-          onChange={handleChange}
-        />
-      </label>
-      <span>{description}</span>
-      <button type={'button'} onClick={handleClickDiscard}>
-        Discard
-      </button>
-      <button type={'button'} onClick={handleClickArchive}>
-        Archive
-      </button>
-    </li>
+    <ListItem>
+      <div className={classes.task}>
+        <div className={classes.primaryAction}>
+          <Checkbox
+            edge={'start'}
+            checked={isTickedOff}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={classes.description}>
+          <Typography component={'p'}>{description}</Typography>
+        </div>
+        <div className={classes.secondaryAction}>
+          <IconButton onClick={handleClickArchive}>
+            <ArchiveIcon />
+          </IconButton>
+          <IconButton onClick={handleClickDiscard}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </div>
+    </ListItem>
   )
 }
