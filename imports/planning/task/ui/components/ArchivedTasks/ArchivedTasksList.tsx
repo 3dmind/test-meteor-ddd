@@ -41,7 +41,7 @@ export const ArchivedTasksList: React.FunctionComponent<
       <>
         <Divider className={classes.divider} />
         <Typography component={'h2'} variant={'h5'} className={classes.section}>
-          Archive
+          Archived tasks
         </Typography>
         <List dense className={classes.root}>
           {taskList.map((task: TaskUiModel) => (

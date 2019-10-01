@@ -30,7 +30,7 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
     return (
       <>
         <Typography component={'h2'} variant={'h5'} className={classes.section}>
-          Todo
+          Tasks
         </Typography>
         <List dense className={classes.root}>
           {taskList.map((task: TaskUiModel) => (
