@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const NoteTask: React.FunctionComponent = (props) => {
-  const [description, setDescription] = React.useState<string>('')
+  const [text, setText] = React.useState<string>('')
   const { noteTaskAction } = useActions()
   const classes = useStyles(props)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setDescription(event.target.value)
+    setText(event.target.value)
   }
 
   function handleFulfilled(): void {
@@ -30,12 +30,12 @@ export const NoteTask: React.FunctionComponent = (props) => {
   }
 
   function handleFinally(): void {
-    setDescription('')
+    setText('')
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    noteTaskAction(description)
+    noteTaskAction(text)
       .then(handleFulfilled)
       .catch(handleRejected)
       .finally(handleFinally)
@@ -49,7 +49,7 @@ export const NoteTask: React.FunctionComponent = (props) => {
           placeholder={'What needs to be done?'}
           margin={'none'}
           variant={'outlined'}
-          value={description}
+          value={text}
           onChange={handleChange}
         />
       </Paper>
