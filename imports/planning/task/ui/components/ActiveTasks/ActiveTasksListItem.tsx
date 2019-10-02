@@ -1,18 +1,14 @@
 import {
   Checkbox,
   createStyles,
-  IconButton,
   ListItem,
   makeStyles,
   Theme,
 } from '@material-ui/core'
-import ArchiveIcon from '@material-ui/icons/Archive'
-import CancelIcon from '@material-ui/icons/Cancel'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
+import { ActiveTaskActions } from './ActiveTaskActions'
 import { ActiveTaskDescription } from './ActiveTaskDescription'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,33 +66,23 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
     isTickedOff ? resume() : /* otherwise */ tickOff()
   }
 
-  function handleClickDiscard(
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void {
-    event.preventDefault()
+  function handleDiscard(): void {
     discardTaskAction(taskId)
       .then(handleFulfilled('discarded'))
       .catch(handleRejected)
   }
 
-  function handleClickArchive(
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void {
-    event.preventDefault()
+  function handleArchive(): void {
     archiveTaskAction(taskId)
       .then(handleFulfilled('archived'))
       .catch(handleRejected)
   }
 
-  function handleClickEdit(event: React.MouseEvent<HTMLButtonElement>): void {
-    event.preventDefault()
+  function handleEdit(): void {
     setIsEditing(true)
   }
 
-  function handleClickCancelEdit(
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void {
-    event.preventDefault()
+  function handleCancelEdit(): void {
     setIsEditing(false)
   }
 
@@ -124,21 +110,13 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
           />
         </div>
         <div className={classes.secondaryAction}>
-          {isEditing ? (
-            <IconButton onClick={handleClickCancelEdit}>
-              <CancelIcon />
-            </IconButton>
-          ) : (
-            <IconButton onClick={handleClickEdit}>
-              <EditIcon />
-            </IconButton>
-          )}
-          <IconButton disabled={isEditing} onClick={handleClickArchive}>
-            <ArchiveIcon />
-          </IconButton>
-          <IconButton disabled={isEditing} onClick={handleClickDiscard}>
-            <DeleteIcon />
-          </IconButton>
+          <ActiveTaskActions
+            isEditing={isEditing}
+            onArchive={handleArchive}
+            onCancelEdit={handleCancelEdit}
+            onDiscard={handleDiscard}
+            onEdit={handleEdit}
+          />
         </div>
       </div>
     </ListItem>
