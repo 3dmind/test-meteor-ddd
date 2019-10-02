@@ -5,13 +5,15 @@ import {
   ListItem,
   makeStyles,
   Theme,
-  Typography,
 } from '@material-ui/core'
 import ArchiveIcon from '@material-ui/icons/Archive'
+import CancelIcon from '@material-ui/icons/Cancel'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
+import { ActiveTaskDescription } from './ActiveTaskDescription'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +41,7 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
   props,
 ) => {
   const { taskId, description, isTickedOff } = props
+  const [isEditing, setIsEditing] = React.useState<boolean>(false)
   const {
     tickOffTaskAction,
     resumeTaskAction,
@@ -85,6 +88,22 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
       .catch(handleRejected)
   }
 
+  function handleClickEdit(event: React.MouseEvent<HTMLButtonElement>): void {
+    event.preventDefault()
+    setIsEditing(true)
+  }
+
+  function handleClickCancelEdit(
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void {
+    event.preventDefault()
+    setIsEditing(false)
+  }
+
+  function handleFinishEditing(): void {
+    setIsEditing(false)
+  }
+
   const classes = useStyles(props)
   return (
     <ListItem>
@@ -97,13 +116,27 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
           />
         </div>
         <div className={classes.description}>
-          <Typography component={'p'}>{description}</Typography>
+          <ActiveTaskDescription
+            taskId={taskId}
+            description={description}
+            isEditing={isEditing}
+            onFinishEditing={handleFinishEditing}
+          />
         </div>
         <div className={classes.secondaryAction}>
-          <IconButton onClick={handleClickArchive}>
+          {isEditing ? (
+            <IconButton onClick={handleClickCancelEdit}>
+              <CancelIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleClickEdit}>
+              <EditIcon />
+            </IconButton>
+          )}
+          <IconButton disabled={isEditing} onClick={handleClickArchive}>
             <ArchiveIcon />
           </IconButton>
-          <IconButton onClick={handleClickDiscard}>
+          <IconButton disabled={isEditing} onClick={handleClickDiscard}>
             <DeleteIcon />
           </IconButton>
         </div>

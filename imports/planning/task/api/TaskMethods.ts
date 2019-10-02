@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import {
   PLANNING_TASK_ARCHIVE_METHOD,
   PLANNING_TASK_DISCARD_METHOD,
+  PLANNING_TASK_EDIT_METHOD,
   PLANNING_TASK_NOTE_METHOD,
   PLANNING_TASK_RESUME_METHOD,
   PLANNING_TASK_TICK_OFF_METHOD,
@@ -11,6 +12,7 @@ import { TaskEntity } from '../domain/TaskEntity'
 import {
   ArchiveTaskDto,
   DiscardTaskDto,
+  EditTaskDto,
   NoteTaskDto,
   ResumeTaskDto,
   TickOffTaskDto,
@@ -36,6 +38,15 @@ Meteor.methods({
     const task = TasksRepository.getById(resumeTaskDto.taskId)
     if (task) {
       task.resume()
+      TasksRepository.update(task)
+    }
+  },
+
+  [PLANNING_TASK_EDIT_METHOD](editTaskDto: EditTaskDto) {
+    const task = TasksRepository.getById(editTaskDto.taskId)
+    if (task) {
+      const newTaskDescription = TaskDescription.create(editTaskDto.newText)
+      task.edit(newTaskDescription)
       TasksRepository.update(task)
     }
   },
