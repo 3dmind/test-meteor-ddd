@@ -1,17 +1,15 @@
 import {
   Checkbox,
   createStyles,
-  IconButton,
   ListItem,
   makeStyles,
   Theme,
-  Typography,
 } from '@material-ui/core'
-import ArchiveIcon from '@material-ui/icons/Archive'
-import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
 import { useActions } from '../TaskActions'
+import { ActiveTaskActions } from './ActiveTaskActions'
+import { ActiveTaskDescription } from './ActiveTaskDescription'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +37,7 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
   props,
 ) => {
   const { taskId, description, isTickedOff } = props
+  const [isEditing, setIsEditing] = React.useState<boolean>(false)
   const {
     tickOffTaskAction,
     resumeTaskAction,
@@ -67,22 +66,28 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
     isTickedOff ? resume() : /* otherwise */ tickOff()
   }
 
-  function handleClickDiscard(
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void {
-    event.preventDefault()
+  function handleDiscard(): void {
     discardTaskAction(taskId)
       .then(handleFulfilled('discarded'))
       .catch(handleRejected)
   }
 
-  function handleClickArchive(
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void {
-    event.preventDefault()
+  function handleArchive(): void {
     archiveTaskAction(taskId)
       .then(handleFulfilled('archived'))
       .catch(handleRejected)
+  }
+
+  function handleEdit(): void {
+    setIsEditing(true)
+  }
+
+  function handleCancelEdit(): void {
+    setIsEditing(false)
+  }
+
+  function handleFinishEditing(): void {
+    setIsEditing(false)
   }
 
   const classes = useStyles(props)
@@ -97,15 +102,21 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
           />
         </div>
         <div className={classes.description}>
-          <Typography component={'p'}>{description}</Typography>
+          <ActiveTaskDescription
+            taskId={taskId}
+            description={description}
+            isEditing={isEditing}
+            onFinishEditing={handleFinishEditing}
+          />
         </div>
         <div className={classes.secondaryAction}>
-          <IconButton onClick={handleClickArchive}>
-            <ArchiveIcon />
-          </IconButton>
-          <IconButton onClick={handleClickDiscard}>
-            <DeleteIcon />
-          </IconButton>
+          <ActiveTaskActions
+            isEditing={isEditing}
+            onArchive={handleArchive}
+            onCancelEdit={handleCancelEdit}
+            onDiscard={handleDiscard}
+            onEdit={handleEdit}
+          />
         </div>
       </div>
     </ListItem>
