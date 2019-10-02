@@ -121,8 +121,8 @@ export class TaskEntity {
     }
   }
 
-  public edit(text: string): void {
-    this.props.description = TaskDescription.create(text)
+  public edit(newTaskDescription: TaskDescription): void {
+    this.props.description = newTaskDescription
     this.props.editedAt = new Date()
   }
 
