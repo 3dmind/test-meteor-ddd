@@ -10,7 +10,8 @@
   "scripts": {
     "start": "meteor run",
     "lint": "tsc --noEmit && eslint . --ext .ts --ext .tsx --ext .js",
-    "test": "jest"
+    "test:unit": "jest",
+    "test:server": "meteor test --once --driver-package meteortesting:mocha"
   },
   "lint-staged": {
     "*.js": [
@@ -30,6 +31,13 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.tsx",
+      "server": "server/main.ts"
+    },
+    "testModule": "tests/server/main.ts"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
