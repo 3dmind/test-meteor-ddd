@@ -1,8 +1,6 @@
 import * as React from 'react'
 
-type Actions = {
-  [key: string]: Function
-}
+type Actions = Record<string, Function>
 
 interface ActionsContext<U> {
   ActionsContext: React.Context<U>
