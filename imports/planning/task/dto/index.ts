@@ -1,4 +1,5 @@
 export { ArchiveTaskDto } from './ArchiveTaskDto'
+export { DiscardArchivedTasksDto } from './DiscardArchivedTasksDto'
 export { DiscardTaskDto } from './DiscardTaskDto'
 export { EditTaskDto } from './EditTaskDto'
 export { NoteTaskDto } from './NoteTaskDto'
