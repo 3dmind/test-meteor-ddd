@@ -41,24 +41,24 @@ if (Meteor.isServer) {
     })
 
     it('note task', function() {
-      const noteTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_NOTE_METHOD]
       const noteTaskDto = new NoteTaskDto('Lorem ipsum')
 
-      noteTaskMethodHandler.apply({}, [noteTaskDto])
+      methodHandler.apply({}, [noteTaskDto])
       const actual = TasksCollection.find().count()
 
       assert.strictEqual(actual, 1)
     })
 
     it('tick-off task', function() {
-      const taskDocumentId = TasksCollection.insert(taskDocument)
+      const documentId = TasksCollection.insert(taskDocument)
       const selector: Mongo.Selector<TaskDocument> = { isTickedOff: true }
-      const tickOffTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_TICK_OFF_METHOD]
-      const tickOffTaskDto = new TickOffTaskDto(taskDocumentId)
+      const tickOffTaskDto = new TickOffTaskDto(documentId)
 
-      tickOffTaskMethodHandler.apply({}, [tickOffTaskDto])
+      methodHandler.apply({}, [tickOffTaskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
@@ -66,40 +66,40 @@ if (Meteor.isServer) {
 
     it('resume task', function() {
       const assign = Object.assign({}, taskDocument, { isTickedOff: true })
-      const taskDocumentId = TasksCollection.insert(assign)
+      const documentId = TasksCollection.insert(assign)
       const selector: Mongo.Selector<TaskDocument> = { isTickedOff: false }
-      const resumeTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_RESUME_METHOD]
-      const resumeTaskDto = new ResumeTaskDto(taskDocumentId)
+      const resumeTaskDto = new ResumeTaskDto(documentId)
 
-      resumeTaskMethodHandler.apply({}, [resumeTaskDto])
+      methodHandler.apply({}, [resumeTaskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
     })
 
     it('edit task description', function() {
-      const taskDocumentId = TasksCollection.insert(taskDocument)
+      const documentId = TasksCollection.insert(taskDocument)
       const newText = 'Lorem ispum dolor amet sum'
       const selector: Mongo.Selector<TaskDocument> = { description: newText }
-      const editTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_EDIT_METHOD]
-      const editTaskDto = new EditTaskDto(taskDocumentId, newText)
+      const editTaskDto = new EditTaskDto(documentId, newText)
 
-      editTaskMethodHandler.apply({}, [editTaskDto])
+      methodHandler.apply({}, [editTaskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
     })
 
     it('archive task', function() {
-      const taskDocumentId = TasksCollection.insert(taskDocument)
+      const documentId = TasksCollection.insert(taskDocument)
       const selector: Mongo.Selector<TaskDocument> = { isArchived: true }
-      const archiveTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_ARCHIVE_METHOD]
-      const archiveTaskDto = new ArchiveTaskDto(taskDocumentId)
+      const archiveTaskDto = new ArchiveTaskDto(documentId)
 
-      archiveTaskMethodHandler.apply({}, [archiveTaskDto])
+      methodHandler.apply({}, [archiveTaskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
@@ -127,13 +127,13 @@ if (Meteor.isServer) {
     })
 
     it('discard task', function() {
-      const taskDocumentId = TasksCollection.insert(taskDocument)
+      const documentId = TasksCollection.insert(taskDocument)
       const selector: Mongo.Selector<TaskDocument> = { isDiscarded: true }
-      const discardTaskMethodHandler =
+      const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_DISCARD_METHOD]
-      const discardTaskDto = new DiscardTaskDto(taskDocumentId)
+      const discardTaskDto = new DiscardTaskDto(documentId)
 
-      discardTaskMethodHandler.apply({}, [discardTaskDto])
+      methodHandler.apply({}, [discardTaskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
