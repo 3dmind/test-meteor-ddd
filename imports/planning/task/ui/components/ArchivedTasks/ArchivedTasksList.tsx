@@ -1,4 +1,5 @@
 import {
+  Button,
   createStyles,
   Divider,
   List,
@@ -8,6 +9,7 @@ import {
 } from '@material-ui/core'
 import * as React from 'react'
 import { TaskUiModel } from '../../TaskUiModel'
+import { useActions } from '../TaskActions'
 import { ArchivedTasksListItem } from './ArchivedTasksListItem'
 
 interface ArchivedTasksListProps {
@@ -34,7 +36,13 @@ export const ArchivedTasksList: React.FunctionComponent<
   ArchivedTasksListProps
 > = (props) => {
   const { taskList } = props
+  const { discardArchivedTasksAction } = useActions()
   const classes = useStyles(props)
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
+    event.preventDefault()
+    discardArchivedTasksAction(taskList)
+  }
 
   if (taskList.length) {
     return (
@@ -53,6 +61,7 @@ export const ArchivedTasksList: React.FunctionComponent<
             />
           ))}
         </List>
+        <Button onClick={handleClick}>Discard all</Button>
       </>
     )
   } else {
