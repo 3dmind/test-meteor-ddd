@@ -13,10 +13,33 @@ export const TasksRepository = {
     })
   },
 
+  updateAll(tasks: TaskEntity[]): number {
+    try {
+      return tasks.map((task) =>
+        TasksCollection.update(task.id.value, {
+          $set: { ...TaskMapper.toPersistence(task) },
+        }),
+      ).length
+    } catch (e) {
+      return 0
+    }
+  },
+
   getById(taskId: string): TaskEntity | undefined {
     const d: TaskDocument = TasksCollection.findOne(taskId)
     if (d) {
       return TaskMapper.toDomain(d)
+    } else {
+      return undefined
+    }
+  },
+
+  getAllById(ids: string[]): TaskEntity[] | undefined {
+    const tasks = TasksCollection.find({ _id: { $in: ids } }).map((d) =>
+      TaskMapper.toDomain(d),
+    )
+    if (tasks) {
+      return tasks
     } else {
       return undefined
     }

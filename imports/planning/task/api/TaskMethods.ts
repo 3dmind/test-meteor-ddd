@@ -6,11 +6,13 @@ import {
   PLANNING_TASK_NOTE_METHOD,
   PLANNING_TASK_RESUME_METHOD,
   PLANNING_TASK_TICK_OFF_METHOD,
+  PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD,
 } from '../constants'
 import { TaskDescription } from '../domain/TaskDescription'
 import { TaskEntity } from '../domain/TaskEntity'
 import {
   ArchiveTaskDto,
+  DiscardArchivedTasksDto,
   DiscardTaskDto,
   EditTaskDto,
   NoteTaskDto,
@@ -64,6 +66,16 @@ Meteor.methods({
     if (task) {
       task.discard()
       TasksRepository.update(task)
+    }
+  },
+
+  [PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD](
+    discardArchivedTasksDto: DiscardArchivedTasksDto,
+  ) {
+    const tasks = TasksRepository.getAllById(discardArchivedTasksDto.taskIdList)
+    if (tasks.length) {
+      tasks.forEach((task) => task.discard())
+      TasksRepository.updateAll(tasks)
     }
   },
 })

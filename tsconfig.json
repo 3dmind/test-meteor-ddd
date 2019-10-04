@@ -6,6 +6,6 @@
     "moduleResolution": "node",
     "sourceMap": true
   },
-  "include": ["client", "imports", "server"],
+  "include": ["client", "imports", "server", "tests", "typings"],
   "exclude": ["node_modules"]
 }

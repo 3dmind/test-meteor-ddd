@@ -4,7 +4,7 @@ export interface TaskDocument {
   _id?: string
   description: string
   createdAt?: Date
-  editedAt: Date
+  editedAt?: Date
   isTickedOff: boolean
   tickedOffAt?: Date
   resumedAt?: Date
