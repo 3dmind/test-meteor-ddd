@@ -2,6 +2,7 @@ import {
   Button,
   createStyles,
   Divider,
+  Grid,
   List,
   makeStyles,
   Theme,
@@ -48,9 +49,18 @@ export const ArchivedTasksList: React.FunctionComponent<
     return (
       <>
         <Divider className={classes.divider} />
-        <Typography component={'h2'} variant={'h5'} className={classes.section}>
-          Archived tasks
-        </Typography>
+        <Grid
+          container
+          direction={'row'}
+          justify={'space-between'}
+          alignItems={'baseline'}
+          className={classes.section}
+        >
+          <Typography component={'h2'} variant={'h5'}>
+            Archived tasks
+          </Typography>
+          <Button onClick={handleClick}>Discard all</Button>
+        </Grid>
         <List dense className={classes.root}>
           {taskList.map((task: TaskUiModel) => (
             <ArchivedTasksListItem
@@ -61,7 +71,6 @@ export const ArchivedTasksList: React.FunctionComponent<
             />
           ))}
         </List>
-        <Button onClick={handleClick}>Discard all</Button>
       </>
     )
   } else {
