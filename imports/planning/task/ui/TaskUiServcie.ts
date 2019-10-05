@@ -3,29 +3,27 @@ import { TaskDocument, TasksCollection } from '../api/TasksCollection'
 import { TaskUiModel } from './TaskUiModel'
 import { TaskUiMapper } from './TaskUiMapper'
 
-export const TaskUiService = {
-  getTasks(
-    selector: Mongo.Selector<TaskDocument> = {},
-  ): Mongo.Cursor<TaskDocument> {
-    return TasksCollection.find(selector)
-  },
+function findTasks(
+  selector: Mongo.Selector<TaskDocument> = {},
+): Mongo.Cursor<TaskDocument> {
+  return TasksCollection.find(selector)
+}
 
+export const TaskUiService = {
   getAllActiveTasks(): TaskUiModel[] {
-    const selector: Mongo.Selector<TaskDocument> = {
-      isDiscarded: false,
+    const activeTasksSelector: Mongo.Selector<TaskDocument> = {
       isArchived: false,
     }
-    return this.getTasks(selector).map((doc: TaskDocument) => {
+    return findTasks(activeTasksSelector).map((doc: TaskDocument) => {
       return TaskUiMapper.toPresentation(doc)
     })
   },
 
   getAllArchivedTasks(): TaskUiModel[] {
-    const selector: Mongo.Selector<TaskDocument> = {
-      isDiscarded: false,
+    const archivedTasksSelector: Mongo.Selector<TaskDocument> = {
       isArchived: true,
     }
-    return this.getTasks(selector).map((doc: TaskDocument) => {
+    return findTasks(archivedTasksSelector).map((doc: TaskDocument) => {
       return TaskUiMapper.toPresentation(doc)
     })
   },
