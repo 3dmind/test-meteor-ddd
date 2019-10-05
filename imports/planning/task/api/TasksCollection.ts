@@ -35,8 +35,6 @@ export const taskPublicFields = {
   isTickedOff: 1,
   tickedOffAt: 1,
   resumedAt: 1,
-  isDiscarded: 1,
-  discardedAt: 1,
   isArchived: 1,
   archivedAt: 1,
 }

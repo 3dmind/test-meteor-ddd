@@ -11,21 +11,19 @@ export const TaskUiService = {
   },
 
   getAllActiveTasks(): TaskUiModel[] {
-    const selector: Mongo.Selector<TaskDocument> = {
-      isDiscarded: false,
+    const activeTasksSelector: Mongo.Selector<TaskDocument> = {
       isArchived: false,
     }
-    return this.getTasks(selector).map((doc: TaskDocument) => {
+    return this.getTasks(activeTasksSelector).map((doc: TaskDocument) => {
       return TaskUiMapper.toPresentation(doc)
     })
   },
 
   getAllArchivedTasks(): TaskUiModel[] {
-    const selector: Mongo.Selector<TaskDocument> = {
-      isDiscarded: false,
+    const archivedTasksSelector: Mongo.Selector<TaskDocument> = {
       isArchived: true,
     }
-    return this.getTasks(selector).map((doc: TaskDocument) => {
+    return this.getTasks(archivedTasksSelector).map((doc: TaskDocument) => {
       return TaskUiMapper.toPresentation(doc)
     })
   },
