@@ -1,4 +1,4 @@
-import { TaskDocument } from '../api/TasksCollection'
+import { TaskDocument } from '../api/TaskCollection'
 import { TaskUiModel } from './TaskUiModel'
 
 export const TaskUiMapper = {

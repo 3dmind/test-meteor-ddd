@@ -1,7 +1,7 @@
 import * as assert from 'assert'
-import { taskPublicFields } from '../../../../../imports/planning/task/api/TasksCollection'
+import { taskPublicFields } from '../../../../../imports/planning/task/api/TaskCollection'
 
-describe('TasksCollection', function() {
+describe('TaskCollection', function() {
   it('#taskPublicFields', function() {
     assert.deepStrictEqual(taskPublicFields, {
       description: 1,

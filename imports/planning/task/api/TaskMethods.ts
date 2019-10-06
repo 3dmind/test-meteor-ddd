@@ -16,63 +16,63 @@ import {
   NoteTaskDto,
   TaskDto,
 } from '../dto'
-import { TasksRepository } from './TasksRepository'
+import { TaskRepository } from './TaskRepository'
 
 Meteor.methods({
   [PLANNING_TASK_NOTE_METHOD](noteTaskDto: NoteTaskDto) {
     const taskDescription = TaskDescription.create(noteTaskDto.text)
     const task = TaskEntity.note(taskDescription)
-    TasksRepository.save(task)
+    TaskRepository.save(task)
   },
 
   [PLANNING_TASK_TICK_OFF_METHOD](taskDto: TaskDto) {
-    const task = TasksRepository.getById(taskDto.taskId)
+    const task = TaskRepository.getById(taskDto.taskId)
     if (task) {
       task.tickOff()
-      TasksRepository.update(task)
+      TaskRepository.update(task)
     }
   },
 
   [PLANNING_TASK_RESUME_METHOD](taskDto: TaskDto) {
-    const task = TasksRepository.getById(taskDto.taskId)
+    const task = TaskRepository.getById(taskDto.taskId)
     if (task) {
       task.resume()
-      TasksRepository.update(task)
+      TaskRepository.update(task)
     }
   },
 
   [PLANNING_TASK_EDIT_METHOD](editTaskDto: EditTaskDto) {
-    const task = TasksRepository.getById(editTaskDto.taskId)
+    const task = TaskRepository.getById(editTaskDto.taskId)
     if (task) {
       const newTaskDescription = TaskDescription.create(editTaskDto.newText)
       task.edit(newTaskDescription)
-      TasksRepository.update(task)
+      TaskRepository.update(task)
     }
   },
 
   [PLANNING_TASK_ARCHIVE_METHOD](taskDto: TaskDto) {
-    const task = TasksRepository.getById(taskDto.taskId)
+    const task = TaskRepository.getById(taskDto.taskId)
     if (task) {
       task.archive()
-      TasksRepository.update(task)
+      TaskRepository.update(task)
     }
   },
 
   [PLANNING_TASK_DISCARD_METHOD](taskDto: TaskDto) {
-    const task = TasksRepository.getById(taskDto.taskId)
+    const task = TaskRepository.getById(taskDto.taskId)
     if (task) {
       task.discard()
-      TasksRepository.update(task)
+      TaskRepository.update(task)
     }
   },
 
   [PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD](
     discardArchivedTasksDto: DiscardArchivedTasksDto,
   ) {
-    const tasks = TasksRepository.getAllById(discardArchivedTasksDto.taskIdList)
+    const tasks = TaskRepository.getAllById(discardArchivedTasksDto.taskIdList)
     if (tasks.length) {
       tasks.forEach((task) => task.discard())
-      TasksRepository.updateAll(tasks)
+      TaskRepository.updateAll(tasks)
     }
   },
 })

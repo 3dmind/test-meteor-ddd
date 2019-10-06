@@ -14,9 +14,9 @@ export interface TaskDocument {
   archivedAt?: Date
 }
 
-export const TasksCollection = new Mongo.Collection<TaskDocument>('tasks')
+export const TaskCollection = new Mongo.Collection<TaskDocument>('tasks')
 
-TasksCollection.deny({
+TaskCollection.deny({
   insert() {
     return true
   },

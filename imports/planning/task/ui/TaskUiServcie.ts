@@ -1,12 +1,12 @@
 import { Mongo } from 'meteor/mongo'
-import { TaskDocument, TasksCollection } from '../api/TasksCollection'
+import { TaskDocument, TaskCollection } from '../api/TaskCollection'
 import { TaskUiModel } from './TaskUiModel'
 import { TaskUiMapper } from './TaskUiMapper'
 
 function findTasks(
   selector: Mongo.Selector<TaskDocument> = {},
 ): Mongo.Cursor<TaskDocument> {
-  return TasksCollection.find(selector)
+  return TaskCollection.find(selector)
 }
 
 export const TaskUiService = {
