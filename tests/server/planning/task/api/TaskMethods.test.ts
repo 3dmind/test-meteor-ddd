@@ -54,7 +54,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_TICK_OFF_METHOD]
       const taskDto = new TaskDto({
-        taskId: documentId,
+        id: documentId,
         description: taskDocument.description,
         isTickedOff: taskDocument.isTickedOff,
       })
@@ -72,7 +72,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_RESUME_METHOD]
       const taskDto = new TaskDto({
-        taskId: documentId,
+        id: documentId,
         description: taskDocument.description,
         isTickedOff: taskDocument.isTickedOff,
       })
@@ -91,7 +91,7 @@ if (Meteor.isServer) {
         Meteor.server.method_handlers[PLANNING_TASK_EDIT_METHOD]
       const editTaskDto = new EditTaskDto(
         {
-          taskId: documentId,
+          id: documentId,
           description: taskDocument.description,
           isTickedOff: taskDocument.isTickedOff,
         },
@@ -110,7 +110,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_ARCHIVE_METHOD]
       const taskDto = new TaskDto({
-        taskId: documentId,
+        id: documentId,
         description: taskDocument.description,
         isTickedOff: taskDocument.isTickedOff,
       })
@@ -130,7 +130,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD]
       const taskUiModel: TaskUiModel = {
-        taskId: taskDocumentId,
+        id: taskDocumentId,
         description: archivedTaskDocument.description,
         isTickedOff: archivedTaskDocument.isTickedOff,
       }
@@ -148,7 +148,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_DISCARD_METHOD]
       const taskDto = new TaskDto({
-        taskId: documentId,
+        id: documentId,
         description: taskDocument.description,
         isTickedOff: taskDocument.isTickedOff,
       })

@@ -4,6 +4,6 @@ export class DiscardArchivedTasksDto {
   readonly taskIdList: string[]
 
   constructor(tasks: TaskUiModel[]) {
-    this.taskIdList = tasks.map((task) => task.taskId)
+    this.taskIdList = tasks.map((task) => task.id)
   }
 }

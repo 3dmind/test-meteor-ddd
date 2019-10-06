@@ -4,6 +4,6 @@ export class TaskDto {
   readonly taskId
 
   constructor(task: TaskUiModel) {
-    this.taskId = task.taskId
+    this.taskId = task.id
   }
 }

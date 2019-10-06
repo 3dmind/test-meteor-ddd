@@ -5,7 +5,7 @@ export class EditTaskDto {
   readonly newText: string
 
   constructor(task: TaskUiModel, text: string) {
-    this.taskId = task.taskId
+    this.taskId = task.id
     this.newText = text
   }
 }

@@ -34,7 +34,7 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
         </Typography>
         <List dense className={classes.root}>
           {taskList.map((task: TaskUiModel) => (
-            <ActiveTasksListItem key={task.taskId} task={task} />
+            <ActiveTasksListItem key={task.id} task={task} />
           ))}
         </List>
       </>

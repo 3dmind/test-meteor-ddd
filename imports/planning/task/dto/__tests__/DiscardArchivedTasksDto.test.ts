@@ -5,12 +5,12 @@ describe('DiscardArchivedTasksDto', () => {
   test('create DTO from Task', () => {
     const tasks: TaskUiModel[] = [
       {
-        taskId: 'A',
+        id: 'A',
         isTickedOff: false,
         description: 'Foo',
       },
       {
-        taskId: 'B',
+        id: 'B',
         isTickedOff: false,
         description: 'bar',
       },
