@@ -1,23 +1,20 @@
 import { Meteor } from 'meteor/meteor'
 import {
   PLANNING_TASK_ARCHIVE_METHOD,
+  PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD,
   PLANNING_TASK_DISCARD_METHOD,
   PLANNING_TASK_EDIT_METHOD,
   PLANNING_TASK_NOTE_METHOD,
   PLANNING_TASK_RESUME_METHOD,
   PLANNING_TASK_TICK_OFF_METHOD,
-  PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD,
 } from '../constants'
 import { TaskDescription } from '../domain/TaskDescription'
 import { TaskEntity } from '../domain/TaskEntity'
 import {
-  ArchiveTaskDto,
   DiscardArchivedTasksDto,
-  DiscardTaskDto,
   EditTaskDto,
   NoteTaskDto,
-  ResumeTaskDto,
-  TickOffTaskDto,
+  TaskDto,
 } from '../dto'
 import { TasksRepository } from './TasksRepository'
 
@@ -28,16 +25,16 @@ Meteor.methods({
     TasksRepository.save(task)
   },
 
-  [PLANNING_TASK_TICK_OFF_METHOD](tickOffTaskDto: TickOffTaskDto) {
-    const task = TasksRepository.getById(tickOffTaskDto.taskId)
+  [PLANNING_TASK_TICK_OFF_METHOD](taskDto: TaskDto) {
+    const task = TasksRepository.getById(taskDto.taskId)
     if (task) {
       task.tickOff()
       TasksRepository.update(task)
     }
   },
 
-  [PLANNING_TASK_RESUME_METHOD](resumeTaskDto: ResumeTaskDto) {
-    const task = TasksRepository.getById(resumeTaskDto.taskId)
+  [PLANNING_TASK_RESUME_METHOD](taskDto: TaskDto) {
+    const task = TasksRepository.getById(taskDto.taskId)
     if (task) {
       task.resume()
       TasksRepository.update(task)
@@ -53,16 +50,16 @@ Meteor.methods({
     }
   },
 
-  [PLANNING_TASK_ARCHIVE_METHOD](archiveTaskDto: ArchiveTaskDto) {
-    const task = TasksRepository.getById(archiveTaskDto.taskId)
+  [PLANNING_TASK_ARCHIVE_METHOD](taskDto: TaskDto) {
+    const task = TasksRepository.getById(taskDto.taskId)
     if (task) {
       task.archive()
       TasksRepository.update(task)
     }
   },
 
-  [PLANNING_TASK_DISCARD_METHOD](discardTaskDto: DiscardTaskDto) {
-    const task = TasksRepository.getById(discardTaskDto.taskId)
+  [PLANNING_TASK_DISCARD_METHOD](taskDto: TaskDto) {
+    const task = TasksRepository.getById(taskDto.taskId)
     if (task) {
       task.discard()
       TasksRepository.update(task)

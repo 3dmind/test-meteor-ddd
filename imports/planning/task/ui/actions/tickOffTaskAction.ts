@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_TICK_OFF_METHOD } from '../../constants'
-import { TickOffTaskDto } from '../../dto'
+import { TaskDto } from '../../dto'
+import { TaskUiModel } from '../TaskUiModel'
 
-export function tickOffTaskAction(taskId: string): Promise<void> {
+export function tickOffTaskAction(task: TaskUiModel): Promise<void> {
   return new Promise((resolve, reject): void => {
-    const tickOffTaskDto = new TickOffTaskDto(taskId)
+    const tickOffTaskDto = new TaskDto(task)
     Meteor.call(
       PLANNING_TASK_TICK_OFF_METHOD,
       tickOffTaskDto,

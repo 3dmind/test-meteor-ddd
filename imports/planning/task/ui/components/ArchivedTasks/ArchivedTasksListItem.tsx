@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       paddingRight: theme.spacing(1),
       paddingLeft: theme.spacing(1),
-      textDecoration: (props: TaskUiModel): string =>
-        props.isTickedOff ? 'line-through' : /* otherwise */ 'none',
+      textDecoration: (task: TaskUiModel): string =>
+        task.isTickedOff ? 'line-through' : /* otherwise */ 'none',
     },
     secondaryAction: {
       flex: 0,
@@ -32,10 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export const ArchivedTasksListItem: React.FunctionComponent<TaskUiModel> = (
-  props,
-) => {
-  const { taskId, description } = props
+interface ArchivedTasksListItemProps {
+  task: TaskUiModel
+}
+
+export const ArchivedTasksListItem: React.FunctionComponent<
+  ArchivedTasksListItemProps
+> = (props) => {
+  const { task } = props
   const { discardTaskAction } = useActions()
 
   function handleFulfilled(): void {
@@ -48,17 +52,17 @@ export const ArchivedTasksListItem: React.FunctionComponent<TaskUiModel> = (
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
-    discardTaskAction(taskId)
+    discardTaskAction(task)
       .then(handleFulfilled)
       .catch(handleRejected)
   }
 
-  const classes = useStyles(props)
+  const classes = useStyles(task)
   return (
     <ListItem>
       <div className={classes.task}>
         <div className={classes.description}>
-          <Typography component={'p'}>{description}</Typography>
+          <Typography component={'p'}>{task.description}</Typography>
         </div>
         <div className={classes.secondaryAction}>
           <IconButton onClick={handleClick}>

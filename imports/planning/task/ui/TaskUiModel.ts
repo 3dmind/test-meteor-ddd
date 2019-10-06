@@ -1,5 +1,5 @@
 export interface TaskUiModel {
-  readonly taskId: string
+  readonly id: string
   readonly description: string
   readonly isTickedOff: boolean
 }

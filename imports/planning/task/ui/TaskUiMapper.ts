@@ -5,7 +5,7 @@ export const TaskUiMapper = {
   toPresentation(doc: TaskDocument): TaskUiModel {
     const { _id, description, isTickedOff } = doc
     return {
-      taskId: _id,
+      id: _id,
       description,
       isTickedOff,
     }

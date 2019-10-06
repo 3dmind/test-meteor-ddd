@@ -16,13 +16,10 @@ import {
   PLANNING_TASK_TICK_OFF_METHOD,
 } from '../../../../../imports/planning/task/constants'
 import {
-  ArchiveTaskDto,
   DiscardArchivedTasksDto,
-  DiscardTaskDto,
   EditTaskDto,
   NoteTaskDto,
-  ResumeTaskDto,
-  TickOffTaskDto,
+  TaskDto,
 } from '../../../../../imports/planning/task/dto'
 import { TaskUiModel } from '../../../../../imports/planning/task/ui/TaskUiModel'
 
@@ -56,9 +53,13 @@ if (Meteor.isServer) {
       const selector: Mongo.Selector<TaskDocument> = { isTickedOff: true }
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_TICK_OFF_METHOD]
-      const tickOffTaskDto = new TickOffTaskDto(documentId)
+      const taskDto = new TaskDto({
+        id: documentId,
+        description: taskDocument.description,
+        isTickedOff: taskDocument.isTickedOff,
+      })
 
-      methodHandler.apply({}, [tickOffTaskDto])
+      methodHandler.apply({}, [taskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
@@ -70,9 +71,13 @@ if (Meteor.isServer) {
       const selector: Mongo.Selector<TaskDocument> = { isTickedOff: false }
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_RESUME_METHOD]
-      const resumeTaskDto = new ResumeTaskDto(documentId)
+      const taskDto = new TaskDto({
+        id: documentId,
+        description: taskDocument.description,
+        isTickedOff: taskDocument.isTickedOff,
+      })
 
-      methodHandler.apply({}, [resumeTaskDto])
+      methodHandler.apply({}, [taskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
@@ -84,7 +89,14 @@ if (Meteor.isServer) {
       const selector: Mongo.Selector<TaskDocument> = { description: newText }
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_EDIT_METHOD]
-      const editTaskDto = new EditTaskDto(documentId, newText)
+      const editTaskDto = new EditTaskDto(
+        {
+          id: documentId,
+          description: taskDocument.description,
+          isTickedOff: taskDocument.isTickedOff,
+        },
+        newText,
+      )
 
       methodHandler.apply({}, [editTaskDto])
       const actual = TasksCollection.find(selector).count()
@@ -97,9 +109,13 @@ if (Meteor.isServer) {
       const selector: Mongo.Selector<TaskDocument> = { isArchived: true }
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_ARCHIVE_METHOD]
-      const archiveTaskDto = new ArchiveTaskDto(documentId)
+      const taskDto = new TaskDto({
+        id: documentId,
+        description: taskDocument.description,
+        isTickedOff: taskDocument.isTickedOff,
+      })
 
-      methodHandler.apply({}, [archiveTaskDto])
+      methodHandler.apply({}, [taskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)
@@ -114,7 +130,7 @@ if (Meteor.isServer) {
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD]
       const taskUiModel: TaskUiModel = {
-        taskId: taskDocumentId,
+        id: taskDocumentId,
         description: archivedTaskDocument.description,
         isTickedOff: archivedTaskDocument.isTickedOff,
       }
@@ -131,9 +147,13 @@ if (Meteor.isServer) {
       const selector: Mongo.Selector<TaskDocument> = { isDiscarded: true }
       const methodHandler =
         Meteor.server.method_handlers[PLANNING_TASK_DISCARD_METHOD]
-      const discardTaskDto = new DiscardTaskDto(documentId)
+      const taskDto = new TaskDto({
+        id: documentId,
+        description: taskDocument.description,
+        isTickedOff: taskDocument.isTickedOff,
+      })
 
-      methodHandler.apply({}, [discardTaskDto])
+      methodHandler.apply({}, [taskDto])
       const actual = TasksCollection.find(selector).count()
 
       assert.strictEqual(actual, 1)

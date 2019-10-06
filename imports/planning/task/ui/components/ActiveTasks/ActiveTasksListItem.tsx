@@ -33,10 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
-  props,
-) => {
-  const { taskId, description, isTickedOff } = props
+interface ActiveTasksListItemProps {
+  task: TaskUiModel
+}
+
+export const ActiveTasksListItem: React.FunctionComponent<
+  ActiveTasksListItemProps
+> = (props) => {
+  const { task } = props
   const [isEditing, setIsEditing] = React.useState<boolean>(false)
   const {
     tickOffTaskAction,
@@ -51,29 +55,29 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
   }
 
   function tickOff(): void {
-    tickOffTaskAction(taskId)
+    tickOffTaskAction(task)
       .then(handleFulfilled('tickedOff'))
       .catch(handleRejected)
   }
 
   function resume(): void {
-    resumeTaskAction(taskId)
+    resumeTaskAction(task)
       .then(handleFulfilled('resumed'))
       .catch(handleRejected)
   }
 
   function handleChange(): void {
-    isTickedOff ? resume() : /* otherwise */ tickOff()
+    task.isTickedOff ? resume() : /* otherwise */ tickOff()
   }
 
   function handleDiscard(): void {
-    discardTaskAction(taskId)
+    discardTaskAction(task)
       .then(handleFulfilled('discarded'))
       .catch(handleRejected)
   }
 
   function handleArchive(): void {
-    archiveTaskAction(taskId)
+    archiveTaskAction(task)
       .then(handleFulfilled('archived'))
       .catch(handleRejected)
   }
@@ -97,14 +101,13 @@ export const ActiveTasksListItem: React.FunctionComponent<TaskUiModel> = (
         <div className={classes.primaryAction}>
           <Checkbox
             edge={'start'}
-            checked={isTickedOff}
+            checked={task.isTickedOff}
             onChange={handleChange}
           />
         </div>
         <div className={classes.description}>
           <ActiveTaskDescription
-            taskId={taskId}
-            description={description}
+            task={task}
             isEditing={isEditing}
             onFinishEditing={handleFinishEditing}
           />

@@ -63,12 +63,7 @@ export const ArchivedTasksList: React.FunctionComponent<
         </Grid>
         <List dense className={classes.root}>
           {taskList.map((task: TaskUiModel) => (
-            <ArchivedTasksListItem
-              key={task.taskId}
-              taskId={task.taskId}
-              description={task.description}
-              isTickedOff={task.isTickedOff}
-            />
+            <ArchivedTasksListItem key={task.id} task={task} />
           ))}
         </List>
       </>
