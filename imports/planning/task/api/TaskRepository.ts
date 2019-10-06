@@ -3,17 +3,17 @@ import { TaskMapper } from './TaskMapper'
 import { TaskEntity } from '../domain/TaskEntity'
 
 export const TaskRepository = {
-  save(task: TaskEntity): string {
+  saveTask(task: TaskEntity): string {
     return TaskCollection.insert(TaskMapper.toPersistence(task))
   },
 
-  update(task: TaskEntity): number {
+  updateTask(task: TaskEntity): number {
     return TaskCollection.update(task.id.value, {
       $set: { ...TaskMapper.toPersistence(task) },
     })
   },
 
-  updateAll(tasks: TaskEntity[]): number {
+  updateAllTasks(tasks: TaskEntity[]): number {
     try {
       return tasks.map((task) =>
         TaskCollection.update(task.id.value, {
@@ -25,18 +25,18 @@ export const TaskRepository = {
     }
   },
 
-  getById(taskId: string): TaskEntity | undefined {
-    const d: TaskDocument = TaskCollection.findOne(taskId)
-    if (d) {
-      return TaskMapper.toDomain(d)
+  getTaskById(taskId: string): TaskEntity | undefined {
+    const document: TaskDocument = TaskCollection.findOne(taskId)
+    if (document) {
+      return TaskMapper.toDomain(document)
     } else {
       return undefined
     }
   },
 
-  getAllById(ids: string[]): TaskEntity[] | undefined {
-    const tasks = TaskCollection.find({ _id: { $in: ids } }).map((d) =>
-      TaskMapper.toDomain(d),
+  getAllTasksById(ids: string[]): TaskEntity[] | undefined {
+    const tasks = TaskCollection.find({ _id: { $in: ids } }).map((document) =>
+      TaskMapper.toDomain(document),
     )
     if (tasks) {
       return tasks
