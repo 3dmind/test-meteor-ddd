@@ -17,6 +17,10 @@ export class ActiveTasksUiModel {
     return this.props.tasks
   }
 
+  get progress(): number {
+    return (this.props.tickOffTasksCount * 100) / this.props.count
+  }
+
   static create(props: ActiveTasksUiModelProps): ActiveTasksUiModel {
     return new ActiveTasksUiModel(props)
   }

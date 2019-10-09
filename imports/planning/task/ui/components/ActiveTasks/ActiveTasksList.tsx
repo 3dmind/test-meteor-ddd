@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import * as React from 'react'
 import { ActiveTasksUiModel } from '../../models'
 import { ActiveTasksListItem } from './ActiveTasksListItem'
+import { ActiveTasksProgress } from './ActiveTasksProgress'
 
 interface ActiveTasksListProps {
   activeTasks: ActiveTasksUiModel
@@ -32,6 +33,7 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
         <Typography component={'h2'} variant={'h5'} className={classes.section}>
           Tasks
         </Typography>
+        <ActiveTasksProgress value={activeTasks.progress} />
         <List dense className={classes.root}>
           {activeTasks.tasks.map((task) => (
             <ActiveTasksListItem key={task.id} task={task} />
