@@ -9,12 +9,12 @@ import {
   Typography,
 } from '@material-ui/core'
 import * as React from 'react'
-import { TaskUiModel } from '../../TaskUiModel'
+import { ArchivedTasksUiModel } from '../../models'
 import { useActions } from '../TaskActions'
 import { ArchivedTasksListItem } from './ArchivedTasksListItem'
 
 interface ArchivedTasksListProps {
-  taskList: TaskUiModel[]
+  archivedTasks: ArchivedTasksUiModel
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,16 +36,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ArchivedTasksList: React.FunctionComponent<
   ArchivedTasksListProps
 > = (props) => {
-  const { taskList } = props
+  const { archivedTasks } = props
   const { discardArchivedTasksAction } = useActions()
   const classes = useStyles(props)
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
-    discardArchivedTasksAction(taskList)
+    discardArchivedTasksAction(archivedTasks.tasks)
   }
 
-  if (taskList.length) {
+  if (archivedTasks.hasTasks()) {
     return (
       <>
         <Divider className={classes.divider} />
@@ -62,7 +62,7 @@ export const ArchivedTasksList: React.FunctionComponent<
           <Button onClick={handleClick}>Discard all</Button>
         </Grid>
         <List dense className={classes.root}>
-          {taskList.map((task: TaskUiModel) => (
+          {archivedTasks.tasks.map((task) => (
             <ArchivedTasksListItem key={task.id} task={task} />
           ))}
         </List>

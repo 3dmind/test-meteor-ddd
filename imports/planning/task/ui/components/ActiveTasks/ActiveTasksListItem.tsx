@@ -6,7 +6,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import * as React from 'react'
-import { TaskUiModel } from '../../TaskUiModel'
+import { TaskUiModel } from '../../models'
 import { useActions } from '../TaskActions'
 import { ActiveTaskActions } from './ActiveTaskActions'
 import { ActiveTaskDescription } from './ActiveTaskDescription'
