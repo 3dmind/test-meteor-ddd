@@ -1,18 +1,13 @@
 import { Meteor } from 'meteor/meteor'
 import { withTracker } from 'meteor/react-meteor-data'
 import { PLANNING_TASKS_PUBLICATION } from '../../../constants'
-import { TaskUiModel } from '../../TaskUiModel'
-import { TaskUiService } from '../../TaskUiServcie'
+import { TaskUiService } from '../../services'
 import { ActiveTasksList } from './ActiveTasksList'
 
 export const ActiveTasksContainer = withTracker(() => {
-  let taskList: TaskUiModel[] = []
-  const handle = Meteor.subscribe(PLANNING_TASKS_PUBLICATION)
-  if (handle.ready()) {
-    taskList = TaskUiService.getAllActiveTasks()
-  }
+  Meteor.subscribe(PLANNING_TASKS_PUBLICATION)
   return {
-    taskList: taskList,
+    activeTasks: TaskUiService.getAllActiveTasks(),
   }
 })(ActiveTasksList)
 ActiveTasksContainer.displayName = 'ActiveTasksContainer'

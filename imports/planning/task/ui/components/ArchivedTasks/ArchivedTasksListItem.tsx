@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
-import { TaskUiModel } from '../../TaskUiModel'
+import { TaskUiModel } from '../../models'
 import { useActions } from '../TaskActions'
 
 const useStyles = makeStyles((theme: Theme) =>
