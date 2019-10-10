@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
 import { TextField } from '@material-ui/core'
-import { TaskUiModel } from '../../TaskUiModel'
+import { TaskUiModel } from '../../models'
 import { useActions } from '../TaskActions'
 
 interface ActiveTaskDescriptionProps {

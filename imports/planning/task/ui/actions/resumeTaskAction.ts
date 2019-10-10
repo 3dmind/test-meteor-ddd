@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_RESUME_METHOD } from '../../constants'
 import { TaskDto } from '../../dto'
-import { TaskUiModel } from '../TaskUiModel'
+import { TaskUiModel } from '../models'
 
 export function resumeTaskAction(task: TaskUiModel): Promise<void> {
   return new Promise((resolve, reject): void => {
-    const resumeTaskDto = new TaskDto(task)
-    Meteor.call(PLANNING_TASK_RESUME_METHOD, resumeTaskDto, (error, value) => {
+    const dto: TaskDto = { taskId: task.id }
+    Meteor.call(PLANNING_TASK_RESUME_METHOD, dto, (error, value) => {
       if (error) {
         reject(error)
       }
