@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as actions from '../actions'
-import { ActiveTasksContainer } from './ActiveTasks/ActiveTasksContainer'
-import { ArchivedTasksContainer } from './ArchivedTasks/ArchivedTasksContainer'
+import { ActiveTasksContainer } from './ActiveTasks'
+import { ArchivedTasksContainer } from './ArchivedTasks'
 import { ActionsContext } from './TaskActions'
 import { NoteTask } from './NoteTask'
 
