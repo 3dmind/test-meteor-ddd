@@ -1,15 +1,7 @@
-import {
-  Button,
-  createStyles,
-  Divider,
-  Grid,
-  List,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import * as React from 'react'
 import { ArchivedTasksUiModel } from '../../models'
+import { Section, SectionDivider, TasksList } from '../common'
 import { useActions } from '../TaskActions'
 import { ArchivedTasksListItem } from './ArchivedTasksListItem'
 
@@ -17,28 +9,11 @@ interface ArchivedTasksListProps {
   archivedTasks: ArchivedTasksUiModel
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-    divider: {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(2),
-    },
-    section: {
-      marginBottom: theme.spacing(1),
-    },
-  }),
-)
-
 export const ArchivedTasksList: React.FunctionComponent<
   ArchivedTasksListProps
 > = (props) => {
   const { archivedTasks } = props
   const { discardArchivedTasksAction } = useActions()
-  const classes = useStyles(props)
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
@@ -48,24 +23,21 @@ export const ArchivedTasksList: React.FunctionComponent<
   if (archivedTasks.hasTasks()) {
     return (
       <>
-        <Divider className={classes.divider} />
+        <SectionDivider />
         <Grid
           container
           direction={'row'}
           justify={'space-between'}
           alignItems={'baseline'}
-          className={classes.section}
         >
-          <Typography component={'h2'} variant={'h5'}>
-            Archived tasks
-          </Typography>
+          <Section title={'Archived tasks'} />
           <Button onClick={handleClick}>Discard all</Button>
         </Grid>
-        <List dense className={classes.root}>
+        <TasksList dense>
           {archivedTasks.tasks.map((task) => (
             <ArchivedTasksListItem key={task.id} task={task} />
           ))}
-        </List>
+        </TasksList>
       </>
     )
   } else {
