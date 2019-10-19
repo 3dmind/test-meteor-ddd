@@ -7,10 +7,10 @@ export function discardArchivedTasksAction(
   tasks: TaskUiModel[],
 ): Promise<void> {
   return new Promise((resolve, reject): void => {
-    const dto: DiscardArchivedTasksDto = {
+    const dto = {
       taskIds: tasks.map((task) => task.id),
     }
-    Meteor.call(
+    Meteor.call<DiscardArchivedTasksDto>(
       PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD,
       dto,
       (error, value) => {
