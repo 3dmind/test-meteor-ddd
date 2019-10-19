@@ -1,13 +1,13 @@
-interface TaskUiModelProps {
+interface TaskViewModelProps {
   id: string
   description: string
   isTickedOff: boolean
 }
 
-export class TaskUiModel {
-  private props: TaskUiModelProps
+export class TaskViewModel {
+  private props: TaskViewModelProps
 
-  private constructor(props: TaskUiModelProps) {
+  private constructor(props: TaskViewModelProps) {
     this.props = props
   }
 
@@ -23,7 +23,7 @@ export class TaskUiModel {
     return this.props.isTickedOff
   }
 
-  static create(props: TaskUiModelProps): TaskUiModel {
-    return new TaskUiModel(props)
+  static create(props: TaskViewModelProps): TaskViewModel {
+    return new TaskViewModel(props)
   }
 }

@@ -1,12 +1,12 @@
 import { Button, Grid } from '@material-ui/core'
 import * as React from 'react'
-import { ArchivedTasksUiModel } from '../../models'
+import { ArchivedTasksViewModel } from '../../models'
 import { Section, SectionDivider, TasksList } from '../common'
 import { useActions } from '../TaskActions'
 import { ArchivedTasksListItem } from './ArchivedTasksListItem'
 
 interface ArchivedTasksListProps {
-  archivedTasks: ArchivedTasksUiModel
+  archivedTasks: ArchivedTasksViewModel
 }
 
 export const ArchivedTasksList: React.FunctionComponent<

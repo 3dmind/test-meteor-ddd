@@ -1,3 +1,3 @@
-export { TaskUiMapper } from './TaskUiMapper'
-export { ActiveTasksUiModelMapper } from './ActiveTasksUiModelMapper'
-export { ArchivedTasksUiModelMapper } from './ArchivedTasksUiModelMapper'
+export { TaskViewModelMapper } from './TaskViewModelMapper'
+export { ActiveTasksViewModelMapper } from './ActiveTasksViewModelMapper'
+export { ArchivedTasksViewModelMapper } from './ArchivedTasksViewModelMapper'
