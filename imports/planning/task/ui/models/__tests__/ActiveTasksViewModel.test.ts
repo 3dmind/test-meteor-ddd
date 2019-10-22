@@ -1,0 +1,40 @@
+import { ActiveTasksViewModel, TaskViewModel } from '../index'
+
+describe('ActiveTasksViewModel', () => {
+  const tasks = [
+    TaskViewModel.create({
+      id: 'A',
+      description: 'Lorem ipsum',
+      isTickedOff: false,
+    }),
+    TaskViewModel.create({
+      id: 'B',
+      description: 'Lorem ipsum',
+      isTickedOff: true,
+    }),
+  ]
+
+  let viewModel: ActiveTasksViewModel
+
+  beforeEach(() => {
+    viewModel = ActiveTasksViewModel.create({
+      tasks,
+      count: tasks.length,
+      tickOffTasksCount: tasks.filter((task) => task.isTickedOff).length,
+    })
+  })
+
+  test('get property "tasks"', () => {
+    expect(viewModel.tasks).toEqual(tasks)
+  })
+
+  test('#hasTasks()', () => {
+    expect(viewModel.hasTasks()).toBe(true)
+  })
+
+  describe('property "progress"', () => {
+    test('calculate progress for ticked-off tasks', () => {
+      expect(viewModel.progress).toEqual(50)
+    })
+  })
+})
