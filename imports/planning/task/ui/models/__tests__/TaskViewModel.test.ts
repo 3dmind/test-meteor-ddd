@@ -37,4 +37,18 @@ describe('TaskViewModel', () => {
 
     spy.mockRestore()
   })
+
+  test('get property tickedOffAtFormatted', () => {
+    const spy = jest.spyOn(navigator, 'language', 'get')
+    spy.mockReturnValue('en-US')
+    const expectedFormat = 'Sun, Jan 2'
+    const localProps = Object.assign({}, props, {
+      isTickedOff: true,
+      tickedOffAt: new Date('1977-01-02'),
+    })
+
+    const viewModel = TaskViewModel.create(localProps)
+
+    expect(viewModel.tickedOffAtFormatted).toEqual(expectedFormat)
+  })
 })

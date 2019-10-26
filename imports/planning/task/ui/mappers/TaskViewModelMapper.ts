@@ -8,6 +8,7 @@ export const TaskViewModelMapper = {
       description: doc.description,
       createdAt: doc.createdAt,
       isTickedOff: doc.isTickedOff,
+      tickedOffAt: doc.tickedOffAt,
     })
   },
 }
