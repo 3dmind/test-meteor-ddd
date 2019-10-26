@@ -5,11 +5,13 @@ describe('ActiveTasksViewModel', () => {
     TaskViewModel.create({
       id: 'A',
       description: 'Lorem ipsum',
+      createdAt: new Date('1977-01-01'),
       isTickedOff: false,
     }),
     TaskViewModel.create({
       id: 'B',
       description: 'Lorem ipsum',
+      createdAt: new Date('1977-01-01'),
       isTickedOff: true,
     }),
   ]

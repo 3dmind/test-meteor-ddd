@@ -1,6 +1,7 @@
 interface TaskViewModelProps {
   id: string
   description: string
+  createdAt: Date
   isTickedOff: boolean
 }
 
@@ -17,6 +18,17 @@ export class TaskViewModel {
 
   get description(): string {
     return this.props.description
+  }
+
+  get createdAtFormatted(): string {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    }
+    return new Intl.DateTimeFormat(navigator.language, options).format(
+      this.props.createdAt,
+    )
   }
 
   get isTickedOff(): boolean {

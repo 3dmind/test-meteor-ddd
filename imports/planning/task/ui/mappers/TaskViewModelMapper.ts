@@ -6,6 +6,7 @@ export const TaskViewModelMapper = {
     return TaskViewModel.create({
       id: doc._id,
       description: doc.description,
+      createdAt: doc.createdAt,
       isTickedOff: doc.isTickedOff,
     })
   },
