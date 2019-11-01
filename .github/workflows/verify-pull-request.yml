@@ -1,8 +1,6 @@
-name: CI
+name: Verify pull request
 
 on:
-  push:
-
   pull_request:
     branches:
       - develop
@@ -21,8 +19,5 @@ jobs:
         with:
           node-version: 10.x
 
-      - name: Install all dependencies
-        run: npm install
-
-      - name: Run unit tests
-        run: npm run test:unit
+      - uses: ./.github/actions/npm-dependencies.yml
+      - uses: ./.github/actions/npm-unit-tests.yml
