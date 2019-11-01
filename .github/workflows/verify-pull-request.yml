@@ -19,5 +19,5 @@ jobs:
         with:
           node-version: 10.x
 
-      - uses: ./.github/actions/npm-dependencies.yml
-      - uses: ./.github/actions/npm-unit-tests.yml
+      - uses: ./.github/actions/npm-dependencies
+      - uses: ./.github/actions/npm-unit-tests
