@@ -6,8 +6,8 @@ on:
       - develop
 
 jobs:
-  test:
-    name: Unit tests
+  checksAndTests:
+    name: Checks and unit tests
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run checks
-        run: npm lint
+        run: npm run lint
 
       - name: Run unit tests
         run: npm run test:unit
