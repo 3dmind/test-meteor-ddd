@@ -1,3 +1,0 @@
-name: npm-unit-tests
-description: Run unit tests
-run: npm run test:unit

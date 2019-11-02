@@ -1,3 +1,0 @@
-name: npm-install-dependencies
-description: Install all dependencies
-run: npm install

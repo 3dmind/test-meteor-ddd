@@ -19,5 +19,8 @@ jobs:
         with:
           node-version: 10.x
 
-      - uses: ./.github/actions/npm-dependencies
-      - uses: ./.github/actions/npm-unit-tests
+      - name: Install all dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm run test:unit
