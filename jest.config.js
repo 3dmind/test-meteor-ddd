@@ -10,4 +10,8 @@ module.exports = {
     '<rootDir>/server/',
     '<rootDir>/tests/',
   ],
+
+  collectCoverageFrom: ['imports/**/*.[jt]s?(x)'],
+  coverageReporters: ['text', 'lcovonly'],
+  coverageDirectory: '.coverage/jest',
 }
