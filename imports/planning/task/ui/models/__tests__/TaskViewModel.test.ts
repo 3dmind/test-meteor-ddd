@@ -6,6 +6,7 @@ describe('TaskViewModel', () => {
     description: 'Lorem ipsum',
     createdAt: new Date('1977-01-01'),
     isTickedOff: false,
+    isArchived: false,
   }
 
   test('get property "id"', () => {
@@ -50,5 +51,29 @@ describe('TaskViewModel', () => {
     const viewModel = TaskViewModel.create(localProps)
 
     expect(viewModel.tickedOffAtFormatted).toEqual(expectedFormat)
+
+    spy.mockRestore()
+  })
+
+  test('get property "isArchived"', () => {
+    const viewModel = TaskViewModel.create(props)
+
+    expect(viewModel.isArchived).toEqual(props.isArchived)
+  })
+
+  test('get property archivedAtFormatted', () => {
+    const spy = jest.spyOn(navigator, 'language', 'get')
+    spy.mockReturnValue('en-US')
+    const expectedFormat = 'Mon, Jan 3'
+    const localProps = Object.assign({}, props, {
+      isArchived: true,
+      archivedAt: new Date('1977-01-03'),
+    })
+
+    const viewModel = TaskViewModel.create(localProps)
+
+    expect(viewModel.archivedAtFormatted).toEqual(expectedFormat)
+
+    spy.mockRestore()
   })
 })

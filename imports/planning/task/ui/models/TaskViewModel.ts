@@ -4,6 +4,8 @@ interface TaskViewModelProps {
   createdAt: Date
   isTickedOff: boolean
   tickedOffAt?: Date
+  isArchived: boolean
+  archivedAt?: Date
 }
 
 export class TaskViewModel {
@@ -49,6 +51,26 @@ export class TaskViewModel {
     }
     return new Intl.DateTimeFormat(navigator.language, options).format(
       tickedOffAt,
+    )
+  }
+
+  get isArchived(): boolean {
+    return this.props.isArchived
+  }
+
+  get archivedAtFormatted(): string {
+    const { archivedAt, isArchived } = this.props
+    if (!isArchived) {
+      return ''
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    }
+    return new Intl.DateTimeFormat(navigator.language, options).format(
+      archivedAt,
     )
   }
 

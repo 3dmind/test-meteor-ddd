@@ -9,6 +9,8 @@ export const TaskViewModelMapper = {
       createdAt: doc.createdAt,
       isTickedOff: doc.isTickedOff,
       tickedOffAt: doc.tickedOffAt,
+      isArchived: doc.isArchived,
+      archivedAt: doc.archivedAt,
     })
   },
 }
