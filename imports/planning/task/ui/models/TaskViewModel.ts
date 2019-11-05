@@ -9,7 +9,13 @@ interface TaskViewModelProps {
 }
 
 export class TaskViewModel {
-  private props: TaskViewModelProps
+  static dateFormatter = new Intl.DateTimeFormat(navigator.language, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  })
+
+  private readonly props: TaskViewModelProps
 
   private constructor(props: TaskViewModelProps) {
     this.props = props
@@ -24,14 +30,7 @@ export class TaskViewModel {
   }
 
   get createdAtFormatted(): string {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    }
-    return new Intl.DateTimeFormat(navigator.language, options).format(
-      this.props.createdAt,
-    )
+    return TaskViewModel.dateFormatter.format(this.props.createdAt)
   }
 
   get isTickedOff(): boolean {
@@ -43,15 +42,7 @@ export class TaskViewModel {
     if (!isTickedOff) {
       return ''
     }
-
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    }
-    return new Intl.DateTimeFormat(navigator.language, options).format(
-      tickedOffAt,
-    )
+    return TaskViewModel.dateFormatter.format(tickedOffAt)
   }
 
   get isArchived(): boolean {
@@ -63,15 +54,7 @@ export class TaskViewModel {
     if (!isArchived) {
       return ''
     }
-
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    }
-    return new Intl.DateTimeFormat(navigator.language, options).format(
-      archivedAt,
-    )
+    return TaskViewModel.dateFormatter.format(archivedAt)
   }
 
   static create(props: TaskViewModelProps): TaskViewModel {
