@@ -9,6 +9,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
 import { TaskViewModel } from '../../models'
+import { ArchivedAt } from '../common/ArchivedAt'
 import { useActions } from '../TaskActions'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -69,6 +70,7 @@ export const ArchivedTasksListItem: React.FunctionComponent<
             <DeleteIcon />
           </IconButton>
         </div>
+        <ArchivedAt dateFormatted={task.archivedAtFormatted} />
       </div>
     </ListItem>
   )
