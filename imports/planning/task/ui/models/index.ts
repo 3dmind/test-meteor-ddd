@@ -1,3 +1,3 @@
-export { TaskUiModel } from './TaskUiModel'
-export { ActiveTasksUiModel } from './ActiveTasksUiModel'
-export { ArchivedTasksUiModel } from './ArchivedTasksUiModel'
+export { TaskViewModel } from './TaskViewModel'
+export { ActiveTasksViewModel } from './ActiveTasksViewModel'
+export { ArchivedTasksViewModel } from './ArchivedTasksViewModel'

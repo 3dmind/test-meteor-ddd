@@ -1,10 +1,10 @@
 import { Mongo } from 'meteor/mongo'
 import { TaskCollection, TaskDocument } from '../../api/TaskCollection'
 import {
-  ActiveTasksUiModelMapper,
-  ArchivedTasksUiModelMapper,
+  ActiveTasksViewModelMapper,
+  ArchivedTasksViewModelMapper,
 } from '../mappers'
-import { ActiveTasksUiModel, ArchivedTasksUiModel } from '../models'
+import { ActiveTasksViewModel, ArchivedTasksViewModel } from '../models'
 
 function findTasks(
   selector: Mongo.Selector<TaskDocument> = {},
@@ -13,7 +13,7 @@ function findTasks(
 }
 
 export const TaskUiService = {
-  getAllActiveTasks(): ActiveTasksUiModel {
+  getAllActiveTasks(): ActiveTasksViewModel {
     const cursor = findTasks({ isArchived: false })
     const count = cursor.count()
     const taskDocuments = cursor.fetch()
@@ -21,18 +21,18 @@ export const TaskUiService = {
       isArchived: false,
       isTickedOff: true,
     }).count()
-    return ActiveTasksUiModelMapper.toPresentation(
+    return ActiveTasksViewModelMapper.toPresentation(
       taskDocuments,
       count,
       tickedOffTasksCount,
     )
   },
 
-  getAllArchivedTasks(): ArchivedTasksUiModel {
+  getAllArchivedTasks(): ArchivedTasksViewModel {
     const cursor = findTasks({ isArchived: true })
     const count = cursor.count()
     const taskDocuments = cursor.fetch()
-    return ArchivedTasksUiModelMapper.toPresentation(taskDocuments, count)
+    return ArchivedTasksViewModelMapper.toPresentation(taskDocuments, count)
   },
 }
 Object.freeze(TaskUiService)

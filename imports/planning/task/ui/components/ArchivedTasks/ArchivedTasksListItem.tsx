@@ -8,7 +8,8 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
-import { TaskUiModel } from '../../models'
+import { TaskViewModel } from '../../models'
+import { ArchivedAt } from '../common/ArchivedAt'
 import { useActions } from '../TaskActions'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       paddingRight: theme.spacing(1),
       paddingLeft: theme.spacing(1),
-      textDecoration: (task: TaskUiModel): string =>
+      textDecoration: (task: TaskViewModel): string =>
         task.isTickedOff ? 'line-through' : /* otherwise */ 'none',
     },
     secondaryAction: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface ArchivedTasksListItemProps {
-  task: TaskUiModel
+  task: TaskViewModel
 }
 
 export const ArchivedTasksListItem: React.FunctionComponent<
@@ -69,6 +70,7 @@ export const ArchivedTasksListItem: React.FunctionComponent<
             <DeleteIcon />
           </IconButton>
         </div>
+        <ArchivedAt dateFormatted={task.archivedAtFormatted} />
       </div>
     </ListItem>
   )

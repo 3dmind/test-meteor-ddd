@@ -6,10 +6,11 @@ import {
   Theme,
 } from '@material-ui/core'
 import * as React from 'react'
-import { TaskUiModel } from '../../models'
+import { TaskViewModel } from '../../models'
 import { useActions } from '../TaskActions'
 import { ActiveTaskActions } from './ActiveTaskActions'
 import { ActiveTaskDescription } from './ActiveTaskDescription'
+import { ActiveTaskMetadata } from './ActiveTaskMetadata'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface ActiveTasksListItemProps {
-  task: TaskUiModel
+  task: TaskViewModel
 }
 
 export const ActiveTasksListItem: React.FunctionComponent<
@@ -121,6 +122,7 @@ export const ActiveTasksListItem: React.FunctionComponent<
             onEdit={handleEdit}
           />
         </div>
+        <ActiveTaskMetadata task={task} />
       </div>
     </ListItem>
   )

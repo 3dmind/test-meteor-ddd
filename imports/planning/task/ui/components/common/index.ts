@@ -1,3 +1,5 @@
 export { Section } from './Section'
 export { SectionDivider } from './SectionDivider'
 export { TasksList } from './TasksList'
+export { CreatedAt } from './CreatedAt'
+export { TickedOffAt } from './TickedOffAt'

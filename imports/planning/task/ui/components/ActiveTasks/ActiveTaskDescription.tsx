@@ -1,11 +1,11 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
 import { TextField } from '@material-ui/core'
-import { TaskUiModel } from '../../models'
+import { TaskViewModel } from '../../models'
 import { useActions } from '../TaskActions'
 
 interface ActiveTaskDescriptionProps {
-  task: TaskUiModel
+  task: TaskViewModel
   isEditing: boolean
   onFinishEditing: () => void
 }
