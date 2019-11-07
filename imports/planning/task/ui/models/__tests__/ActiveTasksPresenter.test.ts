@@ -1,6 +1,6 @@
-import { ActiveTasksViewModel, TaskViewModel } from '../index'
+import { ActiveTasksPresenter, TaskViewModel } from '../index'
 
-describe('ActiveTasksViewModel', () => {
+describe('ActiveTasksPresenter', () => {
   const tasks = [
     TaskViewModel.create({
       id: 'A',
@@ -18,10 +18,10 @@ describe('ActiveTasksViewModel', () => {
     }),
   ]
 
-  let viewModel: ActiveTasksViewModel
+  let presenter: ActiveTasksPresenter
 
   beforeEach(() => {
-    viewModel = ActiveTasksViewModel.create({
+    presenter = ActiveTasksPresenter.create({
       tasks,
       count: tasks.length,
       tickOffTasksCount: tasks.filter((task) => task.isTickedOff).length,
@@ -29,16 +29,16 @@ describe('ActiveTasksViewModel', () => {
   })
 
   test('get property "tasks"', () => {
-    expect(viewModel.tasks).toEqual(tasks)
+    expect(presenter.tasks).toEqual(tasks)
   })
 
   test('#hasTasks()', () => {
-    expect(viewModel.hasTasks()).toBe(true)
+    expect(presenter.hasTasks()).toBe(true)
   })
 
   describe('property "progress"', () => {
     test('calculate progress for ticked-off tasks', () => {
-      expect(viewModel.progress).toEqual(50)
+      expect(presenter.progress).toEqual(50)
     })
   })
 })

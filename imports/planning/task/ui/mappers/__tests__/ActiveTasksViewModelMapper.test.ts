@@ -1,5 +1,5 @@
 import { TaskDocument } from '../../../api/TaskCollection'
-import { ActiveTasksViewModel } from '../../models'
+import { ActiveTasksPresenter } from '../../models'
 import { ActiveTasksViewModelMapper } from '../index'
 
 describe('ActiveTasksViewModelMapper', () => {
@@ -32,6 +32,6 @@ describe('ActiveTasksViewModelMapper', () => {
     )
 
     expect(viewModel).toBeDefined()
-    expect(viewModel).toBeInstanceOf(ActiveTasksViewModel)
+    expect(viewModel).toBeInstanceOf(ActiveTasksPresenter)
   })
 })

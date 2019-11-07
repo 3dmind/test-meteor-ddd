@@ -4,7 +4,7 @@ import {
   ActiveTasksViewModelMapper,
   ArchivedTasksViewModelMapper,
 } from '../mappers'
-import { ActiveTasksViewModel, ArchivedTasksViewModel } from '../models'
+import { ActiveTasksPresenter, ArchivedTasksViewModel } from '../models'
 
 function findTasks(
   selector: Mongo.Selector<TaskDocument> = {},
@@ -13,7 +13,7 @@ function findTasks(
 }
 
 export const TaskUiService = {
-  getAllActiveTasks(): ActiveTasksViewModel {
+  getAllActiveTasks(): ActiveTasksPresenter {
     const cursor = findTasks({ isArchived: false })
     const count = cursor.count()
     const taskDocuments = cursor.fetch()

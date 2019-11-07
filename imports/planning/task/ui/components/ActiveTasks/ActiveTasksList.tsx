@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { ActiveTasksViewModel } from '../../models'
+import { ActiveTasksPresenter } from '../../models'
 import { Section, TasksList } from '../common'
 import { ActiveTasksListItem } from './ActiveTasksListItem'
 import { ActiveTasksProgress } from './ActiveTasksProgress'
 
 interface ActiveTasksListProps {
-  activeTasks: ActiveTasksViewModel
+  activeTasks: ActiveTasksPresenter
 }
 
 export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (

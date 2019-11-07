@@ -1,15 +1,15 @@
 import { TaskViewModel } from './TaskViewModel'
 
-interface ActiveTasksViewModelProps {
+interface ActiveTasksProps {
   tasks: TaskViewModel[]
   count: number
   tickOffTasksCount: number
 }
 
-export class ActiveTasksViewModel {
-  private props: ActiveTasksViewModelProps
+export class ActiveTasksPresenter {
+  private props: ActiveTasksProps
 
-  private constructor(props: ActiveTasksViewModelProps) {
+  private constructor(props: ActiveTasksProps) {
     this.props = props
   }
 
@@ -21,8 +21,8 @@ export class ActiveTasksViewModel {
     return (this.props.tickOffTasksCount * 100) / this.props.count
   }
 
-  static create(props: ActiveTasksViewModelProps): ActiveTasksViewModel {
-    return new ActiveTasksViewModel(props)
+  static create(props: ActiveTasksProps): ActiveTasksPresenter {
+    return new ActiveTasksPresenter(props)
   }
 
   hasTasks(): boolean {
