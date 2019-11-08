@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo'
 import { TaskCollection, TaskDocument } from '../../api/TaskCollection'
 import {
-  ActiveTasksViewModelMapper,
+  ActiveTasksPresenterMapper,
   ArchivedTasksViewModelMapper,
 } from '../mappers'
 import { ActiveTasksPresenter, ArchivedTasksViewModel } from '../models'
@@ -21,7 +21,7 @@ export const TaskUiService = {
       isArchived: false,
       isTickedOff: true,
     }).count()
-    return ActiveTasksViewModelMapper.toPresentation(
+    return ActiveTasksPresenterMapper.toPresentation(
       taskDocuments,
       count,
       tickedOffTasksCount,

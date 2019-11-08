@@ -3,7 +3,7 @@ import { TaskViewModel } from './TaskViewModel'
 interface ActiveTasksProps {
   tasks: TaskViewModel[]
   count: number
-  tickOffTasksCount: number
+  tickedOffTasksCount: number
 }
 
 export class ActiveTasksPresenter {
@@ -18,7 +18,7 @@ export class ActiveTasksPresenter {
   }
 
   get progress(): number {
-    return (this.props.tickOffTasksCount * 100) / this.props.count
+    return (this.props.tickedOffTasksCount * 100) / this.props.count
   }
 
   static create(props: ActiveTasksProps): ActiveTasksPresenter {

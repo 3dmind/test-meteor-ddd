@@ -1,8 +1,8 @@
 import { TaskDocument } from '../../../api/TaskCollection'
 import { ActiveTasksPresenter } from '../../models'
-import { ActiveTasksViewModelMapper } from '../index'
+import { ActiveTasksPresenterMapper } from '../index'
 
-describe('ActiveTasksViewModelMapper', () => {
+describe('ActiveTasksPresenterMapper', () => {
   test('toPresentation()', () => {
     const docs: TaskDocument[] = [
       {
@@ -23,15 +23,15 @@ describe('ActiveTasksViewModelMapper', () => {
       },
     ]
     const count = docs.length
-    const tickOffTasksCount = docs.filter((doc) => doc.isTickedOff).length
+    const tickedOffTasksCount = docs.filter((doc) => doc.isTickedOff).length
 
-    const viewModel = ActiveTasksViewModelMapper.toPresentation(
+    const presenter = ActiveTasksPresenterMapper.toPresentation(
       docs,
       count,
-      tickOffTasksCount,
+      tickedOffTasksCount,
     )
 
-    expect(viewModel).toBeDefined()
-    expect(viewModel).toBeInstanceOf(ActiveTasksPresenter)
+    expect(presenter).toBeDefined()
+    expect(presenter).toBeInstanceOf(ActiveTasksPresenter)
   })
 })

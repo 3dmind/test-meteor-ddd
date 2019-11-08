@@ -24,7 +24,7 @@ describe('ActiveTasksPresenter', () => {
     presenter = ActiveTasksPresenter.create({
       tasks,
       count: tasks.length,
-      tickOffTasksCount: tasks.filter((task) => task.isTickedOff).length,
+      tickedOffTasksCount: tasks.filter((task) => task.isTickedOff).length,
     })
   })
 

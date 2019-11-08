@@ -1,3 +1,3 @@
 export { TaskViewModelMapper } from './TaskViewModelMapper'
-export { ActiveTasksViewModelMapper } from './ActiveTasksViewModelMapper'
+export { ActiveTasksPresenterMapper } from './ActiveTasksPresenterMapper'
 export { ArchivedTasksViewModelMapper } from './ArchivedTasksViewModelMapper'
