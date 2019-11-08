@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_TICK_OFF_METHOD } from '../../constants'
 import { TaskDto } from '../../dto'
-import { TaskPresenter } from '../models'
+import { TaskPresenter } from '../presenter'
 
 export function tickOffTaskAction(task: TaskPresenter): Promise<void> {
   return new Promise((resolve, reject): void => {

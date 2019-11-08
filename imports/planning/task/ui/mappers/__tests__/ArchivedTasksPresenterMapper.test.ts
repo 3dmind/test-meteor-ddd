@@ -1,5 +1,5 @@
 import { TaskDocument } from '../../../api/TaskCollection'
-import { ArchivedTasksPresenter } from '../../models'
+import { ArchivedTasksPresenter } from '../../presenter'
 import { ArchivedTasksPresenterMapper } from '../index'
 
 describe('ArchivedTasksPresenterMapper', () => {

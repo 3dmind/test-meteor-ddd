@@ -1,5 +1,5 @@
 import { TaskDocument } from '../../api/TaskCollection'
-import { ActiveTasksPresenter } from '../models'
+import { ActiveTasksPresenter } from '../presenter'
 import { TaskPresenterMapper } from './TaskPresenterMapper'
 
 export const ActiveTasksPresenterMapper = {

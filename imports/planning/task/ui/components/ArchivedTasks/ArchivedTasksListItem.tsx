@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
-import { TaskPresenter } from '../../models'
+import { TaskPresenter } from '../../presenter'
 import { ArchivedAt } from '../common/ArchivedAt'
 import { useActions } from '../TaskActions'
 

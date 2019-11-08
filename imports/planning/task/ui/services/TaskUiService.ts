@@ -4,7 +4,7 @@ import {
   ActiveTasksPresenterMapper,
   ArchivedTasksPresenterMapper,
 } from '../mappers'
-import { ActiveTasksPresenter, ArchivedTasksPresenter } from '../models'
+import { ActiveTasksPresenter, ArchivedTasksPresenter } from '../presenter'
 
 function findTasks(
   selector: Mongo.Selector<TaskDocument> = {},

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD } from '../../constants'
 import { DiscardArchivedTasksDto } from '../../dto'
-import { TaskPresenter } from '../models'
+import { TaskPresenter } from '../presenter'
 
 export function discardArchivedTasksAction(
   tasks: TaskPresenter[],

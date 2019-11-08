@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ActiveTasksPresenter } from '../../models'
+import { ActiveTasksPresenter } from '../../presenter'
 import { Section, TasksList } from '../common'
 import { ActiveTasksListItem } from './ActiveTasksListItem'
 import { ActiveTasksProgress } from './ActiveTasksProgress'

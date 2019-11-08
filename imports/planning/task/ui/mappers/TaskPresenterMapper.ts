@@ -1,5 +1,5 @@
 import { TaskDocument } from '../../api/TaskCollection'
-import { TaskPresenter } from '../models'
+import { TaskPresenter } from '../presenter'
 
 export const TaskPresenterMapper = {
   toPresentation(doc: TaskDocument): TaskPresenter {

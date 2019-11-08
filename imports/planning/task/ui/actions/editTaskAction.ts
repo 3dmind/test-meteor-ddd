@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_EDIT_METHOD } from '../../constants'
 import { EditTaskDto } from '../../dto'
-import { TaskPresenter } from '../models'
+import { TaskPresenter } from '../presenter'
 
 export function editTaskAction(
   task: TaskPresenter,

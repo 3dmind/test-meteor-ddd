@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core'
 import * as React from 'react'
 import { TextField } from '@material-ui/core'
-import { TaskPresenter } from '../../models'
+import { TaskPresenter } from '../../presenter'
 import { useActions } from '../TaskActions'
 
 interface ActiveTaskDescriptionProps {

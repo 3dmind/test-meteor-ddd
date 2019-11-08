@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TaskPresenter } from '../../models'
+import { TaskPresenter } from '../../presenter'
 import { CreatedAt, TickedOffAt } from '../common'
 
 interface ActiveTaskMetadataProps {

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { PLANNING_TASK_DISCARD_METHOD } from '../../constants'
 import { TaskDto } from '../../dto'
-import { TaskPresenter } from '../models'
+import { TaskPresenter } from '../presenter'
 
 export function discardTaskAction(task: TaskPresenter): Promise<void> {
   return new Promise((resolve, reject): void => {
