@@ -1,6 +1,6 @@
-import { ArchivedTasksViewModel, TaskViewModel } from '../index'
+import { ArchivedTasksPresenter, TaskViewModel } from '../index'
 
-describe('ArchivedTasksViewModel', () => {
+describe('ArchivedTasksPresenter', () => {
   const tasks = [
     TaskViewModel.create({
       id: 'A',
@@ -18,20 +18,20 @@ describe('ArchivedTasksViewModel', () => {
     }),
   ]
 
-  let viewModel: ArchivedTasksViewModel
+  let presenter: ArchivedTasksPresenter
 
   beforeEach(() => {
-    viewModel = ArchivedTasksViewModel.create({
+    presenter = ArchivedTasksPresenter.create({
       tasks,
       count: tasks.length,
     })
   })
 
   test('get property "tasks"', () => {
-    expect(viewModel.tasks).toEqual(tasks)
+    expect(presenter.tasks).toEqual(tasks)
   })
 
   test('#hasTasks()', () => {
-    expect(viewModel.hasTasks()).toBe(true)
+    expect(presenter.hasTasks()).toBe(true)
   })
 })

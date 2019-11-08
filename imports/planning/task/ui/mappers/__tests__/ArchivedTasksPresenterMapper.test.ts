@@ -1,8 +1,8 @@
 import { TaskDocument } from '../../../api/TaskCollection'
-import { ArchivedTasksViewModel } from '../../models'
-import { ArchivedTasksViewModelMapper } from '../index'
+import { ArchivedTasksPresenter } from '../../models'
+import { ArchivedTasksPresenterMapper } from '../index'
 
-describe('ArchivedTasksViewModelMapper', () => {
+describe('ArchivedTasksPresenterMapper', () => {
   test('toPresentation()', () => {
     const docs: TaskDocument[] = [
       {
@@ -24,9 +24,9 @@ describe('ArchivedTasksViewModelMapper', () => {
     ]
     const count = docs.length
 
-    const viewModel = ArchivedTasksViewModelMapper.toPresentation(docs, count)
+    const presenter = ArchivedTasksPresenterMapper.toPresentation(docs, count)
 
-    expect(viewModel).toBeDefined()
-    expect(viewModel).toBeInstanceOf(ArchivedTasksViewModel)
+    expect(presenter).toBeDefined()
+    expect(presenter).toBeInstanceOf(ArchivedTasksPresenter)
   })
 })

@@ -1,3 +1,3 @@
 export { TaskViewModel } from './TaskViewModel'
 export { ActiveTasksPresenter } from './ActiveTasksPresenter'
-export { ArchivedTasksViewModel } from './ArchivedTasksViewModel'
+export { ArchivedTasksPresenter } from './ArchivedTasksPresenter'
