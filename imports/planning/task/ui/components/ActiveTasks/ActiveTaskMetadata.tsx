@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { TaskViewModel } from '../../models'
+import { TaskPresenter } from '../../models'
 import { CreatedAt, TickedOffAt } from '../common'
 
 interface ActiveTaskMetadataProps {
-  task: TaskViewModel
+  task: TaskPresenter
 }
 
 export const ActiveTaskMetadata: React.FunctionComponent<

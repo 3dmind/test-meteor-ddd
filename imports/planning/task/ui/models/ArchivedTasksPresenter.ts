@@ -1,7 +1,7 @@
-import { TaskViewModel } from './TaskViewModel'
+import { TaskPresenter } from './TaskPresenter'
 
 interface ArchivedTasksProps {
-  tasks: TaskViewModel[]
+  tasks: TaskPresenter[]
   count: number
 }
 
@@ -12,7 +12,7 @@ export class ArchivedTasksPresenter {
     this.props = props
   }
 
-  get tasks(): TaskViewModel[] {
+  get tasks(): TaskPresenter[] {
     return this.props.tasks
   }
 

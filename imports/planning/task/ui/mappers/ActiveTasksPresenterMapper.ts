@@ -1,6 +1,6 @@
 import { TaskDocument } from '../../api/TaskCollection'
 import { ActiveTasksPresenter } from '../models'
-import { TaskViewModelMapper } from './TaskViewModelMapper'
+import { TaskPresenterMapper } from './TaskPresenterMapper'
 
 export const ActiveTasksPresenterMapper = {
   toPresentation(
@@ -8,7 +8,7 @@ export const ActiveTasksPresenterMapper = {
     count: number,
     tickedOffTasksCount: number,
   ): ActiveTasksPresenter {
-    const tasks = docs.map((doc) => TaskViewModelMapper.toPresentation(doc))
+    const tasks = docs.map((doc) => TaskPresenterMapper.toPresentation(doc))
     return ActiveTasksPresenter.create({
       tasks,
       count,

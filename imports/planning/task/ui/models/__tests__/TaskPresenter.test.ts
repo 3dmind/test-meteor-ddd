@@ -1,6 +1,6 @@
-import { TaskViewModel } from '../index'
+import { TaskPresenter } from '../index'
 
-describe('TaskViewModel', () => {
+describe('TaskPresenter', () => {
   const props = {
     id: 'A',
     description: 'Lorem ipsum',
@@ -10,21 +10,21 @@ describe('TaskViewModel', () => {
   }
 
   test('get property "id"', () => {
-    const viewModel = TaskViewModel.create(props)
+    const presenter = TaskPresenter.create(props)
 
-    expect(viewModel.id).toEqual(props.id)
+    expect(presenter.id).toEqual(props.id)
   })
 
   test('get property "description"', () => {
-    const viewModel = TaskViewModel.create(props)
+    const presenter = TaskPresenter.create(props)
 
-    expect(viewModel.description).toEqual(props.description)
+    expect(presenter.description).toEqual(props.description)
   })
 
   test('get property "isTickedOff"', () => {
-    const viewModel = TaskViewModel.create(props)
+    const presenter = TaskPresenter.create(props)
 
-    expect(viewModel.isTickedOff).toEqual(props.isTickedOff)
+    expect(presenter.isTickedOff).toEqual(props.isTickedOff)
   })
 
   test('get property "createdAtFormatted"', () => {
@@ -32,9 +32,9 @@ describe('TaskViewModel', () => {
     spy.mockReturnValue('en-US')
     const expectedFormat = 'Sat, Jan 1'
 
-    const viewModel = TaskViewModel.create(props)
+    const presenter = TaskPresenter.create(props)
 
-    expect(viewModel.createdAtFormatted).toEqual(expectedFormat)
+    expect(presenter.createdAtFormatted).toEqual(expectedFormat)
 
     spy.mockRestore()
   })
@@ -48,17 +48,17 @@ describe('TaskViewModel', () => {
       tickedOffAt: new Date('1977-01-02'),
     })
 
-    const viewModel = TaskViewModel.create(localProps)
+    const presenter = TaskPresenter.create(localProps)
 
-    expect(viewModel.tickedOffAtFormatted).toEqual(expectedFormat)
+    expect(presenter.tickedOffAtFormatted).toEqual(expectedFormat)
 
     spy.mockRestore()
   })
 
   test('get property "isArchived"', () => {
-    const viewModel = TaskViewModel.create(props)
+    const presenter = TaskPresenter.create(props)
 
-    expect(viewModel.isArchived).toEqual(props.isArchived)
+    expect(presenter.isArchived).toEqual(props.isArchived)
   })
 
   test('get property archivedAtFormatted', () => {
@@ -70,9 +70,9 @@ describe('TaskViewModel', () => {
       archivedAt: new Date('1977-01-03'),
     })
 
-    const viewModel = TaskViewModel.create(localProps)
+    const presenter = TaskPresenter.create(localProps)
 
-    expect(viewModel.archivedAtFormatted).toEqual(expectedFormat)
+    expect(presenter.archivedAtFormatted).toEqual(expectedFormat)
 
     spy.mockRestore()
   })

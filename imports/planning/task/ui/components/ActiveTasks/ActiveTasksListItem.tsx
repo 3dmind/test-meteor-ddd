@@ -6,7 +6,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import * as React from 'react'
-import { TaskViewModel } from '../../models'
+import { TaskPresenter } from '../../models'
 import { useActions } from '../TaskActions'
 import { ActiveTaskActions } from './ActiveTaskActions'
 import { ActiveTaskDescription } from './ActiveTaskDescription'
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface ActiveTasksListItemProps {
-  task: TaskViewModel
+  task: TaskPresenter
 }
 
 export const ActiveTasksListItem: React.FunctionComponent<

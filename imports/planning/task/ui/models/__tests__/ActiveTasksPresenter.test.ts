@@ -1,15 +1,15 @@
-import { ActiveTasksPresenter, TaskViewModel } from '../index'
+import { ActiveTasksPresenter, TaskPresenter } from '../index'
 
 describe('ActiveTasksPresenter', () => {
   const tasks = [
-    TaskViewModel.create({
+    TaskPresenter.create({
       id: 'A',
       description: 'Lorem ipsum',
       createdAt: new Date('1977-01-01'),
       isTickedOff: false,
       isArchived: false,
     }),
-    TaskViewModel.create({
+    TaskPresenter.create({
       id: 'B',
       description: 'Lorem ipsum',
       createdAt: new Date('1977-01-01'),

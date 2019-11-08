@@ -1,7 +1,7 @@
-import { TaskViewModel } from './TaskViewModel'
+import { TaskPresenter } from './TaskPresenter'
 
 interface ActiveTasksProps {
-  tasks: TaskViewModel[]
+  tasks: TaskPresenter[]
   count: number
   tickedOffTasksCount: number
 }
@@ -13,7 +13,7 @@ export class ActiveTasksPresenter {
     this.props = props
   }
 
-  get tasks(): TaskViewModel[] {
+  get tasks(): TaskPresenter[] {
     return this.props.tasks
   }
 
