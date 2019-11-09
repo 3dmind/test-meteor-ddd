@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import * as React from 'react'
-import { TaskViewModel } from '../../models'
+import { TaskPresenter } from '../../presenter'
 import { ArchivedAt } from '../common/ArchivedAt'
 import { useActions } from '../TaskActions'
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       paddingRight: theme.spacing(1),
       paddingLeft: theme.spacing(1),
-      textDecoration: (task: TaskViewModel): string =>
+      textDecoration: (task: TaskPresenter): string =>
         task.isTickedOff ? 'line-through' : /* otherwise */ 'none',
     },
     secondaryAction: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface ArchivedTasksListItemProps {
-  task: TaskViewModel
+  task: TaskPresenter
 }
 
 export const ArchivedTasksListItem: React.FunctionComponent<

@@ -1,9 +1,9 @@
 import { TaskDocument } from '../../api/TaskCollection'
-import { TaskViewModel } from '../models'
+import { TaskPresenter } from '../presenter'
 
-export const TaskViewModelMapper = {
-  toPresentation(doc: TaskDocument): TaskViewModel {
-    return TaskViewModel.create({
+export const TaskPresenterMapper = {
+  toPresentation(doc: TaskDocument): TaskPresenter {
+    return TaskPresenter.create({
       id: doc._id,
       description: doc.description,
       createdAt: doc.createdAt,
@@ -14,4 +14,4 @@ export const TaskViewModelMapper = {
     })
   },
 }
-Object.freeze(TaskViewModelMapper)
+Object.freeze(TaskPresenterMapper)

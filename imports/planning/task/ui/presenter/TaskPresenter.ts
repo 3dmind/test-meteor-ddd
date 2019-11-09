@@ -1,4 +1,4 @@
-interface TaskViewModelProps {
+interface TaskProps {
   id: string
   description: string
   createdAt: Date
@@ -8,16 +8,16 @@ interface TaskViewModelProps {
   archivedAt?: Date
 }
 
-export class TaskViewModel {
+export class TaskPresenter {
   static dateFormatter = new Intl.DateTimeFormat(navigator.language, {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
   })
 
-  private readonly props: TaskViewModelProps
+  private readonly props: TaskProps
 
-  private constructor(props: TaskViewModelProps) {
+  private constructor(props: TaskProps) {
     this.props = props
   }
 
@@ -30,7 +30,7 @@ export class TaskViewModel {
   }
 
   get createdAtFormatted(): string {
-    return TaskViewModel.dateFormatter.format(this.props.createdAt)
+    return TaskPresenter.dateFormatter.format(this.props.createdAt)
   }
 
   get isTickedOff(): boolean {
@@ -42,7 +42,7 @@ export class TaskViewModel {
     if (!isTickedOff) {
       return ''
     }
-    return TaskViewModel.dateFormatter.format(tickedOffAt)
+    return TaskPresenter.dateFormatter.format(tickedOffAt)
   }
 
   get isArchived(): boolean {
@@ -54,10 +54,10 @@ export class TaskViewModel {
     if (!isArchived) {
       return ''
     }
-    return TaskViewModel.dateFormatter.format(archivedAt)
+    return TaskPresenter.dateFormatter.format(archivedAt)
   }
 
-  static create(props: TaskViewModelProps): TaskViewModel {
-    return new TaskViewModel(props)
+  static create(props: TaskProps): TaskPresenter {
+    return new TaskPresenter(props)
   }
 }
