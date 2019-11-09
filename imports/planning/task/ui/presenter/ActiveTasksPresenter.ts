@@ -13,10 +13,6 @@ export class ActiveTasksPresenter {
     this.props = props
   }
 
-  get tasks(): TaskPresenter[] {
-    return this.props.tasks
-  }
-
   get progress(): number {
     return (this.props.tickedOffTasksCount * 100) / this.props.count
   }
@@ -27,5 +23,13 @@ export class ActiveTasksPresenter {
 
   hasTasks(): boolean {
     return this.props.count > 0
+  }
+
+  allTasks(): TaskPresenter[] {
+    return this.props.tasks
+  }
+
+  withoutTickedOffTasks(): TaskPresenter[] {
+    return this.props.tasks.filter((task) => !task.isTickedOff)
   }
 }
