@@ -13,10 +13,6 @@ export class ActiveTasksPresenter {
     this.props = props
   }
 
-  get tasks(): TaskPresenter[] {
-    return this.props.tasks
-  }
-
   get progress(): number {
     return (this.props.tickedOffTasksCount * 100) / this.props.count
   }

@@ -28,10 +28,6 @@ describe('ActiveTasksPresenter', () => {
     })
   })
 
-  test('get property "tasks"', () => {
-    expect(presenter.tasks).toEqual(tasks)
-  })
-
   test('#hasTasks()', () => {
     expect(presenter.hasTasks()).toBe(true)
   })
