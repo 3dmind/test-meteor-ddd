@@ -36,6 +36,15 @@ describe('ActiveTasksPresenter', () => {
     expect(presenter.hasTasks()).toBe(true)
   })
 
+  test('allTasks()', () => {
+    expect(presenter.allTasks()).toEqual(tasks)
+  })
+
+  test('withoutTickedOffTasks()', () => {
+    const expected = tasks.filter((task) => !task.isTickedOff)
+    expect(presenter.withoutTickedOffTasks()).toEqual(expected)
+  })
+
   describe('property "progress"', () => {
     test('calculate progress for ticked-off tasks', () => {
       expect(presenter.progress).toEqual(50)

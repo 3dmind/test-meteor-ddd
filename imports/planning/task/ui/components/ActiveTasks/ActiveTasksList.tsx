@@ -1,3 +1,4 @@
+import { Checkbox, FormControlLabel, Grid } from '@material-ui/core'
 import * as React from 'react'
 import { ActiveTasksPresenter } from '../../presenter'
 import { Section, TasksList } from '../common'
@@ -12,14 +13,38 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
   props,
 ) => {
   const { activeTasks } = props
+  const [hideTickedOff, setHideTickedOff] = React.useState<boolean>(false)
+
+  function handleChange(): void {
+    setHideTickedOff(!hideTickedOff)
+  }
 
   if (activeTasks.hasTasks()) {
+    let filteredTasks
+    if (hideTickedOff) {
+      filteredTasks = activeTasks.withoutTickedOffTasks()
+    } else {
+      filteredTasks = activeTasks.allTasks()
+    }
     return (
       <>
-        <Section title={'Tasks'} />
+        <Grid
+          container
+          direction={'row'}
+          justify={'space-between'}
+          alignItems={'baseline'}
+        >
+          <Section title={'Tasks'} />
+          <FormControlLabel
+            control={
+              <Checkbox checked={hideTickedOff} onChange={handleChange} />
+            }
+            label={'Hide ticked-off'}
+          />
+        </Grid>
         <ActiveTasksProgress value={activeTasks.progress} />
         <TasksList dense>
-          {activeTasks.tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <ActiveTasksListItem key={task.id} task={task} />
           ))}
         </TasksList>
