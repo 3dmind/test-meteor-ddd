@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo'
 
 export interface TaskDocument {
   _id?: string
+  ownerId: string
   description: string
   createdAt?: Date
   editedAt?: Date
@@ -29,6 +30,7 @@ TaskCollection.deny({
 })
 
 export const taskPublicFields = {
+  ownerId: 1,
   description: 1,
   createdAt: 1,
   editedAt: 1,

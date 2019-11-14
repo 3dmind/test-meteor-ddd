@@ -6,6 +6,7 @@ describe('TaskPresenterMapper', () => {
   test('toPresentation()', () => {
     const doc: TaskDocument = {
       _id: 'A',
+      ownerId: 'A1',
       description: 'Lorem ipsum',
       createdAt: new Date(),
       isTickedOff: false,

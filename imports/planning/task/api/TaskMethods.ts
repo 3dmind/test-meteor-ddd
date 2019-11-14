@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor'
+import { UniqueId } from '../../../core/domain'
 import {
   PLANNING_TASK_ARCHIVE_METHOD,
   PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD,
@@ -21,7 +22,8 @@ import { TaskRepository } from './TaskRepository'
 Meteor.methods({
   [PLANNING_TASK_NOTE_METHOD](dto: NoteTaskDto) {
     const taskDescription = TaskDescription.create(dto.text)
-    const task = TaskEntity.note(taskDescription)
+    const ownerId = UniqueId.create(this.userId)
+    const task = TaskEntity.note(taskDescription, ownerId)
     TaskRepository.saveTask(task)
   },
 

@@ -6,6 +6,7 @@ import { TaskDocument } from './TaskCollection'
 export const TaskMapper = {
   toPersistence(task: TaskEntity): TaskDocument {
     const document: TaskDocument = {
+      ownerId: task.ownerId.value,
       description: task.description.value,
       createdAt: task.createdAt,
       editedAt: task.editedAt,
@@ -28,6 +29,7 @@ export const TaskMapper = {
   toDomain(doc: TaskDocument): TaskEntity {
     return TaskEntity.create(
       {
+        ownerId: UniqueId.create(doc.ownerId),
         description: TaskDescription.create(doc.description),
         createdAt: doc.createdAt,
         resumedAt: doc.resumedAt,

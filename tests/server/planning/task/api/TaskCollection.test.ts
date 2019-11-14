@@ -4,6 +4,7 @@ import { taskPublicFields } from '../../../../../imports/planning/task/api/TaskC
 describe('TaskCollection', function() {
   it('#taskPublicFields', function() {
     assert.deepStrictEqual(taskPublicFields, {
+      ownerId: 1,
       description: 1,
       createdAt: 1,
       editedAt: 1,

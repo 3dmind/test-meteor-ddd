@@ -2,6 +2,8 @@ import { UniqueId } from '../../../core/domain'
 import { TaskDescription } from './TaskDescription'
 
 interface TaskEntityProps {
+  ownerId: UniqueId
+
   description: TaskDescription
   createdAt: Date
   editedAt: undefined | Date
@@ -28,6 +30,10 @@ export class TaskEntity {
 
   get id(): UniqueId {
     return this._id
+  }
+
+  get ownerId(): UniqueId {
+    return this.props.ownerId
   }
 
   get description(): TaskDescription {
@@ -62,8 +68,13 @@ export class TaskEntity {
     return new TaskEntity(props, id)
   }
 
-  public static note(description: TaskDescription): TaskEntity {
+  public static note(
+    description: TaskDescription,
+    ownerId: UniqueId,
+  ): TaskEntity {
     return TaskEntity.create({
+      ownerId,
+
       description,
       createdAt: new Date(),
       editedAt: undefined,
