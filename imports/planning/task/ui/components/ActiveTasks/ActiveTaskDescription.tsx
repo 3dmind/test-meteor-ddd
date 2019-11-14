@@ -1,6 +1,5 @@
-import { Typography } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 import * as React from 'react'
-import { TextField } from '@material-ui/core'
 import { TaskPresenter } from '../../presenter'
 import { useActions } from '../TaskActions'
 
