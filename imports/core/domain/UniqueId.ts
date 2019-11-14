@@ -2,7 +2,7 @@ import * as Ramda from 'ramda'
 import { hasLengthOf, isString } from './validators'
 import { ValueObject } from './ValueObject'
 
-interface UniqueEntityIdProps {
+interface UniqueIdProps {
   value: string
 }
 
@@ -10,8 +10,8 @@ function isValidId(id): boolean {
   return Ramda.allPass([isString, hasLengthOf(17)])(id)
 }
 
-export class UniqueEntityId extends ValueObject<UniqueEntityIdProps> {
-  private constructor(props: UniqueEntityIdProps) {
+export class UniqueId extends ValueObject<UniqueIdProps> {
+  private constructor(props: UniqueIdProps) {
     super(props)
   }
 
@@ -19,9 +19,9 @@ export class UniqueEntityId extends ValueObject<UniqueEntityIdProps> {
     return this.props.value
   }
 
-  public static create(id: string): UniqueEntityId {
+  public static create(id: string): UniqueId {
     if (isValidId(id)) {
-      return new UniqueEntityId({ value: id })
+      return new UniqueId({ value: id })
     }
   }
 }

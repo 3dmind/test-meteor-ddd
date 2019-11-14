@@ -1,4 +1,4 @@
-import { UniqueEntityId } from '../../../core/domain/UniqueEntityId'
+import { UniqueId } from '../../../core/domain'
 import { TaskDescription } from '../domain/TaskDescription'
 import { TaskEntity } from '../domain/TaskEntity'
 import { TaskDocument } from './TaskCollection'
@@ -39,7 +39,7 @@ export const TaskMapper = {
         archived: doc.isArchived,
         archivedAt: doc.archivedAt,
       },
-      UniqueEntityId.create(doc._id),
+      UniqueId.create(doc._id),
     )
   },
 }
