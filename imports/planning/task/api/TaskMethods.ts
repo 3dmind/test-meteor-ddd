@@ -74,6 +74,10 @@ Meteor.methods({
   },
 
   [PLANNING_TASK_DISCARD_METHOD](dto: TaskDto) {
+    if (!this.userId) {
+      throw new UnauthorizedMethodCallException()
+    }
+
     const task = TaskRepository.getTaskById(dto.taskId)
     if (task) {
       task.discard()
