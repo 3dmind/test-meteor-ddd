@@ -86,6 +86,10 @@ Meteor.methods({
   },
 
   [PLANNING_TASK_DISCARD_ALL_ARCHIVE_METHOD](dto: DiscardArchivedTasksDto) {
+    if (!this.userId) {
+      throw new UnauthorizedMethodCallException()
+    }
+
     const tasks = TaskRepository.getAllTasksById(dto.taskIds)
     if (tasks.length) {
       tasks.forEach((task) => task.discard())
