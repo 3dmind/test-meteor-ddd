@@ -49,6 +49,10 @@ Meteor.methods({
   },
 
   [PLANNING_TASK_EDIT_METHOD](dto: EditTaskDto) {
+    if (!this.userId) {
+      throw new UnauthorizedMethodCallException()
+    }
+
     const task = TaskRepository.getTaskById(dto.taskId)
     if (task) {
       const newTaskDescription = TaskDescription.create(dto.newText)
