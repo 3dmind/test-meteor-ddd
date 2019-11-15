@@ -17,10 +17,15 @@ import {
   NoteTaskDto,
   TaskDto,
 } from '../dto'
+import { UnauthorizedMethodCallException } from './exceptions'
 import { TaskRepository } from './TaskRepository'
 
 Meteor.methods({
   [PLANNING_TASK_NOTE_METHOD](dto: NoteTaskDto) {
+    if (!this.userId) {
+      throw new UnauthorizedMethodCallException()
+    }
+
     const taskDescription = TaskDescription.create(dto.text)
     const ownerId = UniqueId.create(this.userId)
     const task = TaskEntity.note(taskDescription, ownerId)
