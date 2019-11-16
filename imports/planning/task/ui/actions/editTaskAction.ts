@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { PLANNING_TASK_EDIT_METHOD } from '../../constants'
 import { EditTaskDto } from '../../dto'
+import { MethodNamesEnum } from '../../enums'
 import { TaskPresenter } from '../presenter'
 
 export function editTaskAction(
@@ -9,7 +9,7 @@ export function editTaskAction(
 ): Promise<void> {
   return new Promise((resolve, reject): void => {
     Meteor.call<EditTaskDto>(
-      PLANNING_TASK_EDIT_METHOD,
+      MethodNamesEnum.EditTask,
       {
         taskId: task.id,
         newText: text,

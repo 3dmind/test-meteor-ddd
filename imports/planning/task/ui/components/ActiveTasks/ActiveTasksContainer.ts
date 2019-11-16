@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor'
 import { withTracker } from 'meteor/react-meteor-data'
-import { PLANNING_TASKS_PUBLICATION } from '../../../constants'
+import { PublicationsEnum } from '../../../enums'
 import { TaskUiService } from '../../services'
 import { ActiveTasksList } from './ActiveTasksList'
 
 export const ActiveTasksContainer = withTracker(() => {
-  Meteor.subscribe(PLANNING_TASKS_PUBLICATION)
+  Meteor.subscribe(PublicationsEnum.Tasks)
   return {
     activeTasks: TaskUiService.getAllActiveTasks(),
   }
