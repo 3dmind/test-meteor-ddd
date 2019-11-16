@@ -20,3 +20,5 @@ typescript
 less
 react-meteor-data
 meteortesting:mocha
+accounts-ui
+accounts-password

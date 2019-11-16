@@ -1,5 +1,5 @@
-import { TaskValidators } from '../TaskValidators'
 import { TaskDescription } from '../TaskDescription'
+import { TaskValidators } from '../TaskValidators'
 
 jest.mock('../TaskValidators')
 const MockedTaskValidators = TaskValidators as jest.Mocked<

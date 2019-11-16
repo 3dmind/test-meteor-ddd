@@ -1,7 +1,9 @@
-import { UniqueEntityId } from '../../../core/domain/UniqueEntityId'
+import { UniqueId } from '../../../core/domain'
 import { TaskDescription } from './TaskDescription'
 
 interface TaskEntityProps {
+  ownerId: UniqueId
+
   description: TaskDescription
   createdAt: Date
   editedAt: undefined | Date
@@ -18,16 +20,20 @@ interface TaskEntityProps {
 }
 
 export class TaskEntity {
-  private readonly _id: UniqueEntityId | undefined
+  private readonly _id: UniqueId | undefined
   private props: TaskEntityProps
 
-  private constructor(props: TaskEntityProps, id: UniqueEntityId) {
+  private constructor(props: TaskEntityProps, id: UniqueId) {
     this._id = id
     this.props = props
   }
 
-  get id(): UniqueEntityId {
+  get id(): UniqueId {
     return this._id
+  }
+
+  get ownerId(): UniqueId {
+    return this.props.ownerId
   }
 
   get description(): TaskDescription {
@@ -58,15 +64,17 @@ export class TaskEntity {
     return this.props.archivedAt
   }
 
-  public static create(
-    props: TaskEntityProps,
-    id?: UniqueEntityId,
-  ): TaskEntity {
+  public static create(props: TaskEntityProps, id?: UniqueId): TaskEntity {
     return new TaskEntity(props, id)
   }
 
-  public static note(description: TaskDescription): TaskEntity {
+  public static note(
+    description: TaskDescription,
+    ownerId: UniqueId,
+  ): TaskEntity {
     return TaskEntity.create({
+      ownerId,
+
       description,
       createdAt: new Date(),
       editedAt: undefined,

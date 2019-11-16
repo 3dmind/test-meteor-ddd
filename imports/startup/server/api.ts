@@ -1,2 +1,2 @@
 import '../../planning/task/api/server/TaskPublication'
-import '../../planning/task/api/TaskMethods'
+import '../../planning/task/api/methods'

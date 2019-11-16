@@ -1,4 +1,4 @@
-import { UniqueEntityId } from '../../../core/domain/UniqueEntityId'
+import { UniqueId } from '../../../core/domain'
 import { TaskDescription } from '../domain/TaskDescription'
 import { TaskEntity } from '../domain/TaskEntity'
 import { TaskDocument } from './TaskCollection'
@@ -6,6 +6,7 @@ import { TaskDocument } from './TaskCollection'
 export const TaskMapper = {
   toPersistence(task: TaskEntity): TaskDocument {
     const document: TaskDocument = {
+      ownerId: task.ownerId.value,
       description: task.description.value,
       createdAt: task.createdAt,
       editedAt: task.editedAt,
@@ -28,6 +29,7 @@ export const TaskMapper = {
   toDomain(doc: TaskDocument): TaskEntity {
     return TaskEntity.create(
       {
+        ownerId: UniqueId.create(doc.ownerId),
         description: TaskDescription.create(doc.description),
         createdAt: doc.createdAt,
         resumedAt: doc.resumedAt,
@@ -39,7 +41,7 @@ export const TaskMapper = {
         archived: doc.isArchived,
         archivedAt: doc.archivedAt,
       },
-      UniqueEntityId.create(doc._id),
+      UniqueId.create(doc._id),
     )
   },
 }

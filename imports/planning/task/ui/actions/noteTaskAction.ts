@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor'
-import { PLANNING_TASK_NOTE_METHOD } from '../../constants'
 import { NoteTaskDto } from '../../dto'
+import { MethodNamesEnum } from '../../enums'
 
 export function noteTaskAction(text: string): Promise<void> {
   return new Promise((resolve, reject): void => {
     Meteor.call<NoteTaskDto>(
-      PLANNING_TASK_NOTE_METHOD,
+      MethodNamesEnum.NoteTask,
       { text },
       (error, value) => {
         if (error) {

@@ -1,6 +1,6 @@
+import { TaskEntity } from '../domain/TaskEntity'
 import { TaskCollection, TaskDocument } from './TaskCollection'
 import { TaskMapper } from './TaskMapper'
-import { TaskEntity } from '../domain/TaskEntity'
 
 export const TaskRepository = {
   saveTask(task: TaskEntity): string {

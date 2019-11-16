@@ -7,6 +7,7 @@ describe('ArchivedTasksPresenterMapper', () => {
     const docs: TaskDocument[] = [
       {
         _id: 'A',
+        ownerId: 'A1',
         description: 'Lorem ipsum',
         createdAt: new Date(),
         isTickedOff: true,
@@ -15,6 +16,7 @@ describe('ArchivedTasksPresenterMapper', () => {
       },
       {
         _id: 'B',
+        ownerId: 'A1',
         description: 'Lorem ipsum',
         createdAt: new Date(),
         isTickedOff: false,

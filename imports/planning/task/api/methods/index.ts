@@ -1,0 +1,7 @@
+import './archiveTaskMethod'
+import './discardAllArchivedTasksMethod'
+import './discardTaskMethod'
+import './editTaskMethod'
+import './noteTaskMethod'
+import './resumeTaskMethod'
+import './tickOffTaskMethod'

@@ -1,2 +1,2 @@
-import './planning/task/api/TaskMethods.test'
+import './planning/task/api/methods'
 import './planning/task/api/TaskCollection.test'

@@ -1,5 +1,5 @@
 import * as Ramda from 'ramda'
-import { isLengthGreaterThen, isString } from '../../../core/domain/validators'
+import { isLengthGreaterThen, isString } from '../../../core/domain'
 
 export const TaskValidators = {
   isValidTaskDescription(text: string): boolean {

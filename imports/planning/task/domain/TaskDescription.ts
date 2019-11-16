@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../core/domain/ValueObject'
+import { ValueObject } from '../../../core/domain'
 import { TaskValidators } from './TaskValidators'
 
 interface TaskDescriptionProps {
