@@ -2,7 +2,10 @@ import { Meteor } from 'meteor/meteor'
 import { TaskDescription } from '../../domain/TaskDescription'
 import { EditTaskDto } from '../../dto'
 import { MethodNamesEnum } from '../../enums'
-import { UnauthorizedMethodCallException } from '../exceptions'
+import {
+  TaskNotFoundException,
+  UnauthorizedMethodCallException,
+} from '../exceptions'
 import { TaskRepository } from '../TaskRepository'
 
 Meteor.methods({
@@ -12,10 +15,11 @@ Meteor.methods({
     }
 
     const task = TaskRepository.getTaskById(dto.taskId)
-    if (task) {
-      const newTaskDescription = TaskDescription.create(dto.newText)
-      task.edit(newTaskDescription)
-      TaskRepository.updateTask(task)
+    if (!task) {
+      throw new TaskNotFoundException()
     }
+    const newTaskDescription = TaskDescription.create(dto.newText)
+    task.edit(newTaskDescription)
+    TaskRepository.updateTask(task)
   },
 })

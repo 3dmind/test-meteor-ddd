@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { TaskDto } from '../../dto'
 import { MethodNamesEnum } from '../../enums'
+import { TaskNotFoundException } from '../exceptions'
 import { TaskRepository } from '../TaskRepository'
 
 Meteor.methods({
@@ -8,9 +9,10 @@ Meteor.methods({
     dto: TaskDto,
   ): void {
     const task = TaskRepository.getTaskById(dto.taskId)
-    if (task) {
-      task.tickOff()
-      TaskRepository.updateTask(task)
+    if (!task) {
+      throw new TaskNotFoundException()
     }
+    task.tickOff()
+    TaskRepository.updateTask(task)
   },
 })
