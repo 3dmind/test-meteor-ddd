@@ -1,8 +1,7 @@
 import * as Ramda from 'ramda'
 
-interface ValueObjectProperties {
-  [key: string]: any
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ValueObjectProperties = Record<string, any>
 
 export abstract class ValueObject<T extends ValueObjectProperties> {
   public readonly props: T

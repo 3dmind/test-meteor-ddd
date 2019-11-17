@@ -1,5 +1,10 @@
-import { ValueObject } from '../../../core/domain'
-import { TaskValidators } from './TaskValidators'
+import * as Ramda from 'ramda'
+import { isLengthGreaterThen, isString } from './validators'
+import { ValueObject } from './ValueObject'
+
+function isValidTaskDescription(text: string): boolean {
+  return Ramda.allPass([isString, isLengthGreaterThen(0)])(text)
+}
 
 interface TaskDescriptionProps {
   value: string
@@ -15,7 +20,7 @@ export class TaskDescription extends ValueObject<TaskDescriptionProps> {
   }
 
   public static create(text: string): TaskDescription {
-    if (TaskValidators.isValidTaskDescription(text)) {
+    if (isValidTaskDescription(text)) {
       return new TaskDescription({ value: text })
     }
   }

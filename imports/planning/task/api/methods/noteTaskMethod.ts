@@ -1,7 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../../../core/domain'
-import { TaskDescription } from '../../domain/TaskDescription'
-import { TaskEntity } from '../../domain/TaskEntity'
+import { TaskDescription, TaskEntity, UniqueId } from '../../domain'
 import { NoteTaskDto } from '../../dto'
 import { MethodNamesEnum } from '../../enums'
 import { UnauthorizedMethodCallException } from '../exceptions'

@@ -1,4 +1,4 @@
-import { TaskEntity } from '../domain/TaskEntity'
+import { TaskEntity } from '../domain'
 import { TaskCollection, TaskDocument } from './TaskCollection'
 import { TaskMapper } from './TaskMapper'
 

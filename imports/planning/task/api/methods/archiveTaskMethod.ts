@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../../../core/domain'
+import { UniqueId } from '../../domain'
 import { TaskDto } from '../../dto'
 import { MethodNamesEnum } from '../../enums'
 import {

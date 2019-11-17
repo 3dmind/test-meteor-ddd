@@ -1,5 +1,5 @@
-import { UniqueId } from '../../../core/domain'
 import { TaskDescription } from './TaskDescription'
+import { UniqueId } from './UniqueId'
 
 interface TaskEntityProps {
   ownerId: UniqueId

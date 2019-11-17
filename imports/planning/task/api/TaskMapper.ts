@@ -1,6 +1,4 @@
-import { UniqueId } from '../../../core/domain'
-import { TaskDescription } from '../domain/TaskDescription'
-import { TaskEntity } from '../domain/TaskEntity'
+import { TaskDescription, TaskEntity, UniqueId } from '../domain'
 import { TaskDocument } from './TaskCollection'
 
 export const TaskMapper = {
