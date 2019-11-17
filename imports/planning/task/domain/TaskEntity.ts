@@ -111,6 +111,10 @@ export class TaskEntity {
     return this._id.equals(object.id)
   }
 
+  public isOwnedByUser(userId: UniqueId): boolean {
+    return this.ownerId.equals(userId)
+  }
+
   public tickOff(): void {
     if (!this.isTickedOff()) {
       this.props.tickedOff = true
