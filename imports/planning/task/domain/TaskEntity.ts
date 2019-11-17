@@ -1,5 +1,4 @@
-import { TaskDescription } from './TaskDescription'
-import { UniqueId } from './UniqueId'
+import { TaskDescription, UniqueId } from './values'
 
 interface TaskEntityProps {
   ownerId: UniqueId
