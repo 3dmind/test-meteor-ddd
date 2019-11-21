@@ -3,7 +3,8 @@ import { TaskDocument } from './TaskCollection'
 
 export const TaskMapper = {
   toPersistence(task: TaskEntity): TaskDocument {
-    const document: TaskDocument = {
+    return {
+      _id: task.id.value,
       ownerId: task.ownerId.value,
       description: task.description.value,
       createdAt: task.createdAt,
@@ -16,31 +17,22 @@ export const TaskMapper = {
       isArchived: task.isArchived(),
       archivedAt: task.archivedAt,
     }
-
-    if (task.id) {
-      Object.assign(document, { _id: task.id.value })
-    }
-
-    return document
   },
 
   toDomain(doc: TaskDocument): TaskEntity {
-    return TaskEntity.create(
-      {
-        ownerId: UniqueId.create(doc.ownerId),
-        description: TaskDescription.create(doc.description),
-        createdAt: doc.createdAt,
-        resumedAt: doc.resumedAt,
-        tickedOff: doc.isTickedOff,
-        tickedOffAt: doc.tickedOffAt,
-        editedAt: doc.editedAt,
-        discarded: doc.isDiscarded,
-        discardedAt: doc.discardedAt,
-        archived: doc.isArchived,
-        archivedAt: doc.archivedAt,
-      },
-      UniqueId.create(doc._id),
-    )
+    return TaskEntity.create(UniqueId.create(doc._id), {
+      ownerId: UniqueId.create(doc.ownerId),
+      description: TaskDescription.create(doc.description),
+      createdAt: doc.createdAt,
+      resumedAt: doc.resumedAt,
+      tickedOff: doc.isTickedOff,
+      tickedOffAt: doc.tickedOffAt,
+      editedAt: doc.editedAt,
+      discarded: doc.isDiscarded,
+      discardedAt: doc.discardedAt,
+      archived: doc.isArchived,
+      archivedAt: doc.archivedAt,
+    })
   },
 }
 

@@ -19,7 +19,7 @@ interface TaskEntityProps {
 }
 
 export class TaskEntity {
-  private readonly _id: UniqueId | undefined
+  private readonly _id: UniqueId
   private props: TaskEntityProps
 
   private constructor(props: TaskEntityProps, id: UniqueId) {
@@ -63,15 +63,16 @@ export class TaskEntity {
     return this.props.archivedAt
   }
 
-  public static create(props: TaskEntityProps, id?: UniqueId): TaskEntity {
+  public static create(id: UniqueId, props: TaskEntityProps): TaskEntity {
     return new TaskEntity(props, id)
   }
 
   public static note(
+    id: UniqueId,
     description: TaskDescription,
     ownerId: UniqueId,
   ): TaskEntity {
-    return TaskEntity.create({
+    return TaskEntity.create(id, {
       ownerId,
 
       description,
