@@ -1,4 +1,5 @@
-import { TaskEntity } from '../domain'
+import { Random } from 'meteor/random'
+import { TaskEntity, TaskList, UniqueId } from '../domain'
 import { TaskCollection, TaskDocument } from './TaskCollection'
 import { TaskMapper } from './TaskMapper'
 
@@ -13,9 +14,9 @@ export const TaskRepository = {
     })
   },
 
-  updateAllTasks(tasks: TaskEntity[]): number {
+  updateAllTasks(taskList: TaskList): number {
     try {
-      return tasks.map((task) =>
+      return taskList.toArray().map((task) =>
         TaskCollection.update(task.id.value, {
           $set: { ...TaskMapper.toPersistence(task) },
         }),
@@ -34,15 +35,12 @@ export const TaskRepository = {
     }
   },
 
-  getAllTasksById(ids: string[]): TaskEntity[] | undefined {
-    const tasks = TaskCollection.find({ _id: { $in: ids } }).map((document) =>
-      TaskMapper.toDomain(document),
-    )
-    if (tasks) {
-      return tasks
-    } else {
-      return undefined
-    }
+  getAllTasksById(ids: string[]): TaskList {
+    const cursor = TaskCollection.find({ _id: { $in: ids } })
+    const count = cursor.count()
+    const tasks = cursor.map((document) => TaskMapper.toDomain(document))
+    const id = UniqueId.create(Random.id())
+    return TaskList.create(id, { count, tasks })
   },
 }
 

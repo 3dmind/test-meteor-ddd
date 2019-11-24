@@ -15,11 +15,11 @@ Meteor.methods({
       throw new UnauthorizedMethodCallException()
     }
 
-    const tasks = TaskRepository.getAllTasksById(dto.taskIds)
-    if (tasks.length === 0) {
-      throw new TaskNotFoundException('Tasks were not found.')
+    const taskList = TaskRepository.getAllTasksById(dto.taskIds)
+    if (taskList.isEmpty()) {
+      throw new TaskNotFoundException('Selected tasks were not found.')
     }
-    tasks.forEach((task) => task.discard())
-    TaskRepository.updateAllTasks(tasks)
+    taskList.discardTasks()
+    TaskRepository.updateAllTasks(taskList)
   },
 })
