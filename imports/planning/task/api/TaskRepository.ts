@@ -35,8 +35,12 @@ export const TaskRepository = {
     }
   },
 
-  getAllTasksById(ids: string[]): TaskList {
-    const cursor = TaskCollection.find({ _id: { $in: ids } })
+  getAllArchivedTasks(ownerId: UniqueId): TaskList {
+    const selector: Mongo.Selector<TaskDocument> = {
+      ownerId: ownerId.value,
+      isArchived: true,
+    }
+    const cursor = TaskCollection.find(selector)
     const count = cursor.count()
     const tasks = cursor.map((document) => TaskMapper.toDomain(document))
     const id = UniqueId.create(Random.id())
