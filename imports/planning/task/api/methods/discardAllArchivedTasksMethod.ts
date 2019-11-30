@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { DiscardArchivedTasksDto } from '../../dto'
+import { UniqueId } from '../../domain/values'
 import { MethodNamesEnum } from '../../enums'
 import {
   TaskNotFoundException,
@@ -8,18 +8,17 @@ import {
 import { TaskRepository } from '../TaskRepository'
 
 Meteor.methods({
-  [MethodNamesEnum.DiscardAllArchivedTasks]: function discardAllArchivedTasksMethod(
-    dto: DiscardArchivedTasksDto,
-  ): void {
+  [MethodNamesEnum.DiscardAllArchivedTasks]: function discardAllArchivedTasksMethod(): void {
     if (!this.userId) {
       throw new UnauthorizedMethodCallException()
     }
 
-    const tasks = TaskRepository.getAllTasksById(dto.taskIds)
-    if (tasks.length === 0) {
-      throw new TaskNotFoundException('Tasks were not found.')
+    const ownerId = UniqueId.create(this.userId)
+    const taskList = TaskRepository.getAllArchivedTasks(ownerId)
+    if (taskList.isEmpty()) {
+      throw new TaskNotFoundException('Selected tasks were not found.')
     }
-    tasks.forEach((task) => task.discard())
-    TaskRepository.updateAllTasks(tasks)
+    taskList.discardTasks()
+    TaskRepository.updateAllTasks(taskList)
   },
 })

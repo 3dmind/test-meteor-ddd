@@ -1,6 +1,7 @@
-import { TaskEntity } from '../domain/TaskEntity'
+import { Random } from 'meteor/random'
+import { TaskEntity, TaskList, UniqueId } from '../domain'
+import { TaskListMapper, TaskMapper } from './mappers'
 import { TaskCollection, TaskDocument } from './TaskCollection'
-import { TaskMapper } from './TaskMapper'
 
 export const TaskRepository = {
   saveTask(task: TaskEntity): string {
@@ -13,11 +14,12 @@ export const TaskRepository = {
     })
   },
 
-  updateAllTasks(tasks: TaskEntity[]): number {
+  updateAllTasks(taskList: TaskList): number {
+    const taskDocuments = TaskListMapper.toPersistence(taskList)
     try {
-      return tasks.map((task) =>
-        TaskCollection.update(task.id.value, {
-          $set: { ...TaskMapper.toPersistence(task) },
+      return taskDocuments.map(([taskId, document]) =>
+        TaskCollection.update(taskId, {
+          $set: { ...document },
         }),
       ).length
     } catch (e) {
@@ -34,15 +36,16 @@ export const TaskRepository = {
     }
   },
 
-  getAllTasksById(ids: string[]): TaskEntity[] | undefined {
-    const tasks = TaskCollection.find({ _id: { $in: ids } }).map((document) =>
-      TaskMapper.toDomain(document),
-    )
-    if (tasks) {
-      return tasks
-    } else {
-      return undefined
+  getAllArchivedTasks(ownerId: UniqueId): TaskList {
+    const selector: Mongo.Selector<TaskDocument> = {
+      ownerId: ownerId.value,
+      isArchived: true,
     }
+    const cursor = TaskCollection.find(selector)
+    const count = cursor.count()
+    const documents = cursor.fetch()
+    const id = UniqueId.create(Random.id())
+    return TaskListMapper.toDomain(id, documents, count)
   },
 }
 

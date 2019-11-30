@@ -17,7 +17,7 @@ export const ArchivedTasksList: React.FunctionComponent<
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
-    discardArchivedTasksAction(archivedTasks.tasks)
+    discardArchivedTasksAction()
   }
 
   if (archivedTasks.hasTasks()) {
