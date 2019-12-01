@@ -3,9 +3,9 @@ import { Meteor } from 'meteor/meteor'
 import {
   NoteTaskDTO,
   NoteTaskMethodName,
+  TaskCollection,
 } from '../../../../../../imports/planning/task/api'
 import { UnauthorizedMethodCallException } from '../../../../../../imports/planning/task/api/exceptions'
-import { TaskCollection } from '../../../../../../imports/planning/task/api/TaskCollection'
 import { userIdFixture } from './fixtures'
 
 describe('Note task method', function() {

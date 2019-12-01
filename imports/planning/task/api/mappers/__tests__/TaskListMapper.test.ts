@@ -1,6 +1,5 @@
-import { TaskList } from '../../../domain'
-import { UniqueId } from '../../../domain/values'
-import { TaskDocument } from '../../TaskCollection'
+import { TaskList, UniqueId } from '../../../domain'
+import { TaskDocument } from '../../collections'
 import { TaskListMapper, TaskMapper } from '../index'
 
 describe('TaskListMapper', () => {

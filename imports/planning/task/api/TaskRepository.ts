@@ -1,7 +1,7 @@
 import { Random } from 'meteor/random'
 import { TaskEntity, TaskList, UniqueId } from '../domain'
 import { TaskListMapper, TaskMapper } from './mappers'
-import { TaskCollection, TaskDocument } from './TaskCollection'
+import { TaskCollection, TaskDocument } from './collections'
 
 export const TaskRepository = {
   saveTask(task: TaskEntity): string {

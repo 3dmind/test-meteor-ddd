@@ -1,4 +1,4 @@
-import { TaskDocument } from '../../../../../../../imports/planning/task/api/TaskCollection'
+import { TaskDocument } from '../../../../../../../imports/planning/task/api'
 
 export const userIdFixture = '46o9S4ukleKhMtjMu'
 

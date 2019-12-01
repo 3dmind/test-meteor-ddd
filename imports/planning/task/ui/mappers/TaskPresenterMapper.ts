@@ -1,4 +1,4 @@
-import { TaskDocument } from '../../api/TaskCollection'
+import { TaskDocument } from '../../api'
 import { TaskPresenter } from '../presenter'
 
 export const TaskPresenterMapper = {

@@ -1,4 +1,4 @@
-import { TaskDocument } from '../../api/TaskCollection'
+import { TaskDocument } from '../../api'
 import { ArchivedTasksPresenter } from '../presenter'
 import { TaskPresenterMapper } from './TaskPresenterMapper'
 

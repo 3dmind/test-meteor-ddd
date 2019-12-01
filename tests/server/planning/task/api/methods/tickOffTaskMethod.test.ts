@@ -2,6 +2,8 @@ import * as assert from 'assert'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import {
+  TaskCollection,
+  TaskDocument,
   TickOffTaskDTO,
   TickOffTaskMethodName,
 } from '../../../../../../imports/planning/task/api'
@@ -10,10 +12,6 @@ import {
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
 } from '../../../../../../imports/planning/task/api/exceptions'
-import {
-  TaskCollection,
-  TaskDocument,
-} from '../../../../../../imports/planning/task/api/TaskCollection'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Tick-off task method', function() {

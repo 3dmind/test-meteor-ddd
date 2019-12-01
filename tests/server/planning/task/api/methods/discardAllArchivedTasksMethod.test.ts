@@ -2,14 +2,14 @@ import * as assert from 'assert'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import {
+  DiscardAllArchivedTasksMethodName,
+  TaskCollection,
+  TaskDocument,
+} from '../../../../../../imports/planning/task/api'
+import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
 } from '../../../../../../imports/planning/task/api/exceptions'
-import { DiscardAllArchivedTasksMethodName } from '../../../../../../imports/planning/task/api'
-import {
-  TaskCollection,
-  TaskDocument,
-} from '../../../../../../imports/planning/task/api/TaskCollection'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Discard all archived tasks method', function() {

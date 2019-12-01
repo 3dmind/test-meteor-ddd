@@ -1,3 +1,4 @@
+export * from './collections'
 export * from './methods/archiveTask'
 export * from './methods/discardAllArchivedTasks'
 export * from './methods/discardTask'

@@ -1,5 +1,5 @@
 import { TaskList, UniqueId } from '../../domain'
-import { TaskDocument } from '../TaskCollection'
+import { TaskDocument } from '../collections'
 import { TaskMapper } from './TaskMapper'
 
 type TaskDocuments = Array<[string, TaskDocument]>

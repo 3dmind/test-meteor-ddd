@@ -4,16 +4,14 @@ import { Mongo } from 'meteor/mongo'
 import {
   EditTaskDTO,
   EditTaskMethodName,
+  TaskCollection,
+  TaskDocument,
 } from '../../../../../../imports/planning/task/api'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
 } from '../../../../../../imports/planning/task/api/exceptions'
-import {
-  TaskCollection,
-  TaskDocument,
-} from '../../../../../../imports/planning/task/api/TaskCollection'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Edit task method', function() {

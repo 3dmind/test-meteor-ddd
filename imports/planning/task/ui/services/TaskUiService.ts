@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo'
-import { TaskCollection, TaskDocument } from '../../api/TaskCollection'
+import { TaskCollection, TaskDocument } from '../../api'
 import {
   ActiveTasksPresenterMapper,
   ArchivedTasksPresenterMapper,

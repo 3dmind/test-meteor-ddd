@@ -1,5 +1,5 @@
 import { TaskDescription, TaskEntity, UniqueId } from '../../domain'
-import { TaskDocument } from '../TaskCollection'
+import { TaskDocument } from '../collections'
 
 export const TaskMapper = {
   toPersistence(task: TaskEntity): TaskDocument {
