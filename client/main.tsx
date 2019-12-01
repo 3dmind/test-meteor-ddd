@@ -3,13 +3,13 @@ import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import '../imports/startup/client/accounts.config'
-import { Application } from '../imports/ui/Application'
+import { ApplicationController } from '../imports/ui'
 
 Meteor.startup(function onStartUp() {
   ReactDOM.render(
     <>
       <CssBaseline />
-      <Application />
+      <ApplicationController />
     </>,
     document.querySelector('#app'),
   )
