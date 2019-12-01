@@ -1,0 +1,7 @@
+export * from './methods/archiveTask'
+export * from './methods/discardAllArchivedTasks'
+export * from './methods/discardTask'
+export * from './methods/editTask'
+export * from './methods/noteTask'
+export * from './methods/resumeTask'
+export * from './methods/tickOffTask'

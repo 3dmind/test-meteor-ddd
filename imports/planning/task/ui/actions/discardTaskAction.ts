@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor'
-import { TaskDto } from '../../dto'
-import { MethodNamesEnum } from '../../enums'
+import { DiscardTaskDTO, DiscardTaskMethodName } from '../../api'
 import { TaskPresenter } from '../presenter'
 
 export function discardTaskAction(task: TaskPresenter): Promise<void> {
   return new Promise((resolve, reject): void => {
-    Meteor.call<TaskDto>(
-      MethodNamesEnum.DiscardTask,
+    Meteor.call<DiscardTaskDTO>(
+      DiscardTaskMethodName,
       { taskId: task.id },
       (error, value) => {
         if (error) {

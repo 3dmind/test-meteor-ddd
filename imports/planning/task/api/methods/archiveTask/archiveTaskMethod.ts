@@ -1,17 +1,17 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../domain'
-import { TaskDto } from '../../dto'
-import { MethodNamesEnum } from '../../enums'
+import { UniqueId } from '../../../domain'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
-} from '../exceptions'
-import { TaskRepository } from '../TaskRepository'
+} from '../../exceptions'
+import { TaskRepository } from '../../TaskRepository'
+import { ArchiveTaskDTO } from './ArchiveTaskDTO'
+import { ArchiveTaskMethodName } from './ArchiveTaskMethodName'
 
 Meteor.methods({
-  [MethodNamesEnum.ArchiveTask]: function archiveTaskMethod(
-    dto: TaskDto,
+  [ArchiveTaskMethodName]: function archiveTaskMethod(
+    dto: ArchiveTaskDTO,
   ): void {
     if (!this.userId) {
       throw new UnauthorizedMethodCallException()

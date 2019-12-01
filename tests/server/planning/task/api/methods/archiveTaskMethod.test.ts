@@ -2,6 +2,10 @@ import * as assert from 'assert'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import {
+  ArchiveTaskDTO,
+  ArchiveTaskMethodName,
+} from '../../../../../../imports/planning/task/api'
+import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
@@ -10,17 +14,14 @@ import {
   TaskCollection,
   TaskDocument,
 } from '../../../../../../imports/planning/task/api/TaskCollection'
-import { TaskDto } from '../../../../../../imports/planning/task/dto'
-import { MethodNamesEnum } from '../../../../../../imports/planning/task/enums'
-import { userIdFixture, taskDocFixture } from './fixtures'
+import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Archive task method', function() {
   let archiveTaskMethod
   let documentId
 
   before(function() {
-    archiveTaskMethod =
-      Meteor.server.method_handlers[MethodNamesEnum.ArchiveTask]
+    archiveTaskMethod = Meteor.server.method_handlers[ArchiveTaskMethodName]
   })
 
   beforeEach(function() {
@@ -33,7 +34,7 @@ describe('Archive task method', function() {
 
   it('should throw when user is not logged-in', function() {
     const context = {}
-    const dto: TaskDto = { taskId: documentId }
+    const dto: ArchiveTaskDTO = { taskId: documentId }
 
     assert.throws(() => {
       archiveTaskMethod.apply(context, [dto])
@@ -42,7 +43,7 @@ describe('Archive task method', function() {
 
   it('should throw when task was not found', function() {
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TaskDto = { taskId: 'A' }
+    const dto: ArchiveTaskDTO = { taskId: 'A' }
 
     assert.throws(() => {
       archiveTaskMethod.apply(context, [dto])
@@ -51,7 +52,7 @@ describe('Archive task method', function() {
 
   it('should throw when owner and user do not match', function() {
     const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' })
-    const dto: TaskDto = { taskId: documentId }
+    const dto: ArchiveTaskDTO = { taskId: documentId }
 
     assert.throws(() => {
       archiveTaskMethod.apply(context, [dto])
@@ -61,7 +62,7 @@ describe('Archive task method', function() {
   it('should archive task', function() {
     const selector: Mongo.Selector<TaskDocument> = { isArchived: true }
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TaskDto = { taskId: documentId }
+    const dto: ArchiveTaskDTO = { taskId: documentId }
 
     archiveTaskMethod.apply(context, [dto])
     const actual = TaskCollection.find(selector).count()

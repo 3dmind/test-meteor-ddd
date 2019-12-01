@@ -1,14 +1,14 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../domain/values'
-import { MethodNamesEnum } from '../../enums'
+import { UniqueId } from '../../../domain/values'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
-} from '../exceptions'
-import { TaskRepository } from '../TaskRepository'
+} from '../../exceptions'
+import { TaskRepository } from '../../TaskRepository'
+import { DiscardAllArchivedTasksMethodName } from './DiscardAllArchivedTasksMethodName'
 
 Meteor.methods({
-  [MethodNamesEnum.DiscardAllArchivedTasks]: function discardAllArchivedTasksMethod(): void {
+  [DiscardAllArchivedTasksMethodName]: function discardAllArchivedTasksMethod(): void {
     if (!this.userId) {
       throw new UnauthorizedMethodCallException()
     }

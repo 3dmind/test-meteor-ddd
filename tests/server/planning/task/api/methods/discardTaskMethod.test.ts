@@ -2,6 +2,10 @@ import * as assert from 'assert'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import {
+  DiscardTaskDTO,
+  DiscardTaskMethodName,
+} from '../../../../../../imports/planning/task/api'
+import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
@@ -10,8 +14,6 @@ import {
   TaskCollection,
   TaskDocument,
 } from '../../../../../../imports/planning/task/api/TaskCollection'
-import { TaskDto } from '../../../../../../imports/planning/task/dto'
-import { MethodNamesEnum } from '../../../../../../imports/planning/task/enums'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Discard task method', function() {
@@ -19,8 +21,7 @@ describe('Discard task method', function() {
   let documentId
 
   before(function() {
-    discardTaskMethod =
-      Meteor.server.method_handlers[MethodNamesEnum.DiscardTask]
+    discardTaskMethod = Meteor.server.method_handlers[DiscardTaskMethodName]
   })
 
   beforeEach(function() {
@@ -33,7 +34,7 @@ describe('Discard task method', function() {
 
   it('should throw when user is not logged-in', function() {
     const context = {}
-    const dto: TaskDto = { taskId: documentId }
+    const dto: DiscardTaskDTO = { taskId: documentId }
 
     assert.throws(() => {
       discardTaskMethod.apply(context, [dto])
@@ -42,7 +43,7 @@ describe('Discard task method', function() {
 
   it('should throw when task was not found', function() {
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TaskDto = { taskId: 'A' }
+    const dto: DiscardTaskDTO = { taskId: 'A' }
 
     assert.throws(() => {
       discardTaskMethod.apply(context, [dto])
@@ -51,7 +52,7 @@ describe('Discard task method', function() {
 
   it('should throw when owner and user do not match', function() {
     const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' })
-    const dto: TaskDto = { taskId: documentId }
+    const dto: DiscardTaskDTO = { taskId: documentId }
 
     assert.throws(() => {
       discardTaskMethod.apply(context, [dto])
@@ -61,7 +62,7 @@ describe('Discard task method', function() {
   it('should discard task', function() {
     const selector: Mongo.Selector<TaskDocument> = { isDiscarded: true }
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TaskDto = { taskId: documentId }
+    const dto: DiscardTaskDTO = { taskId: documentId }
 
     discardTaskMethod.apply(context, [dto])
     const actual = TaskCollection.find(selector).count()

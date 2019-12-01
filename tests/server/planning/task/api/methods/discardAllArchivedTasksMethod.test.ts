@@ -5,11 +5,11 @@ import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
 } from '../../../../../../imports/planning/task/api/exceptions'
+import { DiscardAllArchivedTasksMethodName } from '../../../../../../imports/planning/task/api'
 import {
   TaskCollection,
   TaskDocument,
 } from '../../../../../../imports/planning/task/api/TaskCollection'
-import { MethodNamesEnum } from '../../../../../../imports/planning/task/enums'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Discard all archived tasks method', function() {
@@ -17,7 +17,7 @@ describe('Discard all archived tasks method', function() {
 
   before(function() {
     discardAllArchivedTasksMethod =
-      Meteor.server.method_handlers[MethodNamesEnum.DiscardAllArchivedTasks]
+      Meteor.server.method_handlers[DiscardAllArchivedTasksMethodName]
   })
 
   beforeEach(function() {

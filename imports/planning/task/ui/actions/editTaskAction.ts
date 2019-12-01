@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { EditTaskDto } from '../../dto'
-import { MethodNamesEnum } from '../../enums'
+import { EditTaskDTO, EditTaskMethodName } from '../../api'
 import { TaskPresenter } from '../presenter'
 
 export function editTaskAction(
@@ -8,8 +7,8 @@ export function editTaskAction(
   text: string,
 ): Promise<void> {
   return new Promise((resolve, reject): void => {
-    Meteor.call<EditTaskDto>(
-      MethodNamesEnum.EditTask,
+    Meteor.call<EditTaskDTO>(
+      EditTaskMethodName,
       {
         taskId: task.id,
         newText: text,

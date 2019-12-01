@@ -2,6 +2,10 @@ import * as assert from 'assert'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import {
+  EditTaskDTO,
+  EditTaskMethodName,
+} from '../../../../../../imports/planning/task/api'
+import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
@@ -10,8 +14,6 @@ import {
   TaskCollection,
   TaskDocument,
 } from '../../../../../../imports/planning/task/api/TaskCollection'
-import { EditTaskDto } from '../../../../../../imports/planning/task/dto'
-import { MethodNamesEnum } from '../../../../../../imports/planning/task/enums'
 import { taskDocFixture, userIdFixture } from './fixtures'
 
 describe('Edit task method', function() {
@@ -19,7 +21,7 @@ describe('Edit task method', function() {
   let documentId
 
   before(function() {
-    editTaskMethod = Meteor.server.method_handlers[MethodNamesEnum.EditTask]
+    editTaskMethod = Meteor.server.method_handlers[EditTaskMethodName]
   })
 
   beforeEach(function() {
@@ -33,7 +35,7 @@ describe('Edit task method', function() {
   it('should throw when user is not logged-in', function() {
     const newText = 'Lorem ispum dolor amet sum'
     const context = {}
-    const dto: EditTaskDto = {
+    const dto: EditTaskDTO = {
       taskId: documentId,
       newText,
     }
@@ -46,7 +48,7 @@ describe('Edit task method', function() {
   it('should throw when task was not found', function() {
     const newText = 'Lorem ispum dolor amet sum'
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: EditTaskDto = {
+    const dto: EditTaskDTO = {
       taskId: 'A',
       newText,
     }
@@ -59,7 +61,7 @@ describe('Edit task method', function() {
   it('should throw when owner and user do not match', function() {
     const newText = 'Lorem ispum dolor amet sum'
     const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' })
-    const dto: EditTaskDto = {
+    const dto: EditTaskDTO = {
       taskId: documentId,
       newText,
     }
@@ -73,7 +75,7 @@ describe('Edit task method', function() {
     const newText = 'Lorem ispum dolor amet sum'
     const selector: Mongo.Selector<TaskDocument> = { description: newText }
     const context = Object.assign({}, { userId: userIdFixture })
-    const dto: EditTaskDto = {
+    const dto: EditTaskDTO = {
       taskId: documentId,
       newText,
     }

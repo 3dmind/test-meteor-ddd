@@ -1,18 +1,16 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../domain'
-import { TaskDto } from '../../dto'
-import { MethodNamesEnum } from '../../enums'
+import { UniqueId } from '../../../domain'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
-} from '../exceptions'
-import { TaskRepository } from '../TaskRepository'
+} from '../../exceptions'
+import { TaskRepository } from '../../TaskRepository'
+import { ResumeTaskDTO } from './ResumeTaskDTO'
+import { ResumeTaskMethodName } from './ResumeTaskMethodName'
 
 Meteor.methods({
-  [MethodNamesEnum.DiscardTask]: function discardTaskMethod(
-    dto: TaskDto,
-  ): void {
+  [ResumeTaskMethodName]: function resumeTaskMethod(dto: ResumeTaskDTO): void {
     if (!this.userId) {
       throw new UnauthorizedMethodCallException()
     }
@@ -24,7 +22,7 @@ Meteor.methods({
     if (!task.isOwnedByUser(UniqueId.create(this.userId))) {
       throw new UnauthorizedTaskOperationException()
     }
-    task.discard()
+    task.resume()
     TaskRepository.updateTask(task)
   },
 })

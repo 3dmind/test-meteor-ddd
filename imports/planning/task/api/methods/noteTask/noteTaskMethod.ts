@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor'
 import { Random } from 'meteor/random'
-import { TaskDescription, TaskEntity, UniqueId } from '../../domain'
-import { NoteTaskDto } from '../../dto'
-import { MethodNamesEnum } from '../../enums'
-import { UnauthorizedMethodCallException } from '../exceptions'
-import { TaskRepository } from '../TaskRepository'
+import { TaskDescription, TaskEntity, UniqueId } from '../../../domain'
+import { UnauthorizedMethodCallException } from '../../exceptions'
+import { TaskRepository } from '../../TaskRepository'
+import { NoteTaskDTO } from './NoteTaskDTO'
+import { NoteTaskMethodName } from './NoteTaskMethodName'
 
 Meteor.methods({
-  [MethodNamesEnum.NoteTask]: function noteTaskMethod(dto: NoteTaskDto): void {
+  [NoteTaskMethodName]: function noteTaskMethod(dto: NoteTaskDTO): void {
     if (!this.userId) {
       throw new UnauthorizedMethodCallException()
     }
