@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
-import { PublicationsEnum } from '../../enums'
 import {
   TaskCollection,
   TaskCollectionPublicFields,
   TaskDocument,
-} from '../collections'
+} from '../../collections'
+import { Publications } from '../Publications'
 
-Meteor.publish(PublicationsEnum.Tasks, function tasksPublication() {
+Meteor.publish(Publications.Tasks, function publishTasks() {
   const selector: Mongo.Selector<TaskDocument> = {
     ownerId: this.userId,
     isDiscarded: false,
