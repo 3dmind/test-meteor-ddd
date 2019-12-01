@@ -1,4 +1,4 @@
-export enum StatusEnum {
+export enum Status {
   Unauthorized = 401,
   NotFound = 404,
 }

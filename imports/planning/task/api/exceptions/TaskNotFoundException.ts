@@ -1,11 +1,11 @@
-import { StatusEnum } from '../../enums'
-import { Exception } from './Exception'
+import { ApiException } from './ApiException'
+import { Status } from './Status'
 
-export class TaskNotFoundException extends Exception {
+export class TaskNotFoundException extends ApiException {
   constructor(
     message = 'Task was not found',
     error = 'Not found',
-    statusCode = StatusEnum.NotFound,
+    statusCode = Status.NotFound,
   ) {
     super(message, error, statusCode)
   }

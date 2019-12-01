@@ -1,11 +1,11 @@
-import { StatusEnum } from '../../enums'
-import { Exception } from './Exception'
+import { ApiException } from './ApiException'
+import { Status } from './Status'
 
-export class UnauthorizedTaskOperationException extends Exception {
+export class UnauthorizedTaskOperationException extends ApiException {
   constructor(
     message = 'Authorisation is required to perform this task operation',
     error = 'Unauthorized',
-    statusCode = StatusEnum.Unauthorized,
+    statusCode = Status.Unauthorized,
   ) {
     super(message, error, statusCode)
   }
