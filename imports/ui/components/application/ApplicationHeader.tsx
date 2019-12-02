@@ -26,11 +26,11 @@ export const ApplicationHeader: React.FunctionComponent<
   ApplicationHeaderProps
 > = (props) => {
   const { isAuthenticated } = props
-  const { logoutAction } = useActions()
+  const { signOutAction } = useActions()
   const classes = useStyles(props)
 
   function handleFulfilled(): void {
-    console.log('logout successful')
+    console.log('Sign out successful')
   }
 
   function handleRejected(error): void {
@@ -39,7 +39,7 @@ export const ApplicationHeader: React.FunctionComponent<
 
   function handleClickLogout(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault()
-    logoutAction()
+    signOutAction()
       .then(handleFulfilled)
       .catch(handleRejected)
   }
@@ -54,7 +54,7 @@ export const ApplicationHeader: React.FunctionComponent<
         <AccountsUiWrapper />
         {isAuthenticated ? (
           <Button color={'inherit'} onClick={handleClickLogout}>
-            Logout
+            Sign out
           </Button>
         ) : null}
       </Toolbar>

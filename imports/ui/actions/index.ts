@@ -1,1 +1,1 @@
-export { logoutAction } from './logoutAction'
+export { signOutAction } from './signOutAction'
