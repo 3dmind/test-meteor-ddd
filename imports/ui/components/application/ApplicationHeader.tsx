@@ -9,6 +9,7 @@ import {
 import * as React from 'react'
 import { useActions } from '../ApplicationActions'
 import { AccountsUiWrapper } from './AccountsUiWrapper'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,10 +28,12 @@ export const ApplicationHeader: React.FunctionComponent<
 > = (props) => {
   const { isAuthenticated } = props
   const { signOutAction } = useActions()
+  const history = useHistory()
   const classes = useStyles(props)
 
   function handleFulfilled(): void {
     console.log('Sign out successful')
+    history.push('/login')
   }
 
   function handleRejected(error): void {
