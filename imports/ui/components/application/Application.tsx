@@ -28,7 +28,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
             <SignIn />
           )}
         </Route>
-        <Route path={'/login'}>
+        <Route path={'/signin'}>
           <SignIn />
         </Route>
         <Route path={'/signup'}>

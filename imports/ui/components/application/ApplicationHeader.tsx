@@ -33,7 +33,7 @@ export const ApplicationHeader: React.FunctionComponent<
 
   function handleFulfilled(): void {
     console.log('Sign out successful')
-    history.push('/login')
+    history.push('/signin')
   }
 
   function handleRejected(error): void {

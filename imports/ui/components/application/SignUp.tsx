@@ -124,7 +124,7 @@ export const SignUp: React.FunctionComponent = (props) => {
           </Grid>
           <Grid item>
             <Typography component={'p'} align={'right'}>
-              <Link to={'/login'}>Already have an account? Sign in</Link>
+              <Link to={'/signin'}>Already have an account? Sign in</Link>
             </Typography>
           </Grid>
         </Grid>
