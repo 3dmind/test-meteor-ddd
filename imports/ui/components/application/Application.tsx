@@ -5,6 +5,7 @@ import { ApplicationContent } from './ApplicationContent'
 import { ApplicationHeader } from './ApplicationHeader'
 import { Switch, Route } from 'react-router-dom'
 import { SignIn } from './SignIn'
+import { SignUp } from './SignUp'
 
 interface ApplicationProps {
   application: ApplicationPresenter
@@ -25,6 +26,9 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
         </Route>
         <Route path={'/login'}>
           <SignIn />
+        </Route>
+        <Route path={'/signup'}>
+          <SignUp />
         </Route>
       </Switch>
     </>
