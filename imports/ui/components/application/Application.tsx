@@ -18,7 +18,10 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
   const { application } = props
   return (
     <>
-      <ApplicationHeader isAuthenticated={application.isAuthenticated()} />
+      <ApplicationHeader
+        isAuthenticated={application.isAuthenticated()}
+        username={application.username}
+      />
       <Switch>
         <Route exact path={'/'}>
           {application.isAuthenticated() ? (
