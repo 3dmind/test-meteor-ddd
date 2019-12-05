@@ -4,6 +4,7 @@ import { TaskController } from '../../../planning/task/ui'
 import { ApplicationPresenter } from '../../presenter'
 import { ApplicationContent } from './ApplicationContent'
 import { ApplicationHeader } from './ApplicationHeader'
+import { ChangePassword } from './ChangePassword'
 import { SignIn } from './SignIn'
 import { SignUp } from './SignUp'
 
@@ -33,6 +34,9 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
         </Route>
         <Route path={'/signup'}>
           <SignUp />
+        </Route>
+        <Route path={'/changepassword'}>
+          <ChangePassword />
         </Route>
       </Switch>
     </>
