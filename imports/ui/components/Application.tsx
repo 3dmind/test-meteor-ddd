@@ -2,10 +2,9 @@ import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { TaskController } from '../../planning/task/ui'
 import { ApplicationPresenter } from '../presenter'
-import { AccountSignIn } from './Account'
+import { AccountSignIn, AccountSignUp } from './Account'
 import { ApplicationContent, ApplicationHeader } from './ApplicationBar'
 import { ChangePassword } from './ChangePassword'
-import { SignUp } from './SignUp'
 
 interface ApplicationProps {
   application: ApplicationPresenter
@@ -35,7 +34,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
           <AccountSignIn />
         </Route>
         <Route path={'/signup'}>
-          <SignUp />
+          <AccountSignUp />
         </Route>
         <Route path={'/changepassword'}>
           <ChangePassword />
