@@ -9,8 +9,8 @@ import {
   Typography,
 } from '@material-ui/core'
 import * as React from 'react'
-import { useHistory } from 'react-router-dom'
-import { useActions } from '../ApplicationActions'
+import { Link, useHistory } from 'react-router-dom'
+import { useActions } from './ApplicationActions'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -21,51 +21,45 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export const ChangePassword: React.FunctionComponent = (props) => {
+export const SignUp: React.FunctionComponent = (props) => {
   const history = useHistory()
-  const { changePasswordAction } = useActions()
-  const [oldPassword, setOldPassword] = React.useState<string>('')
-  const [newPassword, setNewPassword] = React.useState<string>('')
-  const [newRepeatedPassword, setNewRepeatedPassword] = React.useState<string>(
-    '',
-  )
+  const { signUpAction } = useActions()
+  const [username, setUsername] = React.useState<string>('')
+  const [password, setPassword] = React.useState<string>('')
+  const [repeatedPassword, setRepeatedPassword] = React.useState<string>('')
 
-  function handleChangeOldPassword(
+  function handleChangeUsername(
     event: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    setOldPassword(event.target.value)
+    setUsername(event.target.value)
   }
 
   function handleChangePassword(
     event: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    setNewPassword(event.target.value)
+    setPassword(event.target.value)
   }
 
   function handleChangeRepeatedPassword(
     event: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    setNewRepeatedPassword(event.target.value)
+    setRepeatedPassword(event.target.value)
   }
 
   function handleFulfilled(): void {
-    console.log('Change password successful')
+    console.log('Sign up successful')
     history.push('/')
   }
 
   function handleRejected(error): void {
     console.error(error)
-    setOldPassword('')
-    setNewPassword('')
-    setNewRepeatedPassword('')
+    setPassword('')
+    setRepeatedPassword('')
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    changePasswordAction({
-      newPassword,
-      oldPassword,
-    })
+    signUpAction({ username, password })
       .then(handleFulfilled)
       .catch(handleRejected)
   }
@@ -77,7 +71,7 @@ export const ChangePassword: React.FunctionComponent = (props) => {
         <Grid container spacing={2} direction={'column'}>
           <Grid item>
             <Typography component={'h1'} variant={'h5'} align={'center'}>
-              Change password
+              Create account
             </Typography>
           </Grid>
           <Grid item>
@@ -87,21 +81,20 @@ export const ChangePassword: React.FunctionComponent = (props) => {
                   <TextField
                     fullWidth
                     variant={'outlined'}
-                    name={'oldPassword'}
-                    label={'Password'}
-                    type={'password'}
-                    value={oldPassword}
-                    onChange={handleChangeOldPassword}
+                    name={'username'}
+                    label={'Username'}
+                    value={username}
+                    onChange={handleChangeUsername}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
                     variant={'outlined'}
-                    name={'newPassword'}
-                    label={'New Password'}
+                    name={'password'}
+                    label={'Password'}
                     type={'password'}
-                    value={newPassword}
+                    value={password}
                     onChange={handleChangePassword}
                   />
                 </Grid>
@@ -109,10 +102,10 @@ export const ChangePassword: React.FunctionComponent = (props) => {
                   <TextField
                     fullWidth
                     variant={'outlined'}
-                    name={'newRepeatedPassword'}
-                    label={'New Password (again)'}
+                    name={'repeatedPassword'}
+                    label={'Password (again)'}
                     type={'password'}
-                    value={newRepeatedPassword}
+                    value={repeatedPassword}
                     onChange={handleChangeRepeatedPassword}
                   />
                 </Grid>
@@ -123,11 +116,16 @@ export const ChangePassword: React.FunctionComponent = (props) => {
                     variant={'contained'}
                     color={'primary'}
                   >
-                    Change password
+                    Sign up
                   </Button>
                 </Grid>
               </Grid>
             </form>
+          </Grid>
+          <Grid item>
+            <Typography component={'p'} align={'right'}>
+              <Link to={'/signin'}>Already have an account? Sign in</Link>
+            </Typography>
           </Grid>
         </Grid>
       </Paper>

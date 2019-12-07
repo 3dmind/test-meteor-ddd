@@ -5,7 +5,7 @@ interface SignInAction {
   password: string
 }
 
-export function signInAction({
+export async function signInAction({
   username,
   password,
 }: SignInAction): Promise<void> {

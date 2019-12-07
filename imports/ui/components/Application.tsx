@@ -1,11 +1,10 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { TaskController } from '../../../planning/task/ui'
-import { ApplicationPresenter } from '../../presenter'
-import { ApplicationContent } from './ApplicationContent'
-import { ApplicationHeader } from './ApplicationHeader'
+import { TaskController } from '../../planning/task/ui'
+import { ApplicationPresenter } from '../presenter'
+import { AccountSignIn } from './Account'
+import { ApplicationContent, ApplicationHeader } from './ApplicationBar'
 import { ChangePassword } from './ChangePassword'
-import { SignIn } from './SignIn'
 import { SignUp } from './SignUp'
 
 interface ApplicationProps {
@@ -29,11 +28,11 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
               <TaskController />
             </ApplicationContent>
           ) : (
-            <SignIn />
+            <AccountSignIn />
           )}
         </Route>
         <Route path={'/signin'}>
-          <SignIn />
+          <AccountSignIn />
         </Route>
         <Route path={'/signup'}>
           <SignUp />
