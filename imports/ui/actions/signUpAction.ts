@@ -5,7 +5,7 @@ interface SignUpAction {
   password: string
 }
 
-export function signUpAction({
+export async function signUpAction({
   password,
   username,
 }: SignUpAction): Promise<void> {

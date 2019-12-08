@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useActions } from '../ApplicationActions'
@@ -53,20 +54,24 @@ export const ApplicationHeader: React.FunctionComponent<
   }
 
   function handleFulfilled(): void {
-    console.log('Sign out successful')
     history.push('/signin')
   }
 
-  function handleRejected(error): void {
-    console.error(error)
+  function handleRejected(error: Meteor.Error): void {
+    console.error(error.reason)
   }
 
-  function handleClickSignOut(event: React.MouseEvent<HTMLLIElement>): void {
+  async function handleClickSignOut(
+    event: React.MouseEvent<HTMLLIElement>,
+  ): Promise<void> {
     event.preventDefault()
     setAnchorEl(null)
-    signOutAction()
-      .then(handleFulfilled)
-      .catch(handleRejected)
+    try {
+      await signOutAction()
+      handleFulfilled()
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
   const classes = useStyles(props)
