@@ -1,18 +1,18 @@
 import { Accounts } from 'meteor/accounts-base'
 
 interface ChangePasswordAction {
-  oldPassword: string
+  password: string
   newPassword: string
 }
 
-export function changePasswordAction({
-  oldPassword,
+export async function changePasswordAction({
+  password,
   newPassword,
 }: ChangePasswordAction): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    Accounts.changePassword(oldPassword, newPassword, (error) => {
+    Accounts.changePassword(password, newPassword, (error) => {
       if (error) {
-        reject()
+        reject(error)
       }
 
       resolve()
