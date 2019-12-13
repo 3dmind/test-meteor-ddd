@@ -2,12 +2,12 @@ import { Meteor } from 'meteor/meteor'
 import { ArchiveTaskDTO, ArchiveTaskMethodName } from '../../api'
 import { TaskPresenter } from '../presenter'
 
-export function archiveTaskAction(task: TaskPresenter): Promise<void> {
-  return new Promise((resolve, reject): void => {
+export async function archiveTaskAction(task: TaskPresenter): Promise<void> {
+  return new Promise(function executor(resolve, reject) {
     Meteor.call<ArchiveTaskDTO>(
       ArchiveTaskMethodName,
       { taskId: task.id },
-      (error, value) => {
+      function callback(error, value) {
         if (error) {
           reject(error)
         }

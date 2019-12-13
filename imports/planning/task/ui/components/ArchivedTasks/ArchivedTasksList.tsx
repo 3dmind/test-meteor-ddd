@@ -1,4 +1,5 @@
 import { Button, Grid } from '@material-ui/core'
+import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import { ArchivedTasksPresenter } from '../../presenter'
 import { Section, SectionDivider, TasksList } from '../common'
@@ -15,9 +16,24 @@ export const ArchivedTasksList: React.FunctionComponent<
   const { archivedTasks } = props
   const { discardArchivedTasksAction } = useActions()
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
+  function handleFulfilled(): void {
+    console.log('All archived tasks discarded.')
+  }
+
+  function handleRejected(error: Meteor.Error): void {
+    console.log(error)
+  }
+
+  async function handleClick(
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): Promise<void> {
     event.preventDefault()
-    discardArchivedTasksAction()
+    try {
+      await discardArchivedTasksAction()
+      handleFulfilled()
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
   if (archivedTasks.hasTasks()) {

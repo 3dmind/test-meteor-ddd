@@ -1,5 +1,6 @@
-import { Paper, TextField } from '@material-ui/core'
+import { Paper, TextField } from '@material-ui/core/'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import { useActions } from './TaskActions'
 
@@ -25,7 +26,7 @@ export const NoteTask: React.FunctionComponent = (props) => {
     console.log('noted')
   }
 
-  function handleRejected(error): void {
+  function handleRejected(error: Meteor.Error): void {
     console.error(error)
   }
 
@@ -33,12 +34,18 @@ export const NoteTask: React.FunctionComponent = (props) => {
     setText('')
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault()
-    noteTaskAction(text)
-      .then(handleFulfilled)
-      .catch(handleRejected)
-      .finally(handleFinally)
+    try {
+      await noteTaskAction(text)
+      handleFulfilled()
+    } catch (exception) {
+      handleRejected(exception)
+    } finally {
+      handleFinally()
+    }
   }
 
   return (
