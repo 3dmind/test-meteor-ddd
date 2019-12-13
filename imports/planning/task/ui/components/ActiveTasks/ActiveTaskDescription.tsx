@@ -2,6 +2,7 @@ import { TextField, Typography } from '@material-ui/core'
 import * as React from 'react'
 import { TaskPresenter } from '../../presenter'
 import { useActions } from '../TaskActions'
+import { Meteor } from 'meteor/meteor'
 
 interface ActiveTaskDescriptionProps {
   task: TaskPresenter
@@ -24,7 +25,7 @@ export const ActiveTaskDescription: React.FunctionComponent<
     console.log('edited')
   }
 
-  function handleRejected(error): void {
+  function handleRejected(error: Meteor.Error): void {
     console.error(error)
   }
 
@@ -32,12 +33,18 @@ export const ActiveTaskDescription: React.FunctionComponent<
     onFinishEditing()
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault()
-    editTaskAction(task, text)
-      .then(handleFulfilled)
-      .catch(handleRejected)
-      .finally(handleFinally)
+    try {
+      await editTaskAction(task, text)
+      handleFulfilled()
+    } catch (exception) {
+      handleRejected(exception)
+    } finally {
+      handleFinally()
+    }
   }
 
   if (isEditing) {

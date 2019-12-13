@@ -5,6 +5,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core'
+import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import { TaskPresenter } from '../../presenter'
 import { useActions } from '../TaskActions'
@@ -51,36 +52,48 @@ export const ActiveTasksListItem: React.FunctionComponent<
   } = useActions()
 
   const handleFulfilled = (message: string) => (): void => console.log(message)
-  function handleRejected(error): void {
-    console.log(error)
+  function handleRejected(exception: Meteor.Error): void {
+    console.log(exception)
   }
 
-  function tickOff(): void {
-    tickOffTaskAction(task)
-      .then(handleFulfilled('tickedOff'))
-      .catch(handleRejected)
+  async function tickOff(): Promise<void> {
+    try {
+      await tickOffTaskAction(task)
+      handleFulfilled('tickedOff')
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
-  function resume(): void {
-    resumeTaskAction(task)
-      .then(handleFulfilled('resumed'))
-      .catch(handleRejected)
+  async function resume(): Promise<void> {
+    try {
+      await resumeTaskAction(task)
+      handleFulfilled('resumed')
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
   function handleChange(): void {
     task.isTickedOff ? resume() : /* otherwise */ tickOff()
   }
 
-  function handleDiscard(): void {
-    discardTaskAction(task)
-      .then(handleFulfilled('discarded'))
-      .catch(handleRejected)
+  async function handleDiscard(): Promise<void> {
+    try {
+      await discardTaskAction(task)
+      handleFulfilled('discarded')
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
-  function handleArchive(): void {
-    archiveTaskAction(task)
-      .then(handleFulfilled('archived'))
-      .catch(handleRejected)
+  async function handleArchive(): Promise<void> {
+    try {
+      await archiveTaskAction(task)
+      handleFulfilled('archived')
+    } catch (exception) {
+      handleRejected(exception)
+    }
   }
 
   function handleEdit(): void {

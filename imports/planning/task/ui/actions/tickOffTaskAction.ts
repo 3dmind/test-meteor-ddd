@@ -2,12 +2,12 @@ import { Meteor } from 'meteor/meteor'
 import { TickOffTaskDTO, TickOffTaskMethodName } from '../../api'
 import { TaskPresenter } from '../presenter'
 
-export function tickOffTaskAction(task: TaskPresenter): Promise<void> {
-  return new Promise((resolve, reject): void => {
+export async function tickOffTaskAction(task: TaskPresenter): Promise<void> {
+  return new Promise(function executor(resolve, reject) {
     Meteor.call<TickOffTaskDTO>(
       TickOffTaskMethodName,
       { taskId: task.id },
-      (error, value) => {
+      function callback(error, value) {
         if (error) {
           reject(error)
         }

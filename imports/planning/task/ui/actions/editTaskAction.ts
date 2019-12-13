@@ -2,18 +2,18 @@ import { Meteor } from 'meteor/meteor'
 import { EditTaskDTO, EditTaskMethodName } from '../../api'
 import { TaskPresenter } from '../presenter'
 
-export function editTaskAction(
+export async function editTaskAction(
   task: TaskPresenter,
   text: string,
 ): Promise<void> {
-  return new Promise((resolve, reject): void => {
+  return new Promise(function executor(resolve, reject) {
     Meteor.call<EditTaskDTO>(
       EditTaskMethodName,
       {
         taskId: task.id,
         newText: text,
       },
-      (error, value) => {
+      function callback(error, value) {
         if (error) {
           reject(error)
         }
