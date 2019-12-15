@@ -2,20 +2,20 @@ import * as Ramda from 'ramda'
 
 const notIsNil = Ramda.complement(Ramda.isNil)
 
-interface ApplicationProps {
+interface UserProps {
   userId: string
   username: string
 }
 
-export class ApplicationPresenter {
-  private readonly props: ApplicationProps
+export class UserPresenter {
+  private readonly props: UserProps
 
-  private constructor(props: ApplicationProps) {
+  private constructor(props: UserProps) {
     this.props = props
   }
 
-  static create(props: ApplicationProps): ApplicationPresenter {
-    return new ApplicationPresenter(props)
+  static create(props: UserProps): UserPresenter {
+    return new UserPresenter(props)
   }
 
   get username(): string {
