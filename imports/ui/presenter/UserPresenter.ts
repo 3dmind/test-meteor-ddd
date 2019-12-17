@@ -1,6 +1,4 @@
-import * as Ramda from 'ramda'
-
-const notIsNil = Ramda.complement(Ramda.isNil)
+import { isNil } from 'ramda'
 
 interface UserProps {
   userId: string
@@ -23,6 +21,6 @@ export class UserPresenter {
   }
 
   public isAuthenticated(): boolean {
-    return notIsNil(this.props.userId)
+    return !isNil(this.props.userId)
   }
 }
