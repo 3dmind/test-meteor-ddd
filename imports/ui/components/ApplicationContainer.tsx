@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor'
 import { withTracker } from 'meteor/react-meteor-data'
-import { ApplicationPresenterMapper } from '../mappers'
+import { UserPresenterMapper } from '../mappers'
 import { Application } from './Application'
 
 export const ApplicationContainer = withTracker(() => {
-  const application = ApplicationPresenterMapper.toPresentation(Meteor.user())
+  const user = UserPresenterMapper.toPresentation(Meteor.user())
   return {
-    application,
+    user,
   }
 })(Application)

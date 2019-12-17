@@ -1,27 +1,27 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { TaskController } from '../../planning/task/ui'
-import { ApplicationPresenter } from '../presenter'
+import { UserPresenter } from '../presenter'
 import { AccountChangePassword, AccountSignIn, AccountSignUp } from './Account'
 import { ApplicationContent, ApplicationHeader } from './ApplicationBar'
 
 interface ApplicationProps {
-  application: ApplicationPresenter
+  user: UserPresenter
 }
 
 export const Application: React.FunctionComponent<ApplicationProps> = (
   props,
 ) => {
-  const { application } = props
+  const { user } = props
   return (
     <>
       <ApplicationHeader
-        isAuthenticated={application.isAuthenticated()}
-        username={application.username}
+        isAuthenticated={user.isAuthenticated()}
+        username={user.username}
       />
       <Switch>
         <Route exact path={'/'}>
-          {application.isAuthenticated() ? (
+          {user.isAuthenticated() ? (
             <ApplicationContent>
               <TaskController />
             </ApplicationContent>
