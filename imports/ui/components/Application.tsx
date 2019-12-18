@@ -4,6 +4,7 @@ import { TaskController } from '../../planning/task/ui'
 import { UserPresenter } from '../presenter'
 import { AccountChangePassword, AccountSignIn, AccountSignUp } from './Account'
 import { ApplicationContent, ApplicationHeader } from './ApplicationBar'
+import { UserGreeter } from './UserGreeter'
 
 interface ApplicationProps {
   user: UserPresenter
@@ -23,6 +24,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = (
         <Route exact path={'/'}>
           {user.isAuthenticated() ? (
             <ApplicationContent>
+              <UserGreeter username={user.username} />
               <TaskController />
             </ApplicationContent>
           ) : (
