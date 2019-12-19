@@ -3,10 +3,21 @@ import * as React from 'react'
 import { TaskUiService } from '../../services'
 import { ActiveTasksList } from './ActiveTasksList'
 
-export const ActiveTasksContainer: React.FunctionComponent = () => {
+interface ContainerProps {
+  isLoading: boolean
+}
+
+export const ActiveTasksContainer: React.FunctionComponent<ContainerProps> = (
+  props,
+) => {
+  const { isLoading } = props
   const activeTasks = useTracker(function fetch() {
     return TaskUiService.getAllActiveTasks()
   }, [])
+
+  if (isLoading) {
+    return null
+  }
 
   return <ActiveTasksList activeTasks={activeTasks} />
 }

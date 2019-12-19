@@ -16,14 +16,9 @@ export const TaskContainer: React.FunctionComponent = () => {
   return (
     <>
       <NoteTask />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <ActiveTasksContainer />
-          <ArchivedTasksContainer />
-        </>
-      )}
+      <Loader show={isLoading} />
+      <ActiveTasksContainer isLoading={isLoading} />
+      <ArchivedTasksContainer isLoading={isLoading} />
     </>
   )
 }
