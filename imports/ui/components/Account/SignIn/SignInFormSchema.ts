@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
-import { SignInFormValues } from './SignInForm'
+import { SignInFormValues } from './SignInFormValues'
 
-export const SignInSchema = Yup.object().shape<SignInFormValues>({
+export const SignInFormSchema = Yup.object().shape<SignInFormValues>({
   password: Yup.string()
     .trim()
     .required('Password is required'),
