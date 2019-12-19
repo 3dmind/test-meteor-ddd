@@ -1,13 +1,8 @@
-import * as React from 'react'
 import { Button, Grid } from '@material-ui/core'
 import { Field, Form, FormikProps } from 'formik'
 import { TextField } from 'formik-material-ui'
-
-export interface SignUpFormValues {
-  username: string
-  password: string
-  repeatedPassword: string
-}
+import * as React from 'react'
+import { SignUpFormValues } from './SignUpFormValues'
 
 export const SignUpForm: React.FunctionComponent<
   FormikProps<SignUpFormValues>

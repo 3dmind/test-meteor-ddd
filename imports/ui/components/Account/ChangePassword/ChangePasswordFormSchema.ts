@@ -1,7 +1,9 @@
 import * as Yup from 'yup'
-import { ChangePasswordValues } from './ChangePasswordForm'
+import { ChangePasswordFormValues } from './ChangePasswordFormValues'
 
-export const ChangePasswordSchema = Yup.object().shape<ChangePasswordValues>({
+export const ChangePasswordFormSchema = Yup.object().shape<
+  ChangePasswordFormValues
+>({
   password: Yup.string()
     .trim()
     .required('Password is required'),

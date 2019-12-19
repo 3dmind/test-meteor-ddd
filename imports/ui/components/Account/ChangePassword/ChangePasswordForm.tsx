@@ -2,15 +2,10 @@ import { Button, Grid } from '@material-ui/core'
 import { Field, Form, FormikProps } from 'formik'
 import { TextField } from 'formik-material-ui'
 import * as React from 'react'
-
-export interface ChangePasswordValues {
-  password: string
-  newPassword: string
-  newRepeatedPassword: string
-}
+import { ChangePasswordFormValues } from './ChangePasswordFormValues'
 
 export const ChangePasswordForm: React.FunctionComponent<
-  FormikProps<ChangePasswordValues>
+  FormikProps<ChangePasswordFormValues>
 > = (props) => {
   const { isSubmitting, isValid } = props
   const isSubmitButtonDisabled = isSubmitting || !isValid

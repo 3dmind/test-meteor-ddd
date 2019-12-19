@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { SignUpFormValues } from './SignUpForm'
+import { SignUpFormValues } from './SignUpFormValues'
 
 export const SignUpFormSchema = Yup.object().shape<SignUpFormValues>({
   password: Yup.string()

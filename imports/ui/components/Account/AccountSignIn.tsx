@@ -12,7 +12,7 @@ import { Meteor } from 'meteor/meteor'
 import * as React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useActions } from '../ApplicationActions'
-import { SignInForm, SignInFormValues, SignInSchema } from './SignIn'
+import { SignInForm, SignInFormSchema, SignInFormValues } from './SignIn'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,7 +94,7 @@ export const AccountSignIn: React.FunctionComponent = (props) => {
             <Formik
               initialValues={initialValues}
               component={SignInForm}
-              validationSchema={SignInSchema}
+              validationSchema={SignInFormSchema}
               onSubmit={handleSubmit}
             />
           </Grid>

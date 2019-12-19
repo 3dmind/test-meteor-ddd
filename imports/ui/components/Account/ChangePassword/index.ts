@@ -1,2 +1,3 @@
-export * from './ChangePasswordForm'
-export * from './ChangePasswordSchema'
+export { ChangePasswordForm } from './ChangePasswordForm'
+export { ChangePasswordFormSchema } from './ChangePasswordFormSchema'
+export { ChangePasswordFormValues } from './ChangePasswordFormValues'

@@ -14,8 +14,8 @@ import { useHistory } from 'react-router-dom'
 import { useActions } from '../ApplicationActions'
 import {
   ChangePasswordForm,
-  ChangePasswordSchema,
-  ChangePasswordValues,
+  ChangePasswordFormSchema,
+  ChangePasswordFormValues,
 } from './ChangePassword'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface HandleRejected {
   exception: Meteor.Error
-  formHelpers: FormikHelpers<ChangePasswordValues>
+  formHelpers: FormikHelpers<ChangePasswordFormValues>
 }
 
 interface HandleFulfilled {
-  formHelpers: FormikHelpers<ChangePasswordValues>
+  formHelpers: FormikHelpers<ChangePasswordFormValues>
 }
 
 export const AccountChangePassword: React.FunctionComponent = (props) => {
@@ -56,8 +56,8 @@ export const AccountChangePassword: React.FunctionComponent = (props) => {
   }
 
   async function handleSubmit(
-    values: ChangePasswordValues,
-    formHelpers: FormikHelpers<ChangePasswordValues>,
+    values: ChangePasswordFormValues,
+    formHelpers: FormikHelpers<ChangePasswordFormValues>,
   ): Promise<void> {
     const { password, newPassword } = values
     setError('')
@@ -69,7 +69,7 @@ export const AccountChangePassword: React.FunctionComponent = (props) => {
     }
   }
 
-  const initialValues: ChangePasswordValues = {
+  const initialValues: ChangePasswordFormValues = {
     password: '',
     newPassword: '',
     newRepeatedPassword: '',
@@ -99,7 +99,7 @@ export const AccountChangePassword: React.FunctionComponent = (props) => {
             <Formik
               initialValues={initialValues}
               component={ChangePasswordForm}
-              validationSchema={ChangePasswordSchema}
+              validationSchema={ChangePasswordFormSchema}
               onSubmit={handleSubmit}
             />
           </Grid>
