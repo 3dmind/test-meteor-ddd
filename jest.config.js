@@ -11,6 +11,11 @@ module.exports = {
     '<rootDir>/tests/',
   ],
 
+  // Where to find global mock implementations
+  moduleNameMapper: {
+    '^meteor/(.*)$': '<rootDir>/__mocks__/meteor/$1.ts',
+  },
+
   collectCoverageFrom: ['imports/**/*.[jt]s?(x)'],
   coverageReporters: ['text', 'lcovonly'],
   coverageDirectory: '.coverage/jest',
