@@ -1,6 +1,5 @@
-import { Entity } from './Entity'
-import { UniqueEntityID } from './UniqueEntityID'
-import { TaskDescription } from './values'
+import { Entity, UniqueEntityID } from '../../../core/domain'
+import { TaskDescription } from './TaskDescription'
 
 interface TaskProps {
   ownerID: UniqueEntityID

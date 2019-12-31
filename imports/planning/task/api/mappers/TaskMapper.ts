@@ -1,4 +1,5 @@
-import { Task, TaskDescription, UniqueEntityID } from '../../domain'
+import { UniqueEntityID } from '../../../../core/domain'
+import { Task, TaskDescription } from '../../domain'
 import { TaskDocument } from '../collections'
 
 export const TaskMapper = {

@@ -1,6 +1,5 @@
-import { Entity } from './Entity'
+import { Entity, UniqueEntityID } from '../../../core/domain'
 import { Task } from './Task'
-import { UniqueEntityID } from './UniqueEntityID'
 
 interface TaskListProps {
   tasks: Task[]

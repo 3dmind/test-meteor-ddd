@@ -1,4 +1,5 @@
-import { TaskList, UniqueEntityID } from '../../../domain'
+import { UniqueEntityID } from '../../../../../core/domain'
+import { TaskList } from '../../../domain'
 import { TaskDocument } from '../../collections'
 import { TaskListMapper, TaskMapper } from '../index'
 

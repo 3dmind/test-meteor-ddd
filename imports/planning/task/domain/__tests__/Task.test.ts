@@ -1,6 +1,6 @@
+import { UniqueEntityID } from '../../../../core/domain'
 import { Task } from '../Task'
-import { UniqueEntityID } from '../UniqueEntityID'
-import { TaskDescription } from '../values'
+import { TaskDescription } from '../TaskDescription'
 
 describe('Task', () => {
   const ownerID = UniqueEntityID.create()

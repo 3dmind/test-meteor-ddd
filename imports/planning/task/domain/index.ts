@@ -1,4 +1,3 @@
 export { Task } from './Task'
+export { TaskDescription } from './TaskDescription'
 export { TaskList } from './TaskList'
-export { UniqueEntityID } from './UniqueEntityID'
-export * from './values'

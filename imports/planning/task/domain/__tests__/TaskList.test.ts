@@ -1,7 +1,7 @@
+import { UniqueEntityID } from '../../../../core/domain'
 import { Task } from '../Task'
+import { TaskDescription } from '../TaskDescription'
 import { TaskList } from '../TaskList'
-import { UniqueEntityID } from '../UniqueEntityID'
-import { TaskDescription } from '../values'
 
 describe('TaskList', () => {
   let task

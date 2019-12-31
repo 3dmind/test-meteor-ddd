@@ -1,5 +1,5 @@
 import { Random } from 'meteor/random'
-import { isNil } from 'ramda'
+import { is, isNil } from 'ramda'
 
 export class UniqueEntityID {
   private readonly _value: string
@@ -17,7 +17,7 @@ export class UniqueEntityID {
       return false
     }
 
-    if (!(id instanceof UniqueEntityID)) {
+    if (!is(UniqueEntityID, id)) {
       return false
     }
 
