@@ -1,4 +1,4 @@
-import { TaskList, UniqueId } from '../../domain'
+import { TaskList } from '../../domain'
 import { TaskDocument } from '../collections'
 import { TaskMapper } from './TaskMapper'
 
@@ -11,9 +11,9 @@ export const TaskListMapper = {
       .map((task) => [task.id.value, TaskMapper.toPersistence(task)])
   },
 
-  toDomain(id: UniqueId, documents: TaskDocument[], count: number): TaskList {
+  toDomain(documents: TaskDocument[], count: number): TaskList {
     const tasks = documents.map((document) => TaskMapper.toDomain(document))
-    return TaskList.create(id, { tasks, count })
+    return TaskList.create({ tasks, count })
   },
 }
 Object.freeze(TaskListMapper)

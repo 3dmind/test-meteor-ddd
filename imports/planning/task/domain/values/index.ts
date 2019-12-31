@@ -1,2 +1,1 @@
-export * from './TaskDescription'
-export * from './UniqueId'
+export { TaskDescription } from './TaskDescription'

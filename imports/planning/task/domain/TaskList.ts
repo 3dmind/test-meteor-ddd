@@ -1,50 +1,27 @@
-import { TaskEntity } from './TaskEntity'
-import { UniqueId } from './values'
+import { Entity } from './Entity'
+import { Task } from './Task'
+import { UniqueEntityID } from './UniqueEntityID'
 
 interface TaskListProps {
-  tasks: TaskEntity[]
+  tasks: Task[]
   count: number
 }
 
-export class TaskList {
-  private readonly _id: UniqueId
-  private readonly props: TaskListProps
-
-  private constructor(id: UniqueId, props: TaskListProps) {
-    this._id = id
-    this.props = props
+export class TaskList extends Entity<TaskListProps> {
+  constructor(props: TaskListProps, id?: UniqueEntityID) {
+    super(props, id)
   }
 
-  get id(): UniqueId {
+  get id(): UniqueEntityID {
     return this._id
   }
 
-  static create(id: UniqueId, props: TaskListProps): TaskList {
-    return new TaskList(id, props)
+  static create(props: TaskListProps, id?: UniqueEntityID): TaskList {
+    return new TaskList(props, id)
   }
 
-  public equals(object?: TaskList): boolean {
-    if (object === null || object === undefined) {
-      return false
-    }
-
-    if (this === object) {
-      return true
-    }
-
-    if (!(object instanceof TaskList)) {
-      return false
-    }
-
-    if (!this._id) {
-      return false
-    }
-
-    return this._id.equals(object.id)
-  }
-
-  public toArray(): TaskEntity[] {
-    return Array.from<TaskEntity>(this.props.tasks)
+  public toArray(): Task[] {
+    return Array.from<Task>(this.props.tasks)
   }
 
   public isEmpty(): boolean {

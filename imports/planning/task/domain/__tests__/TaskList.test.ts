@@ -1,14 +1,14 @@
+import { Task } from '../Task'
 import { TaskList } from '../TaskList'
-import { TaskEntity } from '../TaskEntity'
-import { UniqueId, TaskDescription } from '../values'
+import { UniqueEntityID } from '../UniqueEntityID'
+import { TaskDescription } from '../values'
 
 describe('TaskList', () => {
   let task
 
   beforeEach(() => {
-    const taskId = UniqueId.create('46o9S4ukleKhMtjMu')
-    task = TaskEntity.create(taskId, {
-      ownerId: UniqueId.create('32o9S4ukleKhMtjMu'),
+    task = Task.create({
+      ownerID: UniqueEntityID.create(),
       description: TaskDescription.create('Lorem ipsum'),
       createdAt: new Date(),
       editedAt: undefined,
@@ -24,57 +24,41 @@ describe('TaskList', () => {
 
   test('get property "id"', () => {
     expect.assertions(1)
-    const id = UniqueId.create('32ouplukleKhMtjMu')
+    const id = UniqueEntityID.create('32ouplukleKhMtjMu')
     const tasks = [task]
     const count = tasks.length
 
-    const taskList = TaskList.create(id, {
-      count,
-      tasks,
-    })
+    const taskList = TaskList.create({ count, tasks }, id)
 
-    expect(taskList.id.equals(id)).toBe(true)
+    expect(taskList.id).toEqual(id)
   })
 
   test('toArray()', () => {
     expect.assertions(1)
-    const id = UniqueId.create('32ouplukleKhMtjMu')
     const tasks = [task]
     const count = tasks.length
-    const taskList = TaskList.create(id, {
-      count,
-      tasks,
-    })
+    const taskList = TaskList.create({ count, tasks })
 
     const taskEntities = taskList.toArray()
-    console.log(taskEntities[0] === tasks[0]) //?
 
     expect(taskEntities).toStrictEqual(tasks)
   })
 
   test('isEmpty()', () => {
     expect.assertions(1)
-    const id = UniqueId.create('32ouplukleKhMtjMu')
-    const tasks = [] as TaskEntity[]
+    const tasks = [] as Task[]
     const count = tasks.length
 
-    const taskList = TaskList.create(id, {
-      count,
-      tasks,
-    })
+    const taskList = TaskList.create({ count, tasks })
 
     expect(taskList.isEmpty()).toBe(true)
   })
 
   test('discardTasks()', () => {
     expect.assertions(1)
-    const id = UniqueId.create('32ouplukleKhMtjMu')
     const tasks = [task]
     const count = tasks.length
-    const taskList = TaskList.create(id, {
-      count,
-      tasks,
-    })
+    const taskList = TaskList.create({ count, tasks })
 
     taskList.discardTasks()
     const isEveryTaskDiscarded = taskList

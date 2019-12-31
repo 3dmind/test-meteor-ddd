@@ -1,3 +1,2 @@
-export * from './hasLengthOf'
-export * from './isLengthGreaterThen'
-export * from './isString'
+export { isLengthGreaterThen } from './isLengthGreaterThen'
+export { isString } from './isString'

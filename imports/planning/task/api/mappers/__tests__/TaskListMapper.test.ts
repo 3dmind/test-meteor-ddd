@@ -1,9 +1,9 @@
-import { TaskList, UniqueId } from '../../../domain'
+import { TaskList, UniqueEntityID } from '../../../domain'
 import { TaskDocument } from '../../collections'
 import { TaskListMapper, TaskMapper } from '../index'
 
 describe('TaskListMapper', () => {
-  const id = UniqueId.create('46o9S4naueKhMtjMu')
+  const id = UniqueEntityID.create('46o9S4naueKhMtjMu')
   const documents: TaskDocument[] = [
     {
       _id: '46o9S4ukleKhMtjMu',
@@ -37,7 +37,7 @@ describe('TaskListMapper', () => {
   const count = documents.length
 
   test('toDomain()', () => {
-    const taskList = TaskListMapper.toDomain(id, documents, count)
+    const taskList = TaskListMapper.toDomain(documents, count)
 
     expect(taskList).toBeDefined()
     expect(taskList).toBeInstanceOf(TaskList)
@@ -45,10 +45,7 @@ describe('TaskListMapper', () => {
 
   test('toPersistence()', () => {
     const tasks = documents.map((document) => TaskMapper.toDomain(document))
-    const taskList = TaskList.create(id, {
-      count,
-      tasks,
-    })
+    const taskList = TaskList.create({ count, tasks }, id)
 
     const taskDocuments = TaskListMapper.toPersistence(taskList)
 

@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../../domain/values'
+import { UniqueEntityID } from '../../../domain'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
@@ -13,7 +13,7 @@ Meteor.methods({
       throw new UnauthorizedMethodCallException()
     }
 
-    const ownerId = UniqueId.create(this.userId)
+    const ownerId = UniqueEntityID.create(this.userId)
     const taskList = TaskRepository.getAllArchivedTasks(ownerId)
     if (taskList.isEmpty()) {
       throw new TaskNotFoundException('Selected tasks were not found.')
