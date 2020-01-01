@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { Random } from 'meteor/random'
-import { TaskDescription, TaskEntity, UniqueId } from '../../../domain'
+import { UniqueEntityID } from '../../../../../core/domain'
+import { Task, TaskDescription } from '../../../domain'
 import { UnauthorizedMethodCallException } from '../../exceptions'
 import { TaskRepository } from '../../TaskRepository'
 import { NoteTaskDTO } from './NoteTaskDTO'
@@ -13,9 +13,8 @@ Meteor.methods({
     }
 
     const taskDescription = TaskDescription.create(dto.text)
-    const ownerId = UniqueId.create(this.userId)
-    const taskId = UniqueId.create(Random.id())
-    const task = TaskEntity.note(taskId, taskDescription, ownerId)
+    const ownerID = UniqueEntityID.create(this.userId)
+    const task = Task.note(taskDescription, ownerID)
     TaskRepository.saveTask(task)
   },
 })

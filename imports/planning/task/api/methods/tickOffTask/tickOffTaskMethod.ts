@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { UniqueId } from '../../../domain'
+import { UniqueEntityID } from '../../../../../core/domain'
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
@@ -21,7 +21,7 @@ Meteor.methods({
     if (!task) {
       throw new TaskNotFoundException()
     }
-    if (!task.isOwnedByUser(UniqueId.create(this.userId))) {
+    if (!task.isOwnedByUser(UniqueEntityID.create(this.userId))) {
       throw new UnauthorizedTaskOperationException()
     }
     task.tickOff()

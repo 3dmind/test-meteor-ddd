@@ -1,4 +1,5 @@
-import { TaskDescription, TaskEntity, UniqueId } from '../../../domain'
+import { UniqueEntityID } from '../../../../../core/domain'
+import { Task, TaskDescription } from '../../../domain'
 import { TaskDocument } from '../../collections'
 import { TaskMapper } from '../index'
 
@@ -20,54 +21,57 @@ describe('TaskMapper', () => {
       resumedAt: undefined,
     }
 
-    const taskEntity = TaskMapper.toDomain(document)
+    const task = TaskMapper.toDomain(document)
 
-    expect(taskEntity.id.value).toEqual(document._id)
-    expect(taskEntity.ownerId.value).toEqual(document.ownerId)
-    expect(taskEntity.description.value).toEqual(document.description)
-    expect(taskEntity.createdAt).toEqual(document.createdAt)
-    expect(taskEntity.isArchived()).toEqual(document.isArchived)
-    expect(taskEntity.archivedAt).toEqual(document.archivedAt)
-    expect(taskEntity.isDiscarded()).toEqual(document.isDiscarded)
-    expect(taskEntity.discardedAt).toEqual(document.discardedAt)
-    expect(taskEntity.editedAt).toEqual(document.editedAt)
-    expect(taskEntity.isTickedOff()).toEqual(document.isTickedOff)
-    expect(taskEntity.tickedOffAt).toEqual(document.tickedOffAt)
-    expect(taskEntity.resumedAt).toEqual(document.resumedAt)
+    expect(task.id.value).toEqual(document._id)
+    expect(task.ownerID.value).toEqual(document.ownerId)
+    expect(task.description.value).toEqual(document.description)
+    expect(task.createdAt).toEqual(document.createdAt)
+    expect(task.isArchived()).toEqual(document.isArchived)
+    expect(task.archivedAt).toEqual(document.archivedAt)
+    expect(task.isDiscarded()).toEqual(document.isDiscarded)
+    expect(task.discardedAt).toEqual(document.discardedAt)
+    expect(task.editedAt).toEqual(document.editedAt)
+    expect(task.isTickedOff()).toEqual(document.isTickedOff)
+    expect(task.tickedOffAt).toEqual(document.tickedOffAt)
+    expect(task.resumedAt).toEqual(document.resumedAt)
   })
 
   test('toPersistence', () => {
     expect.assertions(12)
-    const id = UniqueId.create('46o9S4ukleKhMtjMu')
-    const ownerId = UniqueId.create('0815S4ukleKhMtjMu')
+    const id = UniqueEntityID.create('46o9S4ukleKhMtjMu')
+    const ownerID = UniqueEntityID.create('0815S4ukleKhMtjMu')
     const description = TaskDescription.create('Lorem ipsum')
-    const taskEntity = TaskEntity.create(id, {
-      archived: false,
-      archivedAt: undefined,
-      createdAt: new Date(),
-      description,
-      discarded: false,
-      discardedAt: undefined,
-      editedAt: undefined,
-      ownerId,
-      resumedAt: undefined,
-      tickedOff: false,
-      tickedOffAt: undefined,
-    })
+    const task = Task.create(
+      {
+        archived: false,
+        archivedAt: undefined,
+        createdAt: new Date(),
+        description,
+        discarded: false,
+        discardedAt: undefined,
+        editedAt: undefined,
+        ownerID,
+        resumedAt: undefined,
+        tickedOff: false,
+        tickedOffAt: undefined,
+      },
+      id,
+    )
 
-    const document = TaskMapper.toPersistence(taskEntity)
+    const document = TaskMapper.toPersistence(task)
 
-    expect(document._id).toEqual(taskEntity.id.value)
-    expect(document.ownerId).toEqual(taskEntity.ownerId.value)
-    expect(document.description).toEqual(taskEntity.description.value)
-    expect(document.createdAt).toEqual(taskEntity.createdAt)
-    expect(document.isArchived).toEqual(taskEntity.isArchived())
-    expect(document.archivedAt).toEqual(taskEntity.archivedAt)
-    expect(document.isDiscarded).toEqual(taskEntity.isDiscarded())
-    expect(document.discardedAt).toEqual(taskEntity.discardedAt)
-    expect(document.editedAt).toEqual(taskEntity.editedAt)
-    expect(document.isTickedOff).toEqual(taskEntity.isTickedOff())
-    expect(document.tickedOffAt).toEqual(taskEntity.tickedOffAt)
-    expect(document.resumedAt).toEqual(taskEntity.resumedAt)
+    expect(document._id).toEqual(task.id.value)
+    expect(document.ownerId).toEqual(task.ownerID.value)
+    expect(document.description).toEqual(task.description.value)
+    expect(document.createdAt).toEqual(task.createdAt)
+    expect(document.isArchived).toEqual(task.isArchived())
+    expect(document.archivedAt).toEqual(task.archivedAt)
+    expect(document.isDiscarded).toEqual(task.isDiscarded())
+    expect(document.discardedAt).toEqual(task.discardedAt)
+    expect(document.editedAt).toEqual(task.editedAt)
+    expect(document.isTickedOff).toEqual(task.isTickedOff())
+    expect(document.tickedOffAt).toEqual(task.tickedOffAt)
+    expect(document.resumedAt).toEqual(task.resumedAt)
   })
 })

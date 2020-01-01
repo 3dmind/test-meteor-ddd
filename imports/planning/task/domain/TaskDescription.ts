@@ -1,9 +1,9 @@
-import * as Ramda from 'ramda'
+import { allPass } from 'ramda'
+import { ValueObject } from '../../../core/domain'
 import { isLengthGreaterThen, isString } from './validators'
-import { ValueObject } from './ValueObject'
 
 function isValidTaskDescription(text: string): boolean {
-  return Ramda.allPass([isString, isLengthGreaterThen(0)])(text)
+  return allPass([isString, isLengthGreaterThen(0)])(text)
 }
 
 interface TaskDescriptionProps {
