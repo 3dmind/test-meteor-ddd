@@ -1,1 +1,1 @@
-export const ArchiveTaskMethodName = 'planning.task.archive'
+export const ArchiveTaskMethodName = 'planning.task.archive';

@@ -1,3 +1,3 @@
 export interface TickOffTaskDTO {
-  readonly taskId: string
+  readonly taskId: string;
 }

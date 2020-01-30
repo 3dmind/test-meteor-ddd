@@ -1,3 +1,3 @@
 export interface ResumeTaskDTO {
-  readonly taskId: string
+  readonly taskId: string;
 }

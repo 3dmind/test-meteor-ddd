@@ -1,2 +1,2 @@
-export { ResumeTaskDTO } from './ResumeTaskDTO'
-export { ResumeTaskMethodName } from './ResumeTaskMethodName'
+export { ResumeTaskDTO } from './ResumeTaskDTO';
+export { ResumeTaskMethodName } from './ResumeTaskMethodName';

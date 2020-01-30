@@ -1,2 +1,2 @@
-export { ArchiveTaskDTO } from './ArchiveTaskDTO'
-export { ArchiveTaskMethodName } from './ArchiveTaskMethodName'
+export { ArchiveTaskDTO } from './ArchiveTaskDTO';
+export { ArchiveTaskMethodName } from './ArchiveTaskMethodName';

@@ -1,1 +1,1 @@
-export const NoteTaskMethodName = 'planning.task.note'
+export const NoteTaskMethodName = 'planning.task.note';

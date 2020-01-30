@@ -1,27 +1,27 @@
-import { allPass } from 'ramda'
-import { ValueObject } from '../../../core/domain'
-import { isLengthGreaterThen, isString } from './validators'
+import { allPass } from 'ramda';
+import { ValueObject } from '../../../core/domain';
+import { isLengthGreaterThen, isString } from './validators';
 
 function isValidTaskDescription(text: string): boolean {
-  return allPass([isString, isLengthGreaterThen(0)])(text)
+  return allPass([isString, isLengthGreaterThen(0)])(text);
 }
 
 interface TaskDescriptionProps {
-  value: string
+  value: string;
 }
 
 export class TaskDescription extends ValueObject<TaskDescriptionProps> {
   private constructor(props: TaskDescriptionProps) {
-    super(props)
+    super(props);
   }
 
   get value(): string {
-    return this.props.value
+    return this.props.value;
   }
 
   public static create(text: string): TaskDescription {
     if (isValidTaskDescription(text)) {
-      return new TaskDescription({ value: text })
+      return new TaskDescription({ value: text });
     }
   }
 }

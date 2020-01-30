@@ -8,4 +8,4 @@ export const TaskCollectionPublicFields = {
   resumedAt: 1,
   isArchived: 1,
   archivedAt: 1,
-}
+};

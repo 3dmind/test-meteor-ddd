@@ -1,1 +1,1 @@
-export { Publications } from './Publications'
+export { Publications } from './Publications';

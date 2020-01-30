@@ -1,30 +1,30 @@
-import { Meteor } from 'meteor/meteor'
-import { UniqueEntityID } from '../../../../../core/domain'
+import { Meteor } from 'meteor/meteor';
+import { UniqueEntityId } from '../../../../../core/domain';
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
   UnauthorizedTaskOperationException,
-} from '../../exceptions'
-import { TaskRepository } from '../../TaskRepository'
-import { TickOffTaskDTO } from './TickOffTaskDTO'
-import { TickOffTaskMethodName } from './TickOffTaskMethodName'
+} from '../../exceptions';
+import { TaskRepository } from '../../TaskRepository';
+import { TickOffTaskDTO } from './TickOffTaskDTO';
+import { TickOffTaskMethodName } from './TickOffTaskMethodName';
 
 Meteor.methods({
   [TickOffTaskMethodName]: function tickOffTaskMethod(
     dto: TickOffTaskDTO,
   ): void {
     if (!this.userId) {
-      throw new UnauthorizedMethodCallException()
+      throw new UnauthorizedMethodCallException();
     }
 
-    const task = TaskRepository.getTaskById(dto.taskId)
+    const task = TaskRepository.getTaskById(dto.taskId);
     if (!task) {
-      throw new TaskNotFoundException()
+      throw new TaskNotFoundException();
     }
-    if (!task.isOwnedByUser(UniqueEntityID.create(this.userId))) {
-      throw new UnauthorizedTaskOperationException()
+    if (!task.isOwnedByUser(UniqueEntityId.create(this.userId))) {
+      throw new UnauthorizedTaskOperationException();
     }
-    task.tickOff()
-    TaskRepository.updateTask(task)
+    task.tickOff();
+    TaskRepository.updateTask(task);
   },
-})
+});

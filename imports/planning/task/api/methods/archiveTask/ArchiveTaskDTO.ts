@@ -1,3 +1,3 @@
 export interface ArchiveTaskDTO {
-  readonly taskId: string
+  readonly taskId: string;
 }

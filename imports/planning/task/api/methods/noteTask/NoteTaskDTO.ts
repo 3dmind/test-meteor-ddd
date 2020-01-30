@@ -1,3 +1,3 @@
 export interface NoteTaskDTO {
-  readonly text: string
+  readonly text: string;
 }

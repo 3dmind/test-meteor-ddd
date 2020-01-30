@@ -1,4 +1,4 @@
 export interface EditTaskDTO {
-  readonly taskId: string
-  readonly newText: string
+  readonly taskId: string;
+  readonly newText: string;
 }

@@ -1,5 +1,5 @@
-import { ApiException } from './ApiException'
-import { Status } from './Status'
+import { ApiException } from './ApiException';
+import { Status } from './Status';
 
 export class TaskNotFoundException extends ApiException {
   constructor(
@@ -7,6 +7,6 @@ export class TaskNotFoundException extends ApiException {
     error = 'Not found',
     statusCode = Status.NotFound,
   ) {
-    super(message, error, statusCode)
+    super(message, error, statusCode);
   }
 }

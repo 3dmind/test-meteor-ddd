@@ -1,1 +1,1 @@
-export const ResumeTaskMethodName = 'planning.task.resume'
+export const ResumeTaskMethodName = 'planning.task.resume';

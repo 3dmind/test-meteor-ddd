@@ -1,5 +1,5 @@
-import { ApiException } from './ApiException'
-import { Status } from './Status'
+import { ApiException } from './ApiException';
+import { Status } from './Status';
 
 export class UnauthorizedMethodCallException extends ApiException {
   constructor(
@@ -7,6 +7,6 @@ export class UnauthorizedMethodCallException extends ApiException {
     error = 'Unauthorized',
     statusCode = Status.Unauthorized,
   ) {
-    super(message, error, statusCode)
+    super(message, error, statusCode);
   }
 }

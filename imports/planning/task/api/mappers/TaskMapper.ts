@@ -1,6 +1,6 @@
-import { UniqueEntityID } from '../../../../core/domain'
-import { Task, TaskDescription } from '../../domain'
-import { TaskDocument } from '../collections'
+import { UniqueEntityId } from '../../../../core/domain';
+import { Task, TaskDescription } from '../../domain';
+import { TaskDocument } from '../collections';
 
 export const TaskMapper = {
   toPersistence(task: Task): TaskDocument {
@@ -17,13 +17,13 @@ export const TaskMapper = {
       discardedAt: task.discardedAt,
       isArchived: task.isArchived(),
       archivedAt: task.archivedAt,
-    }
+    };
   },
 
   toDomain(doc: TaskDocument): Task {
     return Task.create(
       {
-        ownerID: UniqueEntityID.create(doc.ownerId),
+        ownerID: UniqueEntityId.create(doc.ownerId),
         description: TaskDescription.create(doc.description),
         createdAt: doc.createdAt,
         resumedAt: doc.resumedAt,
@@ -35,9 +35,9 @@ export const TaskMapper = {
         archived: doc.isArchived,
         archivedAt: doc.archivedAt,
       },
-      UniqueEntityID.create(doc._id),
-    )
+      UniqueEntityId.create(doc._id),
+    );
   },
-}
+};
 
-Object.freeze(TaskMapper)
+Object.freeze(TaskMapper);
