@@ -4,8 +4,8 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true,
+    "sourceMap": true
   },
   "include": ["client", "imports", "server", "tests", "typings"],
   "exclude": ["node_modules"]
