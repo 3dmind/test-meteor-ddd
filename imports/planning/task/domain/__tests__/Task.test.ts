@@ -1,16 +1,16 @@
 import { UniqueEntityId } from '../../../../core/domain';
 import { Task } from '../Task';
-import { TaskDescription } from '../TaskDescription';
+import { Description } from '../Description';
 
 describe('Task', () => {
-  const ownerID = UniqueEntityId.create();
+  const ownerId = UniqueEntityId.create();
   let defaultTaskProps;
   let dateSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    const description = TaskDescription.create('Lorem upsum');
+    const description = Description.create('Lorem upsum').value;
     defaultTaskProps = {
-      ownerID,
+      ownerId,
       createdAt: new Date(),
       description,
       tickedOff: false,
@@ -41,30 +41,30 @@ describe('Task', () => {
 
   test('Task.note()', () => {
     expect.assertions(2);
-    const description = TaskDescription.create('Lorem upsum');
+    const description = Description.create('Lorem upsum').value;
 
-    const task = Task.note(description, ownerID);
+    const task = Task.note(description, ownerId);
 
     expect(task).toBeDefined();
     expect(task).toBeInstanceOf(Task);
   });
 
   describe('equals()', () => {
-    const description = TaskDescription.create('Lorem ipsum');
+    const description = Description.create('Lorem ipsum').value;
     const taskAProps = Object.assign({}, defaultTaskProps, {
-      description: TaskDescription.create('Foo'),
+      description: Description.create('Foo'),
     });
     const taskBProps = Object.assign({}, defaultTaskProps, {
-      description: TaskDescription.create('Bar'),
+      description: Description.create('Bar'),
     });
     const entityID = UniqueEntityId.create();
     const taskA = Task.create(taskAProps, entityID);
     const taskB = Task.create(taskBProps, entityID);
 
     test.each([
-      [Task.note(description, ownerID), null, false],
-      [Task.note(description, ownerID), undefined, false],
-      [Task.note(description, ownerID), {}, false],
+      [Task.note(description, ownerId), null, false],
+      [Task.note(description, ownerId), undefined, false],
+      [Task.note(description, ownerId), {}, false],
       [taskA, taskA, true],
       [taskA, taskB, true],
     ])('%o.equals(%o)', (a: Task, b: Task, expected: boolean) => {
@@ -83,9 +83,9 @@ describe('Task', () => {
 
   test('get property "description"', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem upsum');
+    const description = Description.create('Lorem upsum').value;
 
-    const task = Task.note(description, ownerID);
+    const task = Task.note(description, ownerId);
 
     expect(task.description).toEqual(description);
   });
@@ -104,8 +104,8 @@ describe('Task', () => {
 
   test('tickOff()', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem upsum');
-    const task = Task.note(description, ownerID);
+    const description = Description.create('Lorem upsum').value;
+    const task = Task.note(description, ownerId);
 
     task.tickOff();
 
@@ -125,8 +125,8 @@ describe('Task', () => {
 
   test('resume()', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem upsum');
-    const task = Task.note(description, ownerID);
+    const description = Description.create('Lorem upsum').value;
+    const task = Task.note(description, ownerId);
 
     task.resume();
 
@@ -150,9 +150,10 @@ describe('Task', () => {
 
   test('edit()', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem ispum');
-    const newDescription = TaskDescription.create('Lorem ipsum dolor amet sum');
-    const task = Task.note(description, ownerID);
+    const description = Description.create('Lorem ispum').value;
+    const newDescription = Description.create('Lorem ipsum dolor amet sum')
+      .value;
+    const task = Task.note(description, ownerId);
 
     task.edit(newDescription);
 
@@ -164,7 +165,8 @@ describe('Task', () => {
     const editedAt = new Date('1970-01-02');
     dateSpy.mockImplementation(() => editedAt);
     const task = Task.create(defaultTaskProps);
-    const newDescription = TaskDescription.create('Lorem ipsum dolor amet sum');
+    const newDescription = Description.create('Lorem ipsum dolor amet sum')
+      .value;
 
     task.edit(newDescription);
 
@@ -173,8 +175,8 @@ describe('Task', () => {
 
   test('discard()', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem ipsum');
-    const task = Task.note(description, ownerID);
+    const description = Description.create('Lorem ipsum').value;
+    const task = Task.note(description, ownerId);
 
     task.discard();
 
@@ -194,8 +196,8 @@ describe('Task', () => {
 
   test('archive()', () => {
     expect.assertions(1);
-    const description = TaskDescription.create('Lorem ipsum');
-    const task = Task.note(description, ownerID);
+    const description = Description.create('Lorem ipsum').value;
+    const task = Task.note(description, ownerId);
 
     task.archive();
 
@@ -217,13 +219,13 @@ describe('Task', () => {
     expect.assertions(1);
     const task = Task.create(defaultTaskProps);
 
-    expect(task.isOwnedByUser(ownerID)).toBe(true);
+    expect(task.isOwnedByUser(ownerId)).toBe(true);
   });
 
-  test('get property "ownerID"', () => {
+  test('get property "ownerId"', () => {
     expect.assertions(1);
     const task = Task.create(defaultTaskProps);
 
-    expect(task.ownerID).toEqual(ownerID);
+    expect(task.ownerID).toEqual(ownerId);
   });
 });

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { UniqueEntityId } from '../../../../../core/domain';
-import { TaskDescription } from '../../../domain';
+import { Description } from '../../../domain';
 import {
   TaskNotFoundException,
   UnauthorizedMethodCallException,
@@ -23,7 +23,7 @@ Meteor.methods({
     if (!task.isOwnedByUser(UniqueEntityId.create(this.userId))) {
       throw new UnauthorizedTaskOperationException();
     }
-    const newTaskDescription = TaskDescription.create(dto.newText);
+    const newTaskDescription = Description.create(dto.newText).value;
     task.edit(newTaskDescription);
     TaskRepository.updateTask(task);
   },

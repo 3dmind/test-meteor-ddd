@@ -1,9 +1,10 @@
 import { Entity, UniqueEntityId } from '../../../core/domain';
-import { TaskDescription } from './TaskDescription';
+import { Description } from './Description';
+import { TaskId } from './TaskId';
 
 interface TaskProps {
-  ownerID: UniqueEntityId;
-  description: TaskDescription;
+  ownerId: UniqueEntityId;
+  description: Description;
   createdAt: Date;
   tickedOff: boolean;
   tickedOffAt: Date;
@@ -24,11 +25,15 @@ export class Task extends Entity<TaskProps> {
     return this._id;
   }
 
-  get ownerID(): UniqueEntityId {
-    return this.props.ownerID;
+  get taskId(): TaskId {
+    return TaskId.create(this.id);
   }
 
-  get description(): TaskDescription {
+  get ownerID(): UniqueEntityId {
+    return this.props.ownerId;
+  }
+
+  get description(): Description {
     return this.props.description;
   }
 
@@ -60,12 +65,9 @@ export class Task extends Entity<TaskProps> {
     return new Task(props, id);
   }
 
-  public static note(
-    description: TaskDescription,
-    ownerID: UniqueEntityId,
-  ): Task {
+  public static note(description: Description, ownerID: UniqueEntityId): Task {
     return Task.create({
-      ownerID,
+      ownerId: ownerID,
       createdAt: new Date(),
       description,
       tickedOff: false,
@@ -93,7 +95,7 @@ export class Task extends Entity<TaskProps> {
     this.props.resumedAt = new Date();
   }
 
-  public edit(description: TaskDescription): void {
+  public edit(description: Description): void {
     this.props.description = description;
     this.props.editedAt = new Date();
   }
@@ -116,7 +118,7 @@ export class Task extends Entity<TaskProps> {
     return this.props.archived;
   }
 
-  public isOwnedByUser(userID: UniqueEntityId): boolean {
-    return this.props.ownerID.equals(userID);
+  public isOwnedByUser(userId: UniqueEntityId): boolean {
+    return this.props.ownerId.equals(userId);
   }
 }

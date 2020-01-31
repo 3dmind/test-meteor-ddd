@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '../../../../core/domain';
 import { Task } from '../Task';
-import { TaskDescription } from '../TaskDescription';
+import { Description } from '../Description';
 import { TaskList } from '../TaskList';
 
 describe('TaskList', () => {
@@ -8,8 +8,8 @@ describe('TaskList', () => {
 
   beforeEach(() => {
     task = Task.create({
-      ownerID: UniqueEntityId.create(),
-      description: TaskDescription.create('Lorem ipsum'),
+      ownerId: UniqueEntityId.create(),
+      description: Description.create('Lorem ipsum').value,
       createdAt: new Date(),
       editedAt: undefined,
       tickedOff: false,

@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '../../../../../core/domain';
-import { Task, TaskDescription } from '../../../domain';
+import { Task, Description } from '../../../domain';
 import { TaskDocument } from '../../collections';
 import { TaskMapper } from '../index';
 
@@ -41,7 +41,7 @@ describe('TaskMapper', () => {
     expect.assertions(12);
     const id = UniqueEntityId.create('46o9S4ukleKhMtjMu');
     const ownerID = UniqueEntityId.create('0815S4ukleKhMtjMu');
-    const description = TaskDescription.create('Lorem ipsum');
+    const description = Description.create('Lorem ipsum').value;
     const task = Task.create(
       {
         archived: false,
@@ -51,7 +51,7 @@ describe('TaskMapper', () => {
         discarded: false,
         discardedAt: undefined,
         editedAt: undefined,
-        ownerID,
+        ownerId: ownerID,
         resumedAt: undefined,
         tickedOff: false,
         tickedOffAt: undefined,

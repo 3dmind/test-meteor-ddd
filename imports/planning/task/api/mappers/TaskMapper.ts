@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '../../../../core/domain';
-import { Task, TaskDescription } from '../../domain';
+import { Task, Description } from '../../domain';
 import { TaskDocument } from '../collections';
 
 export const TaskMapper = {
@@ -23,8 +23,8 @@ export const TaskMapper = {
   toDomain(doc: TaskDocument): Task {
     return Task.create(
       {
-        ownerID: UniqueEntityId.create(doc.ownerId),
-        description: TaskDescription.create(doc.description),
+        ownerId: UniqueEntityId.create(doc.ownerId),
+        description: Description.create(doc.description).value,
         createdAt: doc.createdAt,
         resumedAt: doc.resumedAt,
         tickedOff: doc.isTickedOff,
