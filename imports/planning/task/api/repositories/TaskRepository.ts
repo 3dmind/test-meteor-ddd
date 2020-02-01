@@ -1,0 +1,31 @@
+import { Repository } from '../../../../core/infrastructure';
+import { Task } from '../../domain';
+import { TaskCollection } from '../collections';
+import { TaskMapper } from '../mappers';
+
+export class TaskRepository implements Repository<Task> {
+  private readonly taskCollection: typeof TaskCollection;
+  private readonly taskMapper: typeof TaskMapper;
+
+  constructor(taskCollection, taskMapper) {
+    this.taskCollection = taskCollection;
+    this.taskMapper = taskMapper;
+  }
+
+  exists(task: Task): boolean {
+    const taskDocument = this.taskCollection.findOne(task.id.value);
+    return !!taskDocument === true;
+  }
+
+  save(task: Task): Task {
+    const exists = this.exists(task);
+    if (exists) {
+      this.taskCollection.update(task.id.value, {
+        $set: { ...this.taskMapper.toPersistence(task) },
+      });
+    } else {
+      this.taskCollection.insert(this.taskMapper.toPersistence(task));
+    }
+    return task;
+  }
+}

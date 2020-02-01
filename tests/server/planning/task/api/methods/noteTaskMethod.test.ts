@@ -1,40 +1,40 @@
-import * as assert from 'assert'
-import { Meteor } from 'meteor/meteor'
+import * as assert from 'assert';
+import { Meteor } from 'meteor/meteor';
 import {
-  NoteTaskDTO,
+  NoteTaskDto,
   NoteTaskMethodName,
   TaskCollection,
-} from '../../../../../../imports/planning/task/api'
-import { UnauthorizedMethodCallException } from '../../../../../../imports/planning/task/api/exceptions'
-import { userIdFixture } from './fixtures'
+} from '../../../../../../imports/planning/task/api';
+import { UnauthorizedMethodCallException } from '../../../../../../imports/planning/task/api/exceptions';
+import { userIdFixture } from './fixtures';
 
 describe('Note task method', function() {
-  let noteTaskMethod
+  let noteTaskMethod;
 
   before(function() {
-    noteTaskMethod = Meteor.server.method_handlers[NoteTaskMethodName]
-  })
+    noteTaskMethod = Meteor.server.method_handlers[NoteTaskMethodName];
+  });
 
   beforeEach(function() {
-    TaskCollection.remove({})
-  })
+    TaskCollection.remove({});
+  });
 
   it('should throw when user is not logged-in', function() {
-    const context = {}
-    const dto: NoteTaskDTO = { text: 'Lorem ipsum' }
+    const context = {};
+    const dto: NoteTaskDto = { text: 'Lorem ipsum' };
 
     assert.throws(() => {
-      noteTaskMethod.apply(context, [dto])
-    }, UnauthorizedMethodCallException)
-  })
+      noteTaskMethod.apply(context, [dto]);
+    }, UnauthorizedMethodCallException);
+  });
 
   it('should note task', function() {
-    const context = Object.assign({}, { userId: userIdFixture })
-    const dto: NoteTaskDTO = { text: 'Lorem ipsum' }
+    const context = Object.assign({}, { userId: userIdFixture });
+    const dto: NoteTaskDto = { text: 'Lorem ipsum' };
 
-    noteTaskMethod.apply(context, [dto])
-    const actual = TaskCollection.find().count()
+    noteTaskMethod.apply(context, [dto]);
+    const actual = TaskCollection.find().count();
 
-    assert.strictEqual(actual, 1)
-  })
-})
+    assert.strictEqual(actual, 1);
+  });
+});
