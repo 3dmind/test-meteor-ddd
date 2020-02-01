@@ -1,3 +1,4 @@
 export { GenericUseCaseErrors } from './GenericUseCaseErrors';
-export { editTaskUseCase, EditTaskDto } from './edit-task';
+export { EditTaskDto, editTaskUseCase } from './edit-task';
 export { NoteTaskDto, noteTaskUseCase } from './note-task';
+export { TickOffTaskDto, tickOffTaskUseCase } from './tick-off-task';

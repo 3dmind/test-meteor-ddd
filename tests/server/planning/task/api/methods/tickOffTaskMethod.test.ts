@@ -1,70 +1,66 @@
-import * as assert from 'assert'
-import { Meteor } from 'meteor/meteor'
-import { Mongo } from 'meteor/mongo'
+import * as assert from 'assert';
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import {
   TaskCollection,
   TaskDocument,
-  TickOffTaskDTO,
+  TickOffTaskDto,
   TickOffTaskMethodName,
-} from '../../../../../../imports/planning/task/api'
-import {
-  TaskNotFoundException,
-  UnauthorizedMethodCallException,
-  UnauthorizedTaskOperationException,
-} from '../../../../../../imports/planning/task/api/exceptions'
-import { taskDocFixture, userIdFixture } from './fixtures'
+} from '../../../../../../imports/planning/task/api';
+import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+import { taskDocFixture, userIdFixture } from './fixtures';
 
 describe('Tick-off task method', function() {
-  let tickOffTaskMethod
-  let documentId
+  let tickOffTaskMethod;
+  let documentId;
 
   before(function() {
-    tickOffTaskMethod = Meteor.server.method_handlers[TickOffTaskMethodName]
-  })
+    tickOffTaskMethod = Meteor.server.method_handlers[TickOffTaskMethodName];
+  });
 
   beforeEach(function() {
-    documentId = TaskCollection.insert(taskDocFixture)
-  })
+    documentId = TaskCollection.insert(taskDocFixture);
+  });
 
   afterEach(function() {
-    TaskCollection.remove({})
-  })
+    TaskCollection.remove({});
+  });
 
   it('should throw when user is not logged-in', function() {
-    const context = {}
-    const dto: TickOffTaskDTO = { taskId: documentId }
+    const context = {};
+    const dto: TickOffTaskDto = { taskId: documentId };
 
     assert.throws(() => {
-      tickOffTaskMethod.apply(context, [dto])
-    }, UnauthorizedMethodCallException)
-  })
+      tickOffTaskMethod.apply(context, [dto]);
+    }, ApiErrors.Unauthorized);
+  });
 
   it('should throw when task was not found', function() {
-    const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TickOffTaskDTO = { taskId: 'A' }
+    const context = Object.assign({}, { userId: userIdFixture });
+    const dto: TickOffTaskDto = { taskId: 'A' };
 
     assert.throws(() => {
-      tickOffTaskMethod.apply(context, [dto])
-    }, TaskNotFoundException)
-  })
+      tickOffTaskMethod.apply(context, [dto]);
+    }, ApiErrors.NotFound);
+  });
 
   it('should throw when owner and user do not match', function() {
-    const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' })
-    const dto: TickOffTaskDTO = { taskId: documentId }
+    const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' });
+    const dto: TickOffTaskDto = { taskId: documentId };
 
     assert.throws(() => {
-      tickOffTaskMethod.apply(context, [dto])
-    }, UnauthorizedTaskOperationException)
-  })
+      tickOffTaskMethod.apply(context, [dto]);
+    }, ApiErrors.BadRequest);
+  });
 
   it('should tick-off task', function() {
-    const selector: Mongo.Selector<TaskDocument> = { isTickedOff: true }
-    const context = Object.assign({}, { userId: userIdFixture })
-    const dto: TickOffTaskDTO = { taskId: documentId }
+    const selector: Mongo.Selector<TaskDocument> = { isTickedOff: true };
+    const context = Object.assign({}, { userId: userIdFixture });
+    const dto: TickOffTaskDto = { taskId: documentId };
 
-    tickOffTaskMethod.apply(context, [dto])
-    const actual = TaskCollection.find(selector).count()
+    tickOffTaskMethod.apply(context, [dto]);
+    const actual = TaskCollection.find(selector).count();
 
-    assert.strictEqual(actual, 1)
-  })
-})
+    assert.strictEqual(actual, 1);
+  });
+});
