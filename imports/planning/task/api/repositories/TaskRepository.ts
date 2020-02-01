@@ -1,5 +1,5 @@
 import { Repository } from '../../../../core/infrastructure';
-import { Task } from '../../domain';
+import { Task, TaskId } from '../../domain';
 import { TaskCollection } from '../collections';
 import { TaskMapper } from '../mappers';
 
@@ -27,5 +27,17 @@ export class TaskRepository implements Repository<Task> {
       this.taskCollection.insert(this.taskMapper.toPersistence(task));
     }
     return task;
+  }
+
+  findByTaskId(taskId: TaskId): { found: boolean; task?: Task } {
+    const taskDocument = this.taskCollection.findOne(taskId.id.value);
+    const found = !!taskDocument === true;
+    if (!found) {
+      return { found };
+    }
+    return {
+      found,
+      task: this.taskMapper.toDomain(taskDocument),
+    };
   }
 }

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { GenericAppErrors } from '../../../../../core/logic';
-import { UnauthorizedMethodCallException } from '../../exceptions';
-import { NoteTaskDto, noteTaskUseCase } from '../../use-cases/note-task';
+import { ApiErrors } from '../../api-errors';
+import { NoteTaskDto, noteTaskUseCase } from '../../use-cases';
 import { NoteTaskMethodName } from './NoteTaskMethodName';
 
 Meteor.methods({
@@ -9,7 +9,7 @@ Meteor.methods({
     const { userId } = this;
 
     if (!userId) {
-      throw new UnauthorizedMethodCallException();
+      throw new ApiErrors.Unauthorized();
     }
 
     const response = noteTaskUseCase.execute({
@@ -19,13 +19,9 @@ Meteor.methods({
     if (response.isLeft()) {
       const { result } = response;
       if (result instanceof GenericAppErrors.UnexpectedError) {
-        throw new Meteor.Error(
-          500,
-          'Internal server error',
-          result.error.message,
-        );
+        throw new ApiErrors.InternalServerError(result.error.message);
       } else {
-        throw new Meteor.Error(400, 'Bad request', result.error);
+        throw new ApiErrors.BadRequest(result.error);
       }
     }
   },

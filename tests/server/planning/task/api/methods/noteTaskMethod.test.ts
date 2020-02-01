@@ -5,7 +5,8 @@ import {
   NoteTaskMethodName,
   TaskCollection,
 } from '../../../../../../imports/planning/task/api';
-import { UnauthorizedMethodCallException } from '../../../../../../imports/planning/task/api/exceptions';
+import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+
 import { userIdFixture } from './fixtures';
 
 describe('Note task method', function() {
@@ -25,7 +26,7 @@ describe('Note task method', function() {
 
     assert.throws(() => {
       noteTaskMethod.apply(context, [dto]);
-    }, UnauthorizedMethodCallException);
+    }, ApiErrors.Unauthorized);
   });
 
   it('should note task', function() {
