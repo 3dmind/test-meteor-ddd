@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '../../../../../core/domain';
-import { Task, Description } from '../../../domain';
+import { Task, Description, TaskOwnerId } from '../../../domain';
 import { TaskDocument } from '../../collections';
 import { TaskMapper } from '../index';
 
@@ -24,7 +24,7 @@ describe('TaskMapper', () => {
     const task = TaskMapper.toDomain(document);
 
     expect(task.id.value).toEqual(document._id);
-    expect(task.ownerID.value).toEqual(document.ownerId);
+    expect(task.taskOwnerId.id.value).toEqual(document.ownerId);
     expect(task.description.value).toEqual(document.description);
     expect(task.createdAt).toEqual(document.createdAt);
     expect(task.isArchived()).toEqual(document.isArchived);
@@ -40,21 +40,23 @@ describe('TaskMapper', () => {
   test('toPersistence', () => {
     expect.assertions(12);
     const id = UniqueEntityId.create('46o9S4ukleKhMtjMu');
-    const ownerID = UniqueEntityId.create('0815S4ukleKhMtjMu');
+    const taskOwnerId = TaskOwnerId.create(
+      UniqueEntityId.create('0815S4ukleKhMtjMu'),
+    );
     const description = Description.create('Lorem ipsum').value;
     const task = Task.create(
       {
-        archived: false,
-        archivedAt: undefined,
-        createdAt: new Date(),
+        taskOwnerId,
         description,
-        discarded: false,
-        discardedAt: undefined,
+        createdAt: new Date(),
         editedAt: undefined,
-        ownerId: ownerID,
-        resumedAt: undefined,
         tickedOff: false,
         tickedOffAt: undefined,
+        resumedAt: undefined,
+        archived: false,
+        archivedAt: undefined,
+        discarded: false,
+        discardedAt: undefined,
       },
       id,
     );
@@ -62,7 +64,7 @@ describe('TaskMapper', () => {
     const document = TaskMapper.toPersistence(task);
 
     expect(document._id).toEqual(task.id.value);
-    expect(document.ownerId).toEqual(task.ownerID.value);
+    expect(document.ownerId).toEqual(task.taskOwnerId.id.value);
     expect(document.description).toEqual(task.description.value);
     expect(document.createdAt).toEqual(task.createdAt);
     expect(document.isArchived).toEqual(task.isArchived());

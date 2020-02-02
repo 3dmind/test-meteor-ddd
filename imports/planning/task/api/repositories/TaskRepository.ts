@@ -1,6 +1,5 @@
-import { UniqueEntityId } from '../../../../core/domain';
 import { Repository } from '../../../../core/infrastructure';
-import { Task, TaskId } from '../../domain';
+import { Task, TaskId, TaskOwnerId } from '../../domain';
 import { TaskCollection, TaskDocument } from '../collections';
 import { TaskMapper } from '../mappers';
 
@@ -46,9 +45,9 @@ export class TaskRepository implements Repository<Task> {
     };
   }
 
-  findArchivedTasksByOwnerId(ownerId: UniqueEntityId): Task[] {
+  findArchivedTasksByTaskOwnerId(taskOwnerId: TaskOwnerId): Task[] {
     const selector: Mongo.Selector<TaskDocument> = {
-      ownerId: ownerId.value,
+      ownerId: taskOwnerId.id.value,
       isArchived: true,
       isDiscarded: false,
     };

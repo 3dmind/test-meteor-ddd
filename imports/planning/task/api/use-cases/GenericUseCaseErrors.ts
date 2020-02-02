@@ -1,6 +1,5 @@
-import { UniqueEntityId } from '../../../../core/domain';
 import { Result, UseCaseError } from '../../../../core/logic';
-import { TaskId } from '../../domain';
+import { TaskId, TaskOwnerId } from '../../domain';
 
 export namespace GenericUseCaseErrors {
   export class TaskDoesNotExist extends Result<UseCaseError> {
@@ -13,12 +12,12 @@ export namespace GenericUseCaseErrors {
 
   interface WrongOwnerErrorProps {
     taskId: TaskId;
-    ownerId: UniqueEntityId;
+    taskOwnerId: TaskOwnerId;
   }
   export class WrongTaskOwner extends Result<UseCaseError> {
-    constructor({ taskId, ownerId }: WrongOwnerErrorProps) {
+    constructor({ taskId, taskOwnerId }: WrongOwnerErrorProps) {
       super(false, {
-        message: `The task with ID ${taskId.id.value} does not belong to owner with ID ${ownerId.value}`,
+        message: `The task with ID ${taskId.id.value} does not belong to owner with ID ${taskOwnerId.id.value}`,
       } as UseCaseError);
     }
   }

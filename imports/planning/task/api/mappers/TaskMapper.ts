@@ -1,12 +1,12 @@
 import { UniqueEntityId } from '../../../../core/domain';
-import { Task, Description } from '../../domain';
+import { Description, Task, TaskOwnerId } from '../../domain';
 import { TaskDocument } from '../collections';
 
 export const TaskMapper = {
   toPersistence(task: Task): TaskDocument {
     return {
       _id: task.id.value,
-      ownerId: task.ownerID.value,
+      ownerId: task.taskOwnerId.id.value,
       description: task.description.value,
       createdAt: task.createdAt,
       editedAt: task.editedAt,
@@ -23,7 +23,7 @@ export const TaskMapper = {
   toDomain(doc: TaskDocument): Task {
     return Task.create(
       {
-        ownerId: UniqueEntityId.create(doc.ownerId),
+        taskOwnerId: TaskOwnerId.create(UniqueEntityId.create(doc.ownerId)),
         description: Description.create(doc.description).value,
         createdAt: doc.createdAt,
         resumedAt: doc.resumedAt,

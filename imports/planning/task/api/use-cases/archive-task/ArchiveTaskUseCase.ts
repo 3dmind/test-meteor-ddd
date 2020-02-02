@@ -6,7 +6,7 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { TaskId } from '../../../domain';
+import { TaskId, TaskOwnerId } from '../../../domain';
 import { TaskRepository } from '../../repositories/TaskRepository';
 import { GenericUseCaseErrors } from '../GenericUseCaseErrors';
 import { ArchiveTaskDto } from './ArchiveTaskDto';
@@ -38,12 +38,12 @@ export class ArchiveTaskUseCase implements UseCase<Request, Response> {
       return eitherLeft(new GenericUseCaseErrors.TaskDoesNotExist(taskId));
     }
 
-    const ownerId = UniqueEntityId.create(userId);
-    const isOwnedByUser = task.isOwnedByUser(ownerId);
+    const taskOwnerId = TaskOwnerId.create(UniqueEntityId.create(userId));
+    const isOwnedByUser = task.belongsToOwner(taskOwnerId);
     if (!isOwnedByUser) {
       return eitherLeft(
         new GenericUseCaseErrors.WrongTaskOwner({
-          ownerId,
+          taskOwnerId,
           taskId,
         }),
       );

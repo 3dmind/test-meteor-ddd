@@ -7,6 +7,7 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
+import { TaskOwnerId } from '../../../domain';
 import { TaskRepository } from '../../repositories/TaskRepository';
 import { DiscardAllArchivedTasksErrors } from './DiscardAllArchivedTasksErrors';
 
@@ -30,11 +31,13 @@ export class DiscardAllArchivedTasksUseCase
 
   execute(request?: Request): Response {
     const { userId } = request;
-    const ownerId = UniqueEntityId.create(userId);
-    const tasks = this.taskRepository.findArchivedTasksByOwnerId(ownerId);
+    const taskOwnerId = TaskOwnerId.create(UniqueEntityId.create(userId));
+    const tasks = this.taskRepository.findArchivedTasksByTaskOwnerId(
+      taskOwnerId,
+    );
     if (Ramda.isEmpty(tasks)) {
       return eitherLeft(
-        new DiscardAllArchivedTasksErrors.NoArchivedTasks(ownerId),
+        new DiscardAllArchivedTasksErrors.NoArchivedTasks(taskOwnerId),
       );
     }
 
