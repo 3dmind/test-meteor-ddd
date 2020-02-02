@@ -63,7 +63,7 @@ describe('Edit task method', function() {
 
     assert.throws(() => {
       editTaskMethod.apply(context, [dto]);
-    }, ApiErrors.BadRequest);
+    }, ApiErrors.Forbidden);
   });
 
   it('should edit task description', function() {

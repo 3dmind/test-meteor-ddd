@@ -51,7 +51,7 @@ describe('Tick-off task method', function() {
 
     assert.throws(() => {
       tickOffTaskMethod.apply(context, [dto]);
-    }, ApiErrors.BadRequest);
+    }, ApiErrors.Forbidden);
   });
 
   it('should tick-off task', function() {

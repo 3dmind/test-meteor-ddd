@@ -18,6 +18,12 @@ export namespace ApiErrors {
     }
   }
 
+  export class Forbidden extends Meteor.Error {
+    constructor(message) {
+      super(ErrorStatus.Forbidden, 'Forbidden', message);
+    }
+  }
+
   export class NotFound extends Meteor.Error {
     constructor(message: string) {
       super(ErrorStatus.NotFound, 'Not found', message);

@@ -51,7 +51,7 @@ describe('Archive task method', function() {
 
     assert.throws(() => {
       archiveTaskMethod.apply(context, [dto]);
-    }, ApiErrors.BadRequest);
+    }, ApiErrors.Forbidden);
   });
 
   it('should archive task', function() {

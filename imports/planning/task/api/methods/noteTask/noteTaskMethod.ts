@@ -7,7 +7,6 @@ import { NoteTaskMethodName } from './NoteTaskMethodName';
 Meteor.methods({
   [NoteTaskMethodName]: function noteTaskMethod(dto: NoteTaskDto): void {
     const { userId } = this;
-
     if (!userId) {
       throw new ApiErrors.Unauthorized();
     }

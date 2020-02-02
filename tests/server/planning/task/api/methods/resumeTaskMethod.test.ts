@@ -52,7 +52,7 @@ describe('Resume task method', function() {
 
     assert.throws(() => {
       resumeTaskMethod.apply(context, [dto]);
-    }, ApiErrors.BadRequest);
+    }, ApiErrors.Forbidden);
   });
 
   it('should resume task', function() {

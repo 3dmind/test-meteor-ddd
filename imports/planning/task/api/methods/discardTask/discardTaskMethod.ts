@@ -26,7 +26,7 @@ Meteor.methods({
       if (result instanceof GenericUseCaseErrors.TaskDoesNotExist) {
         throw new ApiErrors.NotFound(result.error.message);
       } else if (result instanceof GenericUseCaseErrors.WrongTaskOwner) {
-        throw new ApiErrors.BadRequest(result.error.message);
+        throw new ApiErrors.Forbidden(result.error.message);
       } else if (result instanceof GenericAppErrors.UnexpectedError) {
         throw new ApiErrors.InternalServerError(result.error.message);
       }

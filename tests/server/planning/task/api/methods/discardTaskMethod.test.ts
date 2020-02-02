@@ -51,7 +51,7 @@ describe('Discard task method', function() {
 
     assert.throws(() => {
       discardTaskMethod.apply(context, [dto]);
-    }, ApiErrors.BadRequest);
+    }, ApiErrors.Forbidden);
   });
 
   it('should discard task', function() {
