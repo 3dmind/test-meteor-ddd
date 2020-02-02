@@ -1,18 +1,19 @@
 import { UniqueEntityId } from '../../../../core/domain';
 import { Task } from '../Task';
 import { Description } from '../Description';
+import { TaskOwnerId } from '../TaskOwnerId';
 
 describe('Task', () => {
-  const ownerId = UniqueEntityId.create();
+  const taskOwnerId = TaskOwnerId.create(UniqueEntityId.create());
   let defaultTaskProps;
   let dateSpy: jest.SpyInstance;
 
   beforeAll(() => {
     const description = Description.create('Lorem upsum').value;
     defaultTaskProps = {
-      ownerId,
-      createdAt: new Date(),
+      taskOwnerId,
       description,
+      createdAt: new Date(),
       tickedOff: false,
       tickedOffAt: undefined,
       resumedAt: undefined,
@@ -43,7 +44,7 @@ describe('Task', () => {
     expect.assertions(2);
     const description = Description.create('Lorem upsum').value;
 
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     expect(task).toBeDefined();
     expect(task).toBeInstanceOf(Task);
@@ -62,9 +63,9 @@ describe('Task', () => {
     const taskB = Task.create(taskBProps, entityID);
 
     test.each([
-      [Task.note(description, ownerId), null, false],
-      [Task.note(description, ownerId), undefined, false],
-      [Task.note(description, ownerId), {}, false],
+      [Task.note(description, taskOwnerId), null, false],
+      [Task.note(description, taskOwnerId), undefined, false],
+      [Task.note(description, taskOwnerId), {}, false],
       [taskA, taskA, true],
       [taskA, taskB, true],
     ])('%o.equals(%o)', (a: Task, b: Task, expected: boolean) => {
@@ -85,7 +86,7 @@ describe('Task', () => {
     expect.assertions(1);
     const description = Description.create('Lorem upsum').value;
 
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     expect(task.description).toEqual(description);
   });
@@ -105,7 +106,7 @@ describe('Task', () => {
   test('tickOff()', () => {
     expect.assertions(1);
     const description = Description.create('Lorem upsum').value;
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     task.tickOff();
 
@@ -126,7 +127,7 @@ describe('Task', () => {
   test('resume()', () => {
     expect.assertions(1);
     const description = Description.create('Lorem upsum').value;
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     task.resume();
 
@@ -153,7 +154,7 @@ describe('Task', () => {
     const description = Description.create('Lorem ispum').value;
     const newDescription = Description.create('Lorem ipsum dolor amet sum')
       .value;
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     task.edit(newDescription);
 
@@ -176,7 +177,7 @@ describe('Task', () => {
   test('discard()', () => {
     expect.assertions(1);
     const description = Description.create('Lorem ipsum').value;
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     task.discard();
 
@@ -197,7 +198,7 @@ describe('Task', () => {
   test('archive()', () => {
     expect.assertions(1);
     const description = Description.create('Lorem ipsum').value;
-    const task = Task.note(description, ownerId);
+    const task = Task.note(description, taskOwnerId);
 
     task.archive();
 
@@ -215,17 +216,17 @@ describe('Task', () => {
     expect(task.archivedAt).toEqual(archivedAt);
   });
 
-  test('isOwnedByUser()', () => {
+  test('belongsToOwner()', () => {
     expect.assertions(1);
     const task = Task.create(defaultTaskProps);
 
-    expect(task.isOwnedByUser(ownerId)).toBe(true);
+    expect(task.belongsToOwner(taskOwnerId)).toBe(true);
   });
 
-  test('get property "ownerId"', () => {
+  test('get property "taskOwnerId"', () => {
     expect.assertions(1);
     const task = Task.create(defaultTaskProps);
 
-    expect(task.ownerID).toEqual(ownerId);
+    expect(task.taskOwnerId).toEqual(taskOwnerId);
   });
 });

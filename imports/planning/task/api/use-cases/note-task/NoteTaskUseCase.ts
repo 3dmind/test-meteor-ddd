@@ -6,7 +6,7 @@ import {
   GenericAppErrors,
   Result,
 } from '../../../../../core/logic';
-import { Description, Task } from '../../../domain';
+import { Description, Task, TaskOwnerId } from '../../../domain';
 import { TaskRepository } from '../../repositories/TaskRepository';
 import { NoteTaskDto } from './NoteTaskDto';
 
@@ -34,10 +34,8 @@ export class NoteTaskUseCase implements UseCase<Request, Response> {
       return eitherLeft(Result.fail<string>(descriptionOrError.error));
     }
 
-    const task = Task.note(
-      descriptionOrError.value,
-      UniqueEntityId.create(userId),
-    );
+    const taskOwnerId = TaskOwnerId.create(UniqueEntityId.create(userId));
+    const task = Task.note(descriptionOrError.value, taskOwnerId);
     try {
       this.taskRepository.save(task);
     } catch (error) {
