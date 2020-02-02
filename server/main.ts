@@ -1,1 +1,1 @@
-import '../imports/startup/server/api'
+import '../imports/startup/server/api';

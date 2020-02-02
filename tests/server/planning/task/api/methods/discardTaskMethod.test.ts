@@ -8,6 +8,7 @@ import {
   TaskDocument,
 } from '../../../../../../imports/planning/task/api';
 import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+import '../../../../../../imports/planning/task/api/methods/discardTask/discardTaskMethod';
 import { taskDocFixture, userIdFixture } from './fixtures';
 
 describe('Discard task method', function() {

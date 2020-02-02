@@ -1,5 +1,9 @@
 export { GenericUseCaseErrors } from './GenericUseCaseErrors';
 export { ArchiveTaskDto, archiveTaskUseCase } from './archive-task';
+export {
+  DiscardAllArchivedTasksErrors,
+  discardAllArchivedTasksUseCase,
+} from './discard-all-archived-tasks';
 export { DiscardTaskDto, discardTaskUseCase } from './discard-task';
 export { EditTaskDto, editTaskUseCase } from './edit-task';
 export { NoteTaskDto, noteTaskUseCase } from './note-task';

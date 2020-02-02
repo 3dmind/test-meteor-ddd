@@ -8,6 +8,7 @@ import {
   TickOffTaskMethodName,
 } from '../../../../../../imports/planning/task/api';
 import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+import '../../../../../../imports/planning/task/api/methods/tickOffTask/tickOffTaskMethod';
 import { taskDocFixture, userIdFixture } from './fixtures';
 
 describe('Tick-off task method', function() {

@@ -6,6 +6,7 @@ import {
   TaskCollection,
 } from '../../../../../../imports/planning/task/api';
 import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+import '../../../../../../imports/planning/task/api/methods/noteTask/noteTaskMethod';
 
 import { userIdFixture } from './fixtures';
 

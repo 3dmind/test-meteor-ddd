@@ -1,5 +1,5 @@
-import * as assert from 'assert'
-import { TaskCollectionPublicFields } from '../../../../../../imports/planning/task/api'
+import * as assert from 'assert';
+import { TaskCollectionPublicFields } from '../../../../../../imports/planning/task/api/collections';
 
 describe('TaskCollectionPublicFields', function() {
   it('should contain publicly available fields', function() {
@@ -13,6 +13,6 @@ describe('TaskCollectionPublicFields', function() {
       resumedAt: 1,
       isArchived: 1,
       archivedAt: 1,
-    })
-  })
-})
+    });
+  });
+});
