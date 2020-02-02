@@ -1,2 +1,1 @@
-export * from './TaskMapper';
-export * from './TaskListMapper';
+export { TaskMapper } from './TaskMapper';
