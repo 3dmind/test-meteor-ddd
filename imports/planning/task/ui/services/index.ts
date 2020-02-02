@@ -1,1 +1,1 @@
-export { TaskUiService } from './TaskUiService'
+export { TaskUiService } from './TaskUiService';

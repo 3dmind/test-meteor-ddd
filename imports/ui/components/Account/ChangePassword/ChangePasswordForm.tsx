@@ -1,14 +1,14 @@
-import { Button, Grid } from '@material-ui/core'
-import { Field, Form, FormikProps } from 'formik'
-import { TextField } from 'formik-material-ui'
-import * as React from 'react'
-import { ChangePasswordFormValues } from './ChangePasswordFormValues'
+import { Button, Grid } from '@material-ui/core';
+import { Field, Form, FormikProps } from 'formik';
+import { TextField } from 'formik-material-ui';
+import * as React from 'react';
+import { ChangePasswordFormValues } from './ChangePasswordFormValues';
 
 export const ChangePasswordForm: React.FunctionComponent<
   FormikProps<ChangePasswordFormValues>
 > = (props) => {
-  const { isSubmitting, isValid } = props
-  const isSubmitButtonDisabled = isSubmitting || !isValid
+  const { isSubmitting, isValid } = props;
+  const isSubmitButtonDisabled = isSubmitting || !isValid;
   return (
     <Form>
       <Grid container spacing={2} direction={'column'}>
@@ -55,5 +55,5 @@ export const ChangePasswordForm: React.FunctionComponent<
         </Grid>
       </Grid>
     </Form>
-  )
-}
+  );
+};

@@ -1,11 +1,11 @@
 interface TaskProps {
-  id: string
-  description: string
-  createdAt: Date
-  isTickedOff: boolean
-  tickedOffAt?: Date
-  isArchived: boolean
-  archivedAt?: Date
+  id: string;
+  description: string;
+  createdAt: Date;
+  isTickedOff: boolean;
+  tickedOffAt?: Date;
+  isArchived: boolean;
+  archivedAt?: Date;
 }
 
 export class TaskPresenter {
@@ -13,51 +13,51 @@ export class TaskPresenter {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
-  })
+  });
 
-  private readonly props: TaskProps
+  private readonly props: TaskProps;
 
   private constructor(props: TaskProps) {
-    this.props = props
+    this.props = props;
   }
 
   get id(): string {
-    return this.props.id
+    return this.props.id;
   }
 
   get description(): string {
-    return this.props.description
+    return this.props.description;
   }
 
   get createdAtFormatted(): string {
-    return TaskPresenter.dateFormatter.format(this.props.createdAt)
+    return TaskPresenter.dateFormatter.format(this.props.createdAt);
   }
 
   get isTickedOff(): boolean {
-    return this.props.isTickedOff
+    return this.props.isTickedOff;
   }
 
   get tickedOffAtFormatted(): string {
-    const { tickedOffAt, isTickedOff } = this.props
+    const { tickedOffAt, isTickedOff } = this.props;
     if (!isTickedOff) {
-      return ''
+      return '';
     }
-    return TaskPresenter.dateFormatter.format(tickedOffAt)
+    return TaskPresenter.dateFormatter.format(tickedOffAt);
   }
 
   get isArchived(): boolean {
-    return this.props.isArchived
+    return this.props.isArchived;
   }
 
   get archivedAtFormatted(): string {
-    const { archivedAt, isArchived } = this.props
+    const { archivedAt, isArchived } = this.props;
     if (!isArchived) {
-      return ''
+      return '';
     }
-    return TaskPresenter.dateFormatter.format(archivedAt)
+    return TaskPresenter.dateFormatter.format(archivedAt);
   }
 
   static create(props: TaskProps): TaskPresenter {
-    return new TaskPresenter(props)
+    return new TaskPresenter(props);
   }
 }

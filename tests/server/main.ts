@@ -1,2 +1,2 @@
-import './planning/task/api/collections'
-import './planning/task/api/methods'
+import './planning/task/api/collections';
+import './planning/task/api/methods';

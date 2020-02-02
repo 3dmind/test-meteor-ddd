@@ -1,6 +1,6 @@
-import { TaskDocument } from '../../../api'
-import { ActiveTasksPresenter } from '../../presenter'
-import { ActiveTasksPresenterMapper } from '../index'
+import { TaskDocument } from '../../../api';
+import { ActiveTasksPresenter } from '../../presenter';
+import { ActiveTasksPresenterMapper } from '../index';
 
 describe('ActiveTasksPresenterMapper', () => {
   test('toPresentation()', () => {
@@ -23,17 +23,17 @@ describe('ActiveTasksPresenterMapper', () => {
         isDiscarded: false,
         isArchived: false,
       },
-    ]
-    const count = docs.length
-    const tickedOffTasksCount = docs.filter((doc) => doc.isTickedOff).length
+    ];
+    const count = docs.length;
+    const tickedOffTasksCount = docs.filter((doc) => doc.isTickedOff).length;
 
     const presenter = ActiveTasksPresenterMapper.toPresentation(
       docs,
       count,
       tickedOffTasksCount,
-    )
+    );
 
-    expect(presenter).toBeDefined()
-    expect(presenter).toBeInstanceOf(ActiveTasksPresenter)
-  })
-})
+    expect(presenter).toBeDefined();
+    expect(presenter).toBeInstanceOf(ActiveTasksPresenter);
+  });
+});

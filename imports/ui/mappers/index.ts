@@ -1,1 +1,1 @@
-export { UserPresenterMapper } from './UserPresenterMapper'
+export { UserPresenterMapper } from './UserPresenterMapper';

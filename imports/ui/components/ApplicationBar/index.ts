@@ -1,2 +1,2 @@
-export * from './ApplicationContent'
-export * from './ApplicationHeader'
+export * from './ApplicationContent';
+export * from './ApplicationHeader';

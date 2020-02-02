@@ -1,1 +1,1 @@
-import './TaskCollectionPublicFields.test'
+import './TaskCollectionPublicFields.test';

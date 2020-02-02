@@ -1,1 +1,1 @@
-export { NoteTask } from './NoteTask'
+export { NoteTask } from './NoteTask';

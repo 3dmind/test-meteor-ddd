@@ -1,6 +1,6 @@
-import { TaskDocument } from '../../../api'
-import { TaskPresenter } from '../../presenter'
-import { TaskPresenterMapper } from '../index'
+import { TaskDocument } from '../../../api';
+import { TaskPresenter } from '../../presenter';
+import { TaskPresenterMapper } from '../index';
 
 describe('TaskPresenterMapper', () => {
   test('toPresentation()', () => {
@@ -12,11 +12,11 @@ describe('TaskPresenterMapper', () => {
       isTickedOff: false,
       isDiscarded: false,
       isArchived: false,
-    }
+    };
 
-    const presenter = TaskPresenterMapper.toPresentation(doc)
+    const presenter = TaskPresenterMapper.toPresentation(doc);
 
-    expect(presenter).toBeDefined()
-    expect(presenter).toBeInstanceOf(TaskPresenter)
-  })
-})
+    expect(presenter).toBeDefined();
+    expect(presenter).toBeInstanceOf(TaskPresenter);
+  });
+});

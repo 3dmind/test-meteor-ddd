@@ -1,4 +1,4 @@
-import { List, Theme, withStyles } from '@material-ui/core'
+import { List, Theme, withStyles } from '@material-ui/core';
 
 export const TasksList = withStyles((theme: Theme) => {
   return {
@@ -6,5 +6,5 @@ export const TasksList = withStyles((theme: Theme) => {
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
-  }
-})(List)
+  };
+})(List);

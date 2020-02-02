@@ -1,6 +1,6 @@
-import { TaskDocument } from '../../../api'
-import { ArchivedTasksPresenter } from '../../presenter'
-import { ArchivedTasksPresenterMapper } from '../index'
+import { TaskDocument } from '../../../api';
+import { ArchivedTasksPresenter } from '../../presenter';
+import { ArchivedTasksPresenterMapper } from '../index';
 
 describe('ArchivedTasksPresenterMapper', () => {
   test('toPresentation()', () => {
@@ -23,12 +23,12 @@ describe('ArchivedTasksPresenterMapper', () => {
         isDiscarded: false,
         isArchived: true,
       },
-    ]
-    const count = docs.length
+    ];
+    const count = docs.length;
 
-    const presenter = ArchivedTasksPresenterMapper.toPresentation(docs, count)
+    const presenter = ArchivedTasksPresenterMapper.toPresentation(docs, count);
 
-    expect(presenter).toBeDefined()
-    expect(presenter).toBeInstanceOf(ArchivedTasksPresenter)
-  })
-})
+    expect(presenter).toBeDefined();
+    expect(presenter).toBeInstanceOf(ArchivedTasksPresenter);
+  });
+});

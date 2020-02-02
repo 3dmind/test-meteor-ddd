@@ -1,18 +1,18 @@
-import * as React from 'react'
-import { TaskPresenter } from '../../presenter'
-import { CreatedAt, TickedOffAt } from '../common'
+import * as React from 'react';
+import { TaskPresenter } from '../../presenter';
+import { CreatedAt, TickedOffAt } from '../common';
 
 interface ActiveTaskMetadataProps {
-  task: TaskPresenter
+  task: TaskPresenter;
 }
 
 export const ActiveTaskMetadata: React.FunctionComponent<
   ActiveTaskMetadataProps
 > = (props) => {
-  const { createdAtFormatted, tickedOffAtFormatted, isTickedOff } = props.task
+  const { createdAtFormatted, tickedOffAtFormatted, isTickedOff } = props.task;
   if (isTickedOff) {
-    return <TickedOffAt dateFormatted={tickedOffAtFormatted} />
+    return <TickedOffAt dateFormatted={tickedOffAtFormatted} />;
   } else {
-    return <CreatedAt dateFormatted={createdAtFormatted} />
+    return <CreatedAt dateFormatted={createdAtFormatted} />;
   }
-}
+};

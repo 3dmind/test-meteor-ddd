@@ -1,6 +1,6 @@
-import { TaskDocument } from '../../../../../../../imports/planning/task/api'
+import { TaskDocument } from '../../../../../../../imports/planning/task/api';
 
-export const userIdFixture = '46o9S4ukleKhMtjMu'
+export const userIdFixture = '46o9S4ukleKhMtjMu';
 
 export const taskDocFixture: TaskDocument = {
   ownerId: userIdFixture,
@@ -9,4 +9,4 @@ export const taskDocFixture: TaskDocument = {
   isTickedOff: false,
   isDiscarded: false,
   isArchived: false,
-}
+};

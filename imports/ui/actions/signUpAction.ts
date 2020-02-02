@@ -1,20 +1,20 @@
-import { Accounts } from 'meteor/accounts-base'
+import { Accounts } from 'meteor/accounts-base';
 
 interface SignUpAction {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }
 
 export async function signUpAction({
   password,
   username,
 }: SignUpAction): Promise<void> {
-  return new Promise((resolve, reject) => {
-    Accounts.createUser({ password, username }, (error) => {
+  return new Promise(function executor(resolve, reject) {
+    Accounts.createUser({ password, username }, function callback(error) {
       if (error) {
-        reject(error)
+        reject(error);
       }
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 }

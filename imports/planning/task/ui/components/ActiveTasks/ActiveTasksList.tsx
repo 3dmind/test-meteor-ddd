@@ -1,30 +1,30 @@
-import { Checkbox, FormControlLabel, Grid } from '@material-ui/core'
-import * as React from 'react'
-import { ActiveTasksPresenter } from '../../presenter'
-import { Section, TasksList } from '../common'
-import { ActiveTasksListItem } from './ActiveTasksListItem'
-import { ActiveTasksProgress } from './ActiveTasksProgress'
+import { Checkbox, FormControlLabel, Grid } from '@material-ui/core';
+import * as React from 'react';
+import { ActiveTasksPresenter } from '../../presenter';
+import { Section, TasksList } from '../common';
+import { ActiveTasksListItem } from './ActiveTasksListItem';
+import { ActiveTasksProgress } from './ActiveTasksProgress';
 
 interface ActiveTasksListProps {
-  activeTasks: ActiveTasksPresenter
+  activeTasks: ActiveTasksPresenter;
 }
 
 export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
   props,
 ) => {
-  const { activeTasks } = props
-  const [hideTickedOff, setHideTickedOff] = React.useState<boolean>(false)
+  const { activeTasks } = props;
+  const [hideTickedOff, setHideTickedOff] = React.useState<boolean>(false);
 
   function handleChange(): void {
-    setHideTickedOff(!hideTickedOff)
+    setHideTickedOff(!hideTickedOff);
   }
 
   if (activeTasks.hasTasks()) {
-    let filteredTasks
+    let filteredTasks;
     if (hideTickedOff) {
-      filteredTasks = activeTasks.withoutTickedOffTasks()
+      filteredTasks = activeTasks.withoutTickedOffTasks();
     } else {
-      filteredTasks = activeTasks.allTasks()
+      filteredTasks = activeTasks.allTasks();
     }
     return (
       <>
@@ -49,8 +49,8 @@ export const ActiveTasksList: React.FunctionComponent<ActiveTasksListProps> = (
           ))}
         </TasksList>
       </>
-    )
+    );
   } else {
-    return null
+    return null;
   }
-}
+};

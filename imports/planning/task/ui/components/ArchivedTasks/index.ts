@@ -1,1 +1,1 @@
-export { ArchivedTasksContainer } from './ArchivedTasksContainer'
+export { ArchivedTasksContainer } from './ArchivedTasksContainer';

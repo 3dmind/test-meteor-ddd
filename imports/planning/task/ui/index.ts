@@ -1,1 +1,1 @@
-export { TaskController } from './components/TaskController'
+export { TaskController } from './components/TaskController';

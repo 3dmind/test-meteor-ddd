@@ -1,4 +1,4 @@
-import { Divider, Theme, withStyles } from '@material-ui/core'
+import { Divider, Theme, withStyles } from '@material-ui/core';
 
 export const SectionDivider = withStyles((theme: Theme) => {
   return {
@@ -6,5 +6,5 @@ export const SectionDivider = withStyles((theme: Theme) => {
       marginTop: theme.spacing(3),
       marginBottom: theme.spacing(2),
     },
-  }
-})(Divider)
+  };
+})(Divider);

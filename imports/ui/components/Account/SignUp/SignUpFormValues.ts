@@ -1,5 +1,5 @@
 export interface SignUpFormValues {
-  username: string
-  password: string
-  repeatedPassword: string
+  username: string;
+  password: string;
+  repeatedPassword: string;
 }

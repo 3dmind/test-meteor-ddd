@@ -1,6 +1,6 @@
-import { TaskDocument } from '../../api'
-import { ActiveTasksPresenter } from '../presenter'
-import { TaskPresenterMapper } from './TaskPresenterMapper'
+import { TaskDocument } from '../../api';
+import { ActiveTasksPresenter } from '../presenter';
+import { TaskPresenterMapper } from './TaskPresenterMapper';
 
 export const ActiveTasksPresenterMapper = {
   toPresentation(
@@ -8,11 +8,11 @@ export const ActiveTasksPresenterMapper = {
     count: number,
     tickedOffTasksCount: number,
   ): ActiveTasksPresenter {
-    const tasks = docs.map((doc) => TaskPresenterMapper.toPresentation(doc))
+    const tasks = docs.map((doc) => TaskPresenterMapper.toPresentation(doc));
     return ActiveTasksPresenter.create({
       tasks,
       count,
       tickedOffTasksCount,
-    })
+    });
   },
-}
+};
