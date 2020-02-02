@@ -1,70 +1,67 @@
-import * as assert from 'assert'
-import { Meteor } from 'meteor/meteor'
-import { Mongo } from 'meteor/mongo'
+import * as assert from 'assert';
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import {
-  DiscardTaskDTO,
+  DiscardTaskDto,
   DiscardTaskMethodName,
   TaskCollection,
   TaskDocument,
-} from '../../../../../../imports/planning/task/api'
-import {
-  TaskNotFoundException,
-  UnauthorizedMethodCallException,
-  UnauthorizedTaskOperationException,
-} from '../../../../../../imports/planning/task/api/exceptions'
-import { taskDocFixture, userIdFixture } from './fixtures'
+} from '../../../../../../imports/planning/task/api';
+import { ApiErrors } from '../../../../../../imports/planning/task/api/api-errors';
+import '../../../../../../imports/planning/task/api/methods/discardTask/discardTaskMethod';
+import { taskDocFixture, userIdFixture } from './fixtures';
 
 describe('Discard task method', function() {
-  let discardTaskMethod
-  let documentId
+  let discardTaskMethod;
+  let documentId;
 
   before(function() {
-    discardTaskMethod = Meteor.server.method_handlers[DiscardTaskMethodName]
-  })
+    discardTaskMethod = Meteor.server.method_handlers[DiscardTaskMethodName];
+  });
 
   beforeEach(function() {
-    documentId = TaskCollection.insert(taskDocFixture)
-  })
+    documentId = TaskCollection.insert(taskDocFixture);
+  });
 
   afterEach(function() {
-    TaskCollection.remove({})
-  })
+    TaskCollection.remove({});
+  });
 
   it('should throw when user is not logged-in', function() {
-    const context = {}
-    const dto: DiscardTaskDTO = { taskId: documentId }
+    const context = {};
+    const dto: DiscardTaskDto = { taskId: documentId };
 
     assert.throws(() => {
-      discardTaskMethod.apply(context, [dto])
-    }, UnauthorizedMethodCallException)
-  })
+      discardTaskMethod.apply(context, [dto]);
+    }, ApiErrors.Unauthorized);
+  });
 
   it('should throw when task was not found', function() {
-    const context = Object.assign({}, { userId: userIdFixture })
-    const dto: DiscardTaskDTO = { taskId: 'A' }
+    const context = Object.assign({}, { userId: userIdFixture });
+    const dto: DiscardTaskDto = { taskId: 'A' };
 
     assert.throws(() => {
-      discardTaskMethod.apply(context, [dto])
-    }, TaskNotFoundException)
-  })
+      discardTaskMethod.apply(context, [dto]);
+    }, ApiErrors.NotFound);
+  });
 
   it('should throw when owner and user do not match', function() {
-    const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' })
-    const dto: DiscardTaskDTO = { taskId: documentId }
+    const context = Object.assign({}, { userId: 'YanhGvrizEdDzqQEz' });
+    const dto: DiscardTaskDto = { taskId: documentId };
 
     assert.throws(() => {
-      discardTaskMethod.apply(context, [dto])
-    }, UnauthorizedTaskOperationException)
-  })
+      discardTaskMethod.apply(context, [dto]);
+    }, ApiErrors.Forbidden);
+  });
 
   it('should discard task', function() {
-    const selector: Mongo.Selector<TaskDocument> = { isDiscarded: true }
-    const context = Object.assign({}, { userId: userIdFixture })
-    const dto: DiscardTaskDTO = { taskId: documentId }
+    const selector: Mongo.Selector<TaskDocument> = { isDiscarded: true };
+    const context = Object.assign({}, { userId: userIdFixture });
+    const dto: DiscardTaskDto = { taskId: documentId };
 
-    discardTaskMethod.apply(context, [dto])
-    const actual = TaskCollection.find(selector).count()
+    discardTaskMethod.apply(context, [dto]);
+    const actual = TaskCollection.find(selector).count();
 
-    assert.strictEqual(actual, 1)
-  })
-})
+    assert.strictEqual(actual, 1);
+  });
+});

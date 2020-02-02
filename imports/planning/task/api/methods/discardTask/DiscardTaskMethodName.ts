@@ -1,1 +1,1 @@
-export const DiscardTaskMethodName = 'planning.task.discard'
+export const DiscardTaskMethodName = 'planning.task.discard';

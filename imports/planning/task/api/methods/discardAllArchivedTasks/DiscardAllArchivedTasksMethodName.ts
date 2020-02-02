@@ -1,2 +1,2 @@
 export const DiscardAllArchivedTasksMethodName =
-  'planning.task.discardAllArchived'
+  'planning.task.discardAllArchived';

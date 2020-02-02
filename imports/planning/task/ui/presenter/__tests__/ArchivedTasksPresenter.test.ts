@@ -1,4 +1,4 @@
-import { ArchivedTasksPresenter, TaskPresenter } from '../index'
+import { ArchivedTasksPresenter, TaskPresenter } from '../index';
 
 describe('ArchivedTasksPresenter', () => {
   const tasks = [
@@ -16,22 +16,22 @@ describe('ArchivedTasksPresenter', () => {
       isTickedOff: true,
       isArchived: false,
     }),
-  ]
+  ];
 
-  let presenter: ArchivedTasksPresenter
+  let presenter: ArchivedTasksPresenter;
 
   beforeEach(() => {
     presenter = ArchivedTasksPresenter.create({
       tasks,
       count: tasks.length,
-    })
-  })
+    });
+  });
 
   test('get property "tasks"', () => {
-    expect(presenter.tasks).toEqual(tasks)
-  })
+    expect(presenter.tasks).toEqual(tasks);
+  });
 
   test('#hasTasks()', () => {
-    expect(presenter.hasTasks()).toBe(true)
-  })
-})
+    expect(presenter.hasTasks()).toBe(true);
+  });
+});

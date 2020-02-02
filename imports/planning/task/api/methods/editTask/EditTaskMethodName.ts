@@ -1,1 +1,1 @@
-export const EditTaskMethodName = 'planning.task.edit'
+export const EditTaskMethodName = 'planning.task.edit';

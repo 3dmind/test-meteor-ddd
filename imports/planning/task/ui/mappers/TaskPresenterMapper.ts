@@ -1,5 +1,5 @@
-import { TaskDocument } from '../../api'
-import { TaskPresenter } from '../presenter'
+import { TaskDocument } from '../../api';
+import { TaskPresenter } from '../presenter';
 
 export const TaskPresenterMapper = {
   toPresentation(doc: TaskDocument): TaskPresenter {
@@ -11,7 +11,7 @@ export const TaskPresenterMapper = {
       tickedOffAt: doc.tickedOffAt,
       isArchived: doc.isArchived,
       archivedAt: doc.archivedAt,
-    })
+    });
   },
-}
-Object.freeze(TaskPresenterMapper)
+};
+Object.freeze(TaskPresenterMapper);

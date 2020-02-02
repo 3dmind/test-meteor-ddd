@@ -6,13 +6,13 @@ import {
   Paper,
   Theme,
   Typography,
-} from '@material-ui/core'
-import { Formik, FormikHelpers } from 'formik'
-import { Meteor } from 'meteor/meteor'
-import * as React from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useActions } from '../ApplicationActions'
-import { SignUpForm, SignUpFormSchema, SignUpFormValues } from './SignUp'
+} from '@material-ui/core';
+import { Formik, FormikHelpers } from 'formik';
+import { Meteor } from 'meteor/meteor';
+import * as React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useActions } from '../ApplicationActions';
+import { SignUpForm, SignUpFormSchema, SignUpFormValues } from './SignUp';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,45 +24,45 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.error.main,
     },
   }),
-)
+);
 
 interface HandleRejected {
-  exception: Meteor.Error
-  formHelpers: FormikHelpers<SignUpFormValues>
+  exception: Meteor.Error;
+  formHelpers: FormikHelpers<SignUpFormValues>;
 }
 
 interface HandleFulfilled {
-  formHelpers: FormikHelpers<SignUpFormValues>
+  formHelpers: FormikHelpers<SignUpFormValues>;
 }
 
 export const AccountSignUp: React.FunctionComponent = (props) => {
-  const { signUpAction } = useActions()
-  const history = useHistory()
-  const [error, setError] = React.useState<string>('')
+  const { signUpAction } = useActions();
+  const history = useHistory();
+  const [error, setError] = React.useState<string>('');
 
   function handleFulfilled({ formHelpers }: HandleFulfilled): void {
-    formHelpers.resetForm()
-    formHelpers.setSubmitting(false)
-    history.push('/')
+    formHelpers.resetForm();
+    formHelpers.setSubmitting(false);
+    history.push('/');
   }
 
   function handleRejected({ exception, formHelpers }: HandleRejected): void {
-    setError(exception.reason)
-    formHelpers.setFieldValue('password', '', false)
-    formHelpers.setFieldValue('repeatedPassword', '', false)
+    setError(exception.reason);
+    formHelpers.setFieldValue('password', '', false);
+    formHelpers.setFieldValue('repeatedPassword', '', false);
   }
 
   async function handleSubmit(
     values: SignUpFormValues,
     formHelpers: FormikHelpers<SignUpFormValues>,
   ): Promise<void> {
-    const { password, username } = values
-    setError('')
+    const { password, username } = values;
+    setError('');
     try {
-      await signUpAction({ username, password })
-      handleFulfilled({ formHelpers })
+      await signUpAction({ username, password });
+      handleFulfilled({ formHelpers });
     } catch (exception) {
-      handleRejected({ exception, formHelpers })
+      handleRejected({ exception, formHelpers });
     }
   }
 
@@ -70,8 +70,8 @@ export const AccountSignUp: React.FunctionComponent = (props) => {
     password: '',
     repeatedPassword: '',
     username: '',
-  }
-  const classes = useStyles(props)
+  };
+  const classes = useStyles(props);
   return (
     <Container component={'main'} maxWidth={'xs'}>
       <Paper elevation={5} className={classes.paper}>
@@ -108,5 +108,5 @@ export const AccountSignUp: React.FunctionComponent = (props) => {
         </Grid>
       </Paper>
     </Container>
-  )
-}
+  );
+};

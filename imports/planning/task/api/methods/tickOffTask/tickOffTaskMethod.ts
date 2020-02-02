@@ -1,30 +1,35 @@
-import { Meteor } from 'meteor/meteor'
-import { UniqueEntityID } from '../../../../../core/domain'
+import { Meteor } from 'meteor/meteor';
+import { GenericAppErrors } from '../../../../../core/logic';
+import { ApiErrors } from '../../api-errors';
 import {
-  TaskNotFoundException,
-  UnauthorizedMethodCallException,
-  UnauthorizedTaskOperationException,
-} from '../../exceptions'
-import { TaskRepository } from '../../TaskRepository'
-import { TickOffTaskDTO } from './TickOffTaskDTO'
-import { TickOffTaskMethodName } from './TickOffTaskMethodName'
+  GenericUseCaseErrors,
+  TickOffTaskDto,
+  tickOffTaskUseCase,
+} from '../../use-cases';
+import { TickOffTaskMethodName } from './TickOffTaskMethodName';
 
 Meteor.methods({
   [TickOffTaskMethodName]: function tickOffTaskMethod(
-    dto: TickOffTaskDTO,
+    dto: TickOffTaskDto,
   ): void {
-    if (!this.userId) {
-      throw new UnauthorizedMethodCallException()
+    const { userId } = this;
+    if (!userId) {
+      throw new ApiErrors.Unauthorized();
     }
 
-    const task = TaskRepository.getTaskById(dto.taskId)
-    if (!task) {
-      throw new TaskNotFoundException()
+    const response = tickOffTaskUseCase.execute({
+      dto,
+      userId,
+    });
+    if (response.isLeft()) {
+      const { result } = response;
+      if (result instanceof GenericUseCaseErrors.TaskDoesNotExist) {
+        throw new ApiErrors.NotFound(result.error.message);
+      } else if (result instanceof GenericUseCaseErrors.WrongTaskOwner) {
+        throw new ApiErrors.Forbidden(result.error.message);
+      } else if (result instanceof GenericAppErrors.UnexpectedError) {
+        throw new ApiErrors.InternalServerError(result.error.message);
+      }
     }
-    if (!task.isOwnedByUser(UniqueEntityID.create(this.userId))) {
-      throw new UnauthorizedTaskOperationException()
-    }
-    task.tickOff()
-    TaskRepository.updateTask(task)
   },
-})
+});

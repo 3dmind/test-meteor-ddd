@@ -1,24 +1,29 @@
-import { Meteor } from 'meteor/meteor'
-import { UniqueEntityID } from '../../../../../core/domain'
+import { Meteor } from 'meteor/meteor';
+import { GenericAppErrors } from '../../../../../core/logic';
+import { ApiErrors } from '../../api-errors';
 import {
-  TaskNotFoundException,
-  UnauthorizedMethodCallException,
-} from '../../exceptions'
-import { TaskRepository } from '../../TaskRepository'
-import { DiscardAllArchivedTasksMethodName } from './DiscardAllArchivedTasksMethodName'
+  DiscardAllArchivedTasksErrors,
+  discardAllArchivedTasksUseCase,
+} from '../../use-cases';
+import { DiscardAllArchivedTasksMethodName } from './DiscardAllArchivedTasksMethodName';
 
 Meteor.methods({
   [DiscardAllArchivedTasksMethodName]: function discardAllArchivedTasksMethod(): void {
-    if (!this.userId) {
-      throw new UnauthorizedMethodCallException()
+    const { userId } = this;
+    if (!userId) {
+      throw new ApiErrors.Unauthorized();
     }
 
-    const ownerId = UniqueEntityID.create(this.userId)
-    const taskList = TaskRepository.getAllArchivedTasks(ownerId)
-    if (taskList.isEmpty()) {
-      throw new TaskNotFoundException('Selected tasks were not found.')
+    const response = discardAllArchivedTasksUseCase.execute({
+      userId,
+    });
+    if (response.isLeft()) {
+      const { result } = response;
+      if (result instanceof DiscardAllArchivedTasksErrors.NoArchivedTasks) {
+        throw new ApiErrors.NotFound(result.error.message);
+      } else if (result instanceof GenericAppErrors.UnexpectedError) {
+        throw new ApiErrors.InternalServerError(result.error.message);
+      }
     }
-    taskList.discardTasks()
-    TaskRepository.updateAllTasks(taskList)
   },
-})
+});

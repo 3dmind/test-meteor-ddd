@@ -1,1 +1,1 @@
-import './TasksPublication'
+import './TasksPublication';

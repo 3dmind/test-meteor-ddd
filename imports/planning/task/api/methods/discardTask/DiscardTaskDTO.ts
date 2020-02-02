@@ -1,3 +1,3 @@
 export interface DiscardTaskDTO {
-  readonly taskId: string
+  readonly taskId: string;
 }

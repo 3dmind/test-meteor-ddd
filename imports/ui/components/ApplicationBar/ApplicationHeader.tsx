@@ -7,12 +7,12 @@ import {
   MenuItem,
   Toolbar,
   Typography,
-} from '@material-ui/core'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import { Meteor } from 'meteor/meteor'
-import * as React from 'react'
-import { useHistory } from 'react-router-dom'
-import { useActions } from '../ApplicationActions'
+} from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Meteor } from 'meteor/meteor';
+import * as React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useActions } from '../ApplicationActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,61 +20,61 @@ const useStyles = makeStyles(() =>
       flexGrow: 1,
     },
   }),
-)
+);
 
 interface ApplicationHeaderProps {
-  isAuthenticated: boolean
-  username: string
+  isAuthenticated: boolean;
+  username: string;
 }
 
 export const ApplicationHeader: React.FunctionComponent<
   ApplicationHeaderProps
 > = (props) => {
-  const { isAuthenticated, username } = props
-  const { signOutAction } = useActions()
-  const history = useHistory()
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const isOpen = Boolean(anchorEl)
+  const { isAuthenticated, username } = props;
+  const { signOutAction } = useActions();
+  const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isOpen = Boolean(anchorEl);
 
   function handleMenu(event: React.MouseEvent<HTMLButtonElement>): void {
-    setAnchorEl(event.currentTarget)
+    setAnchorEl(event.currentTarget);
   }
 
   function handleClose(event: React.MouseEvent<HTMLButtonElement>): void {
-    event.preventDefault()
-    setAnchorEl(null)
+    event.preventDefault();
+    setAnchorEl(null);
   }
 
   function handleClickChangePassword(
     event: React.MouseEvent<HTMLLIElement>,
   ): void {
-    event.preventDefault()
-    setAnchorEl(null)
-    history.push('/changepassword')
+    event.preventDefault();
+    setAnchorEl(null);
+    history.push('/changepassword');
   }
 
   function handleFulfilled(): void {
-    history.push('/signin')
+    history.push('/signin');
   }
 
   function handleRejected(error: Meteor.Error): void {
-    console.error(error.reason)
+    console.error(error.reason);
   }
 
   async function handleClickSignOut(
     event: React.MouseEvent<HTMLLIElement>,
   ): Promise<void> {
-    event.preventDefault()
-    setAnchorEl(null)
+    event.preventDefault();
+    setAnchorEl(null);
     try {
-      await signOutAction()
-      handleFulfilled()
+      await signOutAction();
+      handleFulfilled();
     } catch (exception) {
-      handleRejected(exception)
+      handleRejected(exception);
     }
   }
 
-  const classes = useStyles(props)
+  const classes = useStyles(props);
   return (
     <AppBar position={'relative'}>
       <Toolbar>
@@ -118,5 +118,5 @@ export const ApplicationHeader: React.FunctionComponent<
         ) : null}
       </Toolbar>
     </AppBar>
-  )
-}
+  );
+};

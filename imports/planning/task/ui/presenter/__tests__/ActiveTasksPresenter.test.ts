@@ -1,4 +1,4 @@
-import { ActiveTasksPresenter, TaskPresenter } from '../index'
+import { ActiveTasksPresenter, TaskPresenter } from '../index';
 
 describe('ActiveTasksPresenter', () => {
   const tasks = [
@@ -16,34 +16,34 @@ describe('ActiveTasksPresenter', () => {
       isTickedOff: true,
       isArchived: false,
     }),
-  ]
+  ];
 
-  let presenter: ActiveTasksPresenter
+  let presenter: ActiveTasksPresenter;
 
   beforeEach(() => {
     presenter = ActiveTasksPresenter.create({
       tasks,
       count: tasks.length,
       tickedOffTasksCount: tasks.filter((task) => task.isTickedOff).length,
-    })
-  })
+    });
+  });
 
   test('#hasTasks()', () => {
-    expect(presenter.hasTasks()).toBe(true)
-  })
+    expect(presenter.hasTasks()).toBe(true);
+  });
 
   test('allTasks()', () => {
-    expect(presenter.allTasks()).toEqual(tasks)
-  })
+    expect(presenter.allTasks()).toEqual(tasks);
+  });
 
   test('withoutTickedOffTasks()', () => {
-    const expected = tasks.filter((task) => !task.isTickedOff)
-    expect(presenter.withoutTickedOffTasks()).toEqual(expected)
-  })
+    const expected = tasks.filter((task) => !task.isTickedOff);
+    expect(presenter.withoutTickedOffTasks()).toEqual(expected);
+  });
 
   describe('property "progress"', () => {
     test('calculate progress for ticked-off tasks', () => {
-      expect(presenter.progress).toEqual(50)
-    })
-  })
-})
+      expect(presenter.progress).toEqual(50);
+    });
+  });
+});

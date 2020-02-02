@@ -1,2 +1,1 @@
-export { DiscardTaskDTO } from './DiscardTaskDTO'
-export { DiscardTaskMethodName } from './DiscardTaskMethodName'
+export { DiscardTaskMethodName } from './DiscardTaskMethodName';

@@ -1,49 +1,49 @@
-import { TextField, Typography } from '@material-ui/core'
-import * as React from 'react'
-import { TaskPresenter } from '../../presenter'
-import { useActions } from '../TaskActions'
-import { Meteor } from 'meteor/meteor'
+import { TextField, Typography } from '@material-ui/core';
+import * as React from 'react';
+import { TaskPresenter } from '../../presenter';
+import { useActions } from '../TaskActions';
+import { Meteor } from 'meteor/meteor';
 
 interface ActiveTaskDescriptionProps {
-  task: TaskPresenter
-  isEditing: boolean
-  onFinishEditing: () => void
+  task: TaskPresenter;
+  isEditing: boolean;
+  onFinishEditing: () => void;
 }
 
 export const ActiveTaskDescription: React.FunctionComponent<
   ActiveTaskDescriptionProps
 > = (props) => {
-  const { task, isEditing, onFinishEditing } = props
-  const [text, setText] = React.useState<string>(task.description)
-  const { editTaskAction } = useActions()
+  const { task, isEditing, onFinishEditing } = props;
+  const [text, setText] = React.useState<string>(task.description);
+  const { editTaskAction } = useActions();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setText(event.target.value)
+    setText(event.target.value);
   }
 
   function handleFulfilled(): void {
-    console.log('edited')
+    console.log('edited');
   }
 
   function handleRejected(error: Meteor.Error): void {
-    console.error(error)
+    console.error(error);
   }
 
   function handleFinally(): void {
-    onFinishEditing()
+    onFinishEditing();
   }
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      await editTaskAction(task, text)
-      handleFulfilled()
+      await editTaskAction(task, text);
+      handleFulfilled();
     } catch (exception) {
-      handleRejected(exception)
+      handleRejected(exception);
     } finally {
-      handleFinally()
+      handleFinally();
     }
   }
 
@@ -57,8 +57,8 @@ export const ActiveTaskDescription: React.FunctionComponent<
           onChange={handleChange}
         />
       </form>
-    )
+    );
   } else {
-    return <Typography component={'p'}>{task.description}</Typography>
+    return <Typography component={'p'}>{task.description}</Typography>;
   }
-}
+};

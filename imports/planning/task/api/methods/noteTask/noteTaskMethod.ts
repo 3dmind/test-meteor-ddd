@@ -1,20 +1,27 @@
-import { Meteor } from 'meteor/meteor'
-import { UniqueEntityID } from '../../../../../core/domain'
-import { Task, TaskDescription } from '../../../domain'
-import { UnauthorizedMethodCallException } from '../../exceptions'
-import { TaskRepository } from '../../TaskRepository'
-import { NoteTaskDTO } from './NoteTaskDTO'
-import { NoteTaskMethodName } from './NoteTaskMethodName'
+import { Meteor } from 'meteor/meteor';
+import { GenericAppErrors } from '../../../../../core/logic';
+import { ApiErrors } from '../../api-errors';
+import { NoteTaskDto, noteTaskUseCase } from '../../use-cases';
+import { NoteTaskMethodName } from './NoteTaskMethodName';
 
 Meteor.methods({
-  [NoteTaskMethodName]: function noteTaskMethod(dto: NoteTaskDTO): void {
-    if (!this.userId) {
-      throw new UnauthorizedMethodCallException()
+  [NoteTaskMethodName]: function noteTaskMethod(dto: NoteTaskDto): void {
+    const { userId } = this;
+    if (!userId) {
+      throw new ApiErrors.Unauthorized();
     }
 
-    const taskDescription = TaskDescription.create(dto.text)
-    const ownerID = UniqueEntityID.create(this.userId)
-    const task = Task.note(taskDescription, ownerID)
-    TaskRepository.saveTask(task)
+    const response = noteTaskUseCase.execute({
+      dto,
+      userId,
+    });
+    if (response.isLeft()) {
+      const { result } = response;
+      if (result instanceof GenericAppErrors.UnexpectedError) {
+        throw new ApiErrors.InternalServerError(result.error.message);
+      } else {
+        throw new ApiErrors.BadRequest(result.error);
+      }
+    }
   },
-})
+});

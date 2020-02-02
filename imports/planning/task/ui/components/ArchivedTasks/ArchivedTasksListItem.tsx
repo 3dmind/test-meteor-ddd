@@ -5,12 +5,12 @@ import {
   makeStyles,
   Theme,
   Typography,
-} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
-import * as React from 'react'
-import { TaskPresenter } from '../../presenter'
-import { ArchivedAt } from '../common/ArchivedAt'
-import { useActions } from '../TaskActions'
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import * as React from 'react';
+import { TaskPresenter } from '../../presenter';
+import { ArchivedAt } from '../common/ArchivedAt';
+import { useActions } from '../TaskActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,34 +31,34 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
   }),
-)
+);
 
 interface ArchivedTasksListItemProps {
-  task: TaskPresenter
+  task: TaskPresenter;
 }
 
 export const ArchivedTasksListItem: React.FunctionComponent<
   ArchivedTasksListItemProps
 > = (props) => {
-  const { task } = props
-  const { discardTaskAction } = useActions()
+  const { task } = props;
+  const { discardTaskAction } = useActions();
 
   function handleFulfilled(): void {
-    console.log('discarded')
+    console.log('discarded');
   }
 
   function handleRejected(error): void {
-    console.log(error)
+    console.log(error);
   }
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
-    event.preventDefault()
+    event.preventDefault();
     discardTaskAction(task)
       .then(handleFulfilled)
-      .catch(handleRejected)
+      .catch(handleRejected);
   }
 
-  const classes = useStyles(task)
+  const classes = useStyles(task);
   return (
     <ListItem>
       <div className={classes.task}>
@@ -73,5 +73,5 @@ export const ArchivedTasksListItem: React.FunctionComponent<
         <ArchivedAt dateFormatted={task.archivedAtFormatted} />
       </div>
     </ListItem>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
-import * as Yup from 'yup'
-import { ChangePasswordFormValues } from './ChangePasswordFormValues'
+import * as Yup from 'yup';
+import { ChangePasswordFormValues } from './ChangePasswordFormValues';
 
 export const ChangePasswordFormSchema = Yup.object().shape<
   ChangePasswordFormValues
@@ -16,14 +16,14 @@ export const ChangePasswordFormSchema = Yup.object().shape<
   newRepeatedPassword: Yup.string()
     .required('Repeated new password is required.')
     .when('newPassword', (newPassword, schema, options) => {
-      const { value } = options
+      const { value } = options;
       if (!newPassword || !value) {
-        return schema
+        return schema;
       }
 
       return schema.matches(
         new RegExp(`^${newPassword}$`),
         'Repeated new password does not match new password.',
-      )
+      );
     }),
-})
+});

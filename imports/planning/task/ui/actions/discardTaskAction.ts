@@ -1,18 +1,18 @@
-import { Meteor } from 'meteor/meteor'
-import { DiscardTaskDTO, DiscardTaskMethodName } from '../../api'
-import { TaskPresenter } from '../presenter'
+import { Meteor } from 'meteor/meteor';
+import { DiscardTaskDto, DiscardTaskMethodName } from '../../api';
+import { TaskPresenter } from '../presenter';
 
 export async function discardTaskAction(task: TaskPresenter): Promise<void> {
   return new Promise(function executor(resolve, reject) {
-    Meteor.call<DiscardTaskDTO>(
+    Meteor.call<DiscardTaskDto>(
       DiscardTaskMethodName,
       { taskId: task.id },
       function callback(error, value) {
         if (error) {
-          reject(error)
+          reject(error);
         }
-        resolve(value)
+        resolve(value);
       },
-    )
-  })
+    );
+  });
 }

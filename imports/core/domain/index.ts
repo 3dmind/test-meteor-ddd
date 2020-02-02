@@ -1,3 +1,4 @@
-export { Entity } from './Entity'
-export { UniqueEntityID } from './UniqueEntityID'
-export { ValueObject } from './ValueObject'
+export { Entity } from './Entity';
+export { UniqueEntityId } from './UniqueEntityId';
+export { UseCase } from './UseCase';
+export { ValueObject } from './ValueObject';

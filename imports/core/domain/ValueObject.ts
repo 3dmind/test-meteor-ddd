@@ -1,24 +1,23 @@
-import * as Ramda from 'ramda'
+import Ramda from 'ramda';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ValueObjectProperties = Record<string, any>
+type ValueObjectProperties = Record<string, any>;
 
 export abstract class ValueObject<T extends ValueObjectProperties> {
-  public readonly props: T
+  public readonly props: T;
 
   protected constructor(props: T) {
-    this.props = Object.freeze(props)
+    this.props = Object.freeze(props);
   }
 
   public equals(vo?: ValueObject<T>): boolean {
     if (Ramda.isNil(vo)) {
-      return false
+      return false;
     }
 
     if (vo.props === undefined) {
-      return false
+      return false;
     }
 
-    return Ramda.equals(this.props, vo.props)
+    return Ramda.equals(this.props, vo.props);
   }
 }

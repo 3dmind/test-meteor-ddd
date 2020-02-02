@@ -1,28 +1,28 @@
-import { UniqueEntityID } from './UniqueEntityID'
-import { isNil, is } from 'ramda'
+import { UniqueEntityId } from './UniqueEntityId';
+import Ramda from 'ramda';
 
 export abstract class Entity<T> {
-  protected readonly _id: UniqueEntityID
-  public readonly props: T
+  protected readonly _id: UniqueEntityId;
+  public readonly props: T;
 
-  protected constructor(props: T, id?: UniqueEntityID) {
-    this._id = id ? id : UniqueEntityID.create()
-    this.props = props
+  protected constructor(props: T, id?: UniqueEntityId) {
+    this._id = id ? id : UniqueEntityId.create();
+    this.props = props;
   }
 
   public equals(object?: Entity<T>): boolean {
-    if (isNil(object)) {
-      return false
+    if (Ramda.isNil(object)) {
+      return false;
     }
 
-    if (!is(Entity, object)) {
-      return false
+    if (!Ramda.is(Entity, object)) {
+      return false;
     }
 
     if (this === object) {
-      return true
+      return true;
     }
 
-    return this._id.equals(object._id)
+    return this._id.equals(object._id);
   }
 }

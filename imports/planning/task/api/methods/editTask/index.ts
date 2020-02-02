@@ -1,2 +1,1 @@
-export { EditTaskDTO } from './EditTaskDTO'
-export { EditTaskMethodName } from './EditTaskMethodName'
+export { EditTaskMethodName } from './EditTaskMethodName';

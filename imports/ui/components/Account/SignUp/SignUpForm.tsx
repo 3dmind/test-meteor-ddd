@@ -1,14 +1,14 @@
-import { Button, Grid } from '@material-ui/core'
-import { Field, Form, FormikProps } from 'formik'
-import { TextField } from 'formik-material-ui'
-import * as React from 'react'
-import { SignUpFormValues } from './SignUpFormValues'
+import { Button, Grid } from '@material-ui/core';
+import { Field, Form, FormikProps } from 'formik';
+import { TextField } from 'formik-material-ui';
+import * as React from 'react';
+import { SignUpFormValues } from './SignUpFormValues';
 
 export const SignUpForm: React.FunctionComponent<
   FormikProps<SignUpFormValues>
 > = (props) => {
-  const { isSubmitting, isValid } = props
-  const isSubmitButtonDisabled = isSubmitting || !isValid
+  const { isSubmitting, isValid } = props;
+  const isSubmitButtonDisabled = isSubmitting || !isValid;
 
   return (
     <Form>
@@ -56,5 +56,5 @@ export const SignUpForm: React.FunctionComponent<
         </Grid>
       </Grid>
     </Form>
-  )
-}
+  );
+};

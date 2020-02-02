@@ -1,2 +1,1 @@
-export { TickOffTaskDTO } from './TickOffTaskDTO'
-export { TickOffTaskMethodName } from './TickOffTaskMethodName'
+export { TickOffTaskMethodName } from './TickOffTaskMethodName';

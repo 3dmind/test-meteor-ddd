@@ -4,6 +4,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "sourceMap": true
   },
   "include": ["client", "imports", "server", "tests", "typings"],

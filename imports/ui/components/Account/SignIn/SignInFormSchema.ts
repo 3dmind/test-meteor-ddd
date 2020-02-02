@@ -1,5 +1,5 @@
-import * as Yup from 'yup'
-import { SignInFormValues } from './SignInFormValues'
+import * as Yup from 'yup';
+import { SignInFormValues } from './SignInFormValues';
 
 export const SignInFormSchema = Yup.object().shape<SignInFormValues>({
   password: Yup.string()
@@ -9,4 +9,4 @@ export const SignInFormSchema = Yup.object().shape<SignInFormValues>({
   username: Yup.string()
     .trim()
     .required('Username is required'),
-})
+});

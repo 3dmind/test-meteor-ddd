@@ -1,1 +1,1 @@
-export const TickOffTaskMethodName = 'planning.task.tickOff'
+export const TickOffTaskMethodName = 'planning.task.tickOff';

@@ -1,3 +1,3 @@
 export {
   DiscardAllArchivedTasksMethodName,
-} from './DiscardAllArchivedTasksMethodName'
+} from './DiscardAllArchivedTasksMethodName';

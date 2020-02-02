@@ -1,13 +1,13 @@
-import { Meteor } from 'meteor/meteor'
-import { EditTaskDTO, EditTaskMethodName } from '../../api'
-import { TaskPresenter } from '../presenter'
+import { Meteor } from 'meteor/meteor';
+import { EditTaskDto, EditTaskMethodName } from '../../api';
+import { TaskPresenter } from '../presenter';
 
 export async function editTaskAction(
   task: TaskPresenter,
   text: string,
 ): Promise<void> {
   return new Promise(function executor(resolve, reject) {
-    Meteor.call<EditTaskDTO>(
+    Meteor.call<EditTaskDto>(
       EditTaskMethodName,
       {
         taskId: task.id,
@@ -15,10 +15,10 @@ export async function editTaskAction(
       },
       function callback(error, value) {
         if (error) {
-          reject(error)
+          reject(error);
         }
-        resolve(value)
+        resolve(value);
       },
-    )
-  })
+    );
+  });
 }

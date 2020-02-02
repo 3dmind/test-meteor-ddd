@@ -1,3 +1,4 @@
-export { Task } from './Task'
-export { TaskDescription } from './TaskDescription'
-export { TaskList } from './TaskList'
+export { Description } from './Description';
+export { Task } from './Task';
+export { TaskId } from './TaskId';
+export { TaskList } from './TaskList';
