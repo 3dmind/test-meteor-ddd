@@ -1,30 +1,35 @@
 import { Meteor } from 'meteor/meteor';
-import { UniqueEntityId } from '../../../../../core/domain';
+import { GenericAppErrors } from '../../../../../core/logic';
+import { ApiErrors } from '../../api-errors';
 import {
-  TaskNotFoundException,
-  UnauthorizedMethodCallException,
-  UnauthorizedTaskOperationException,
-} from '../../exceptions';
-import { TaskRepository } from '../../TaskRepository';
-import { ArchiveTaskDTO } from './ArchiveTaskDTO';
+  ArchiveTaskDto,
+  archiveTaskUseCase,
+  GenericUseCaseErrors,
+} from '../../use-cases';
 import { ArchiveTaskMethodName } from './ArchiveTaskMethodName';
 
 Meteor.methods({
   [ArchiveTaskMethodName]: function archiveTaskMethod(
-    dto: ArchiveTaskDTO,
+    dto: ArchiveTaskDto,
   ): void {
-    if (!this.userId) {
-      throw new UnauthorizedMethodCallException();
+    const { userId } = this;
+    if (!userId) {
+      throw new ApiErrors.Unauthorized();
     }
 
-    const task = TaskRepository.getTaskById(dto.taskId);
-    if (!task) {
-      throw new TaskNotFoundException();
+    const response = archiveTaskUseCase.execute({
+      dto,
+      userId,
+    });
+    if (response.isLeft()) {
+      const { result } = response;
+      if (result instanceof GenericUseCaseErrors.TaskDoesNotExist) {
+        throw new ApiErrors.NotFound(result.error.message);
+      } else if (result instanceof GenericUseCaseErrors.WrongTaskOwner) {
+        throw new ApiErrors.BadRequest(result.error.message);
+      } else if (result instanceof GenericAppErrors.UnexpectedError) {
+        throw new ApiErrors.InternalServerError(result.error.message);
+      }
     }
-    if (!task.isOwnedByUser(UniqueEntityId.create(this.userId))) {
-      throw new UnauthorizedTaskOperationException();
-    }
-    task.archive();
-    TaskRepository.updateTask(task);
   },
 });

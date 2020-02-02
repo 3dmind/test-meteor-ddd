@@ -1,5 +1,5 @@
 export * from './collections';
-export * from './methods/archiveTask';
+export { ArchiveTaskMethodName } from './methods/archiveTask';
 export * from './methods/discardAllArchivedTasks';
 export { DiscardTaskMethodName } from './methods/discardTask';
 export { EditTaskMethodName } from './methods/editTask';
@@ -8,6 +8,7 @@ export { ResumeTaskMethodName } from './methods/resumeTask';
 export { TickOffTaskMethodName } from './methods/tickOffTask';
 export * from './publications';
 export {
+  ArchiveTaskDto,
   DiscardTaskDto,
   EditTaskDto,
   NoteTaskDto,
