@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const NoteTask: React.FunctionComponent = (props) => {
   const { noteTaskAction } = useActions();
   const classes = useStyles(props);
+  const inputElement = React.useRef<HTMLInputElement>(null);
   const [error, setError] = React.useState<string>('');
 
   function handleFulfilled(
@@ -30,6 +31,7 @@ export const NoteTask: React.FunctionComponent = (props) => {
   ): void {
     formHelpers.resetForm();
     formHelpers.setSubmitting(false);
+    inputElement?.current?.focus();
   }
 
   function handleRejected(exception: Meteor.Error): void {
@@ -70,11 +72,14 @@ export const NoteTask: React.FunctionComponent = (props) => {
         <Grid item>
           <Formik
             initialValues={initialValues}
-            component={NoteTaskForm}
             validationSchema={NoteTaskFormSchema}
             validateOnBlur={false}
             onSubmit={handleSubmit}
-          />
+          >
+            {(formikProps): React.ReactNode => (
+              <NoteTaskForm inputElementRef={inputElement} {...formikProps} />
+            )}
+          </Formik>
         </Grid>
       </Grid>
     </Paper>
