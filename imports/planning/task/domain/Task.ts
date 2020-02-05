@@ -1,5 +1,7 @@
 import { Entity, UniqueEntityId } from '../../../core/domain';
+import { Result } from '../../../core/logic';
 import { Description } from './Description';
+import { NotArchivedAndNoArchivingAfterDiscarded } from './specifications';
 import { TaskId } from './TaskId';
 import { TaskOwnerId } from './TaskOwnerId';
 
@@ -18,8 +20,11 @@ interface TaskProps {
 }
 
 export class Task extends Entity<TaskProps> {
+  private notArchivedAndNoArchivingAfterDiscarded: NotArchivedAndNoArchivingAfterDiscarded;
+
   private constructor(props: TaskProps, id?: UniqueEntityId) {
     super(props, id);
+    this.notArchivedAndNoArchivingAfterDiscarded = new NotArchivedAndNoArchivingAfterDiscarded();
   }
 
   get id(): UniqueEntityId {
@@ -110,9 +115,13 @@ export class Task extends Entity<TaskProps> {
     return this.props.discarded;
   }
 
-  public archive(): void {
+  public archive(): Result<string | void> {
+    if (!this.notArchivedAndNoArchivingAfterDiscarded.isSatisfiedBy(this)) {
+      return Result.fail<string>('Task cannot be archived.');
+    }
     this.props.archived = true;
     this.props.archivedAt = new Date();
+    return Result.ok<void>();
   }
 
   public isArchived(): boolean {

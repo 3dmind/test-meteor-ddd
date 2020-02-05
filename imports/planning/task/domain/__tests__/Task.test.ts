@@ -117,7 +117,8 @@ describe('Task', () => {
     expect.assertions(1);
     const tickedOffAt = new Date('1970-01-02');
     dateSpy.mockImplementation(() => tickedOffAt);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
 
     task.tickOff();
 
@@ -141,7 +142,8 @@ describe('Task', () => {
     dateSpy
       .mockImplementationOnce(() => tickedOffAt)
       .mockImplementationOnce(() => resumedAt);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
 
     task.tickOff();
     task.resume();
@@ -165,7 +167,8 @@ describe('Task', () => {
     expect.assertions(1);
     const editedAt = new Date('1970-01-02');
     dateSpy.mockImplementation(() => editedAt);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
     const newDescription = Description.create('Lorem ipsum dolor amet sum')
       .value;
 
@@ -188,44 +191,75 @@ describe('Task', () => {
     expect.assertions(1);
     const discardedAt = new Date('1970-01-02');
     dateSpy.mockImplementation(() => discardedAt);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
 
     task.discard();
 
     expect(task.discardedAt).toEqual(discardedAt);
   });
 
-  test('archive()', () => {
-    expect.assertions(1);
-    const description = Description.create('Lorem ipsum').value;
-    const task = Task.note(description, taskOwnerId);
+  describe('archive task', () => {
+    test('archive()', () => {
+      expect.assertions(2);
+      const description = Description.create('Lorem ipsum').value;
+      const task = Task.note(description, taskOwnerId);
 
-    task.archive();
+      const result = task.archive();
 
-    expect(task.isArchived()).toBe(true);
-  });
+      expect(result.isSuccess).toBe(true);
+      expect(task.isArchived()).toBe(true);
+    });
 
-  test('get property "archivedAt"', () => {
-    expect.assertions(1);
-    const archivedAt = new Date('1970-01-02');
-    dateSpy.mockImplementation(() => archivedAt);
-    const task = Task.create(defaultTaskProps);
+    test('get property "archivedAt"', () => {
+      expect.assertions(1);
+      const archivedAt = new Date('1970-01-02');
+      dateSpy.mockImplementation(() => archivedAt);
+      const taskProps = Object.assign({}, defaultTaskProps);
+      const task = Task.create(taskProps);
 
-    task.archive();
+      task.archive();
 
-    expect(task.archivedAt).toEqual(archivedAt);
+      expect(task.archivedAt).toEqual(archivedAt);
+    });
+
+    test('cannot be archived twice', () => {
+      expect.assertions(2);
+      const taskProps = Object.assign({}, defaultTaskProps);
+      const task = Task.create(taskProps);
+
+      task.archive();
+      const result = task.archive();
+
+      expect(result.isFailure).toBe(true);
+      expect(result.error).toEqual('Task cannot be archived.');
+    });
+
+    test('cannot be archived if discarded previously', () => {
+      expect.assertions(2);
+      const taskProps = Object.assign({}, defaultTaskProps);
+      const task = Task.create(taskProps);
+
+      task.discard();
+      const result = task.archive();
+
+      expect(result.isFailure).toBe(true);
+      expect(result.error).toEqual('Task cannot be archived.');
+    });
   });
 
   test('belongsToOwner()', () => {
     expect.assertions(1);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
 
     expect(task.belongsToOwner(taskOwnerId)).toBe(true);
   });
 
   test('get property "taskOwnerId"', () => {
     expect.assertions(1);
-    const task = Task.create(defaultTaskProps);
+    const taskProps = Object.assign({}, defaultTaskProps);
+    const task = Task.create(taskProps);
 
     expect(task.taskOwnerId).toEqual(taskOwnerId);
   });
