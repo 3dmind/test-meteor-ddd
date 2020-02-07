@@ -8,7 +8,7 @@ import {
 } from '../../../../../core/logic';
 import { TaskId, TaskOwnerId } from '../../../domain';
 import { TaskRepository } from '../../repositories/TaskRepository';
-import { GenericUseCaseErrors } from '../GenericUseCaseErrors';
+import { TaskUseCaseErrors } from '../TaskUseCaseErrors';
 import { TickOffTaskDto } from './TickOffTaskDto';
 
 type Request = {
@@ -17,8 +17,8 @@ type Request = {
 };
 
 type Response = Either<
-  | GenericUseCaseErrors.TaskDoesNotExist
-  | GenericUseCaseErrors.WrongTaskOwner
+  | TaskUseCaseErrors.DoesNotExist
+  | TaskUseCaseErrors.WrongOwner
   | GenericAppErrors.UnexpectedError,
   Result<void>
 >;
@@ -35,14 +35,14 @@ export class TickOffTaskUseCase implements UseCase<Request, Response> {
     const taskId = TaskId.create(UniqueEntityId.create(dto.taskId));
     const { found, task } = this.taskRepository.findByTaskId(taskId);
     if (!found) {
-      return eitherLeft(new GenericUseCaseErrors.TaskDoesNotExist(taskId));
+      return eitherLeft(new TaskUseCaseErrors.DoesNotExist(taskId));
     }
 
     const taskOwnerId = TaskOwnerId.create(UniqueEntityId.create(userId));
     const isOwnedByUser = task.belongsToOwner(taskOwnerId);
     if (!isOwnedByUser) {
       return eitherLeft(
-        new GenericUseCaseErrors.WrongTaskOwner({
+        new TaskUseCaseErrors.WrongOwner({
           taskOwnerId,
           taskId,
         }),

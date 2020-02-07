@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { GenericAppErrors } from '../../../../../core/logic';
 import { ApiErrors } from '../../api-errors';
 import {
-  GenericUseCaseErrors,
+  TaskUseCaseErrors,
   TickOffTaskDto,
   tickOffTaskUseCase,
 } from '../../use-cases';
@@ -23,9 +23,9 @@ Meteor.methods({
     });
     if (response.isLeft()) {
       const { result } = response;
-      if (result instanceof GenericUseCaseErrors.TaskDoesNotExist) {
+      if (result instanceof TaskUseCaseErrors.DoesNotExist) {
         throw new ApiErrors.NotFound(result.error.message);
-      } else if (result instanceof GenericUseCaseErrors.WrongTaskOwner) {
+      } else if (result instanceof TaskUseCaseErrors.WrongOwner) {
         throw new ApiErrors.Forbidden(result.error.message);
       } else if (result instanceof GenericAppErrors.UnexpectedError) {
         throw new ApiErrors.InternalServerError(result.error.message);
