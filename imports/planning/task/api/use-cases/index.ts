@@ -1,4 +1,4 @@
-export { GenericUseCaseErrors } from './GenericUseCaseErrors';
+export { TaskUseCaseErrors } from './TaskUseCaseErrors';
 export { ArchiveTaskDto, archiveTaskUseCase } from './archive-task';
 export {
   DiscardAllArchivedTasksErrors,
