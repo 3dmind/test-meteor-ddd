@@ -177,26 +177,41 @@ describe('Task', () => {
     expect(task.editedAt).toEqual(editedAt);
   });
 
-  test('discard()', () => {
-    expect.assertions(1);
-    const description = Description.create('Lorem ipsum').value;
-    const task = Task.note(description, taskOwnerId);
+  describe('discard task', () => {
+    test('discard()', () => {
+      expect.assertions(2);
+      const description = Description.create('Lorem ipsum').value;
+      const task = Task.note(description, taskOwnerId);
 
-    task.discard();
+      const result = task.discard();
 
-    expect(task.isDiscarded()).toBe(true);
-  });
+      expect(result.isSuccess).toBe(true);
+      expect(task.isDiscarded()).toBe(true);
+    });
 
-  test('get property "discardedAt"', () => {
-    expect.assertions(1);
-    const discardedAt = new Date('1970-01-02');
-    dateSpy.mockImplementation(() => discardedAt);
-    const taskProps = Object.assign({}, defaultTaskProps);
-    const task = Task.create(taskProps);
+    test('get property "discardedAt"', () => {
+      expect.assertions(1);
+      const discardedAt = new Date('1970-01-02');
+      dateSpy.mockImplementation(() => discardedAt);
+      const taskProps = Object.assign({}, defaultTaskProps);
+      const task = Task.create(taskProps);
 
-    task.discard();
+      task.discard();
 
-    expect(task.discardedAt).toEqual(discardedAt);
+      expect(task.discardedAt).toEqual(discardedAt);
+    });
+
+    test('cannot discarded twice', () => {
+      expect.assertions(2);
+      const taskProps = Object.assign({}, defaultTaskProps);
+      const task = Task.create(taskProps);
+
+      task.discard();
+      const result = task.discard();
+
+      expect(result.isFailure).toBe(true);
+      expect(result.error).toEqual('Task cannot be discarded.');
+    });
   });
 
   describe('archive task', () => {

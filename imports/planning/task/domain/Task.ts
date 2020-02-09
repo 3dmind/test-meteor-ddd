@@ -118,9 +118,13 @@ export class Task extends Entity<TaskProps> {
     this.props.editedAt = new Date();
   }
 
-  public discard(): void {
+  public discard(): Result<string | void> {
+    if (this.isDiscarded()) {
+      return Result.fail<string>('Task cannot be discarded.');
+    }
     this.props.discarded = true;
     this.props.discardedAt = new Date();
+    return Result.ok<void>();
   }
 
   public isDiscarded(): boolean {
