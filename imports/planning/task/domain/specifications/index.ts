@@ -1,1 +1,2 @@
-export { NotArchivedAndNoArchivingAfterDiscarded } from './NotArchivedAndNoArchivingAfterDiscarded';
+export { NotAlreadyArchived } from './NotAlreadyArchived';
+export { NotAlreadyDiscarded } from './NotAlreadyDiscarded';

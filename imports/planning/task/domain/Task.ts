@@ -1,7 +1,11 @@
-import { Entity, UniqueEntityId } from '../../../core/domain';
+import {
+  AllPassSpecification,
+  Entity,
+  UniqueEntityId,
+} from '../../../core/domain';
 import { Result } from '../../../core/logic';
 import { Description } from './Description';
-import { NotArchivedAndNoArchivingAfterDiscarded } from './specifications';
+import { NotAlreadyArchived, NotAlreadyDiscarded } from './specifications';
 import { TaskId } from './TaskId';
 import { TaskOwnerId } from './TaskOwnerId';
 
@@ -20,13 +24,17 @@ interface TaskProps {
 }
 
 export class Task extends Entity<TaskProps> {
-  private notArchivedAndNoArchivingAfterDiscarded: NotArchivedAndNoArchivingAfterDiscarded;
+  private activeTaskSpec: AllPassSpecification<Task>;
 
   private constructor(props: TaskProps, id?: UniqueEntityId) {
     super(props, id);
-    this.notArchivedAndNoArchivingAfterDiscarded = new NotArchivedAndNoArchivingAfterDiscarded();
+    this.activeTaskSpec = new AllPassSpecification<Task>([
+      new NotAlreadyArchived(),
+      new NotAlreadyDiscarded(),
+    ]);
   }
 
+  //region Getter
   get id(): UniqueEntityId {
     return this._id;
   }
@@ -66,7 +74,9 @@ export class Task extends Entity<TaskProps> {
   get archivedAt(): Date {
     return this.props.archivedAt;
   }
+  //endregion
 
+  //region Static methods
   public static create(props: TaskProps, id?: UniqueEntityId): Task {
     return new Task(props, id);
   }
@@ -86,7 +96,9 @@ export class Task extends Entity<TaskProps> {
       archivedAt: undefined,
     });
   }
+  //endregion
 
+  //region Public methods
   public tickOff(): void {
     this.props.tickedOff = true;
     this.props.tickedOffAt = new Date();
@@ -116,7 +128,7 @@ export class Task extends Entity<TaskProps> {
   }
 
   public archive(): Result<string | void> {
-    if (!this.notArchivedAndNoArchivingAfterDiscarded.isSatisfiedBy(this)) {
+    if (!this.activeTaskSpec.isSatisfiedBy(this)) {
       return Result.fail<string>('Task cannot be archived.');
     }
     this.props.archived = true;
@@ -131,4 +143,5 @@ export class Task extends Entity<TaskProps> {
   public belongsToOwner(id: TaskOwnerId): boolean {
     return this.props.taskOwnerId.equals(id);
   }
+  //endregion
 }
